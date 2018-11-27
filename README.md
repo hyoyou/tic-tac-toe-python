@@ -1,4 +1,6 @@
-# Tic Tac Toe &#2610; &#2B55;
+# Tic Tac Toe
 
 To run tests:
 `python3 run_tests.py`
+
+Python version 3.7.1
