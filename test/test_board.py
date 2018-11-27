@@ -20,6 +20,10 @@ class BoardTest(unittest.TestCase):
 
     def testMakeMove(self):
         self.assertEqual(self.board.make_move(5), [" ", " ", " ", " ", "X", " ", " ", " ", " "])
+
+    def testValidMove(self):
+        self.board.make_move(5)
+        self.assertFalse(self.board.valid_move(5))
     
 if __name__ == "__main__":
     unittest.main()
