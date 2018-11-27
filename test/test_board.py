@@ -17,6 +17,9 @@ class BoardTest(unittest.TestCase):
         ===+===+===
          {self.board._board[6]} | {self.board._board[7]} | {self.board._board[8]} 
         ''')
+
+    def testMakeMove(self):
+        self.assertEqual(self.board.make_move(5), [" ", " ", " ", " ", "X", " ", " ", " ", " "])
     
 if __name__ == "__main__":
     unittest.main()

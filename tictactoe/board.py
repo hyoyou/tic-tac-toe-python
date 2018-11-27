@@ -10,6 +10,10 @@ class Board:
         ===+===+===
          {self._board[6]} | {self._board[7]} | {self._board[8]} 
         '''
+    
+    def make_move(self, input):
+        self._board[input - 1] = "X"
+        return self._board
 
 test = Board()
 print(test.display_board())
