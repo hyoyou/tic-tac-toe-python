@@ -1,6 +1,6 @@
 class Board:
     def __init__(self):
-        self.board = [" " for i in range(9)]
+        self._board = [" " for i in range(9)]
     
     def display_board(self):
-        return self.board
+        return f' {self._board[0]} | {self._board[1]} | {self._board[2]} \n===+===+===\n {self._board[3]} | {self._board[4]} | {self._board[5]} \n===+===+===\n {self._board[6]} | {self._board[7]} | {self._board[8]} \n'
