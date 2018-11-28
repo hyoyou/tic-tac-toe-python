@@ -23,7 +23,21 @@ class BoardTest(unittest.TestCase):
 
     def testValidMove(self):
         self.board.make_move(5)
-        self.assertFalse(self.board.valid_move(5))
+        self.assertFalse(self.board.is_valid_move(5))
+    
+    def testBoardFull(self):
+        self.board.make_move(1)
+        self.board.make_move(2)
+        self.board.make_move(3)
+        self.board.make_move(4)
+        self.board.make_move(5)
+        self.board.make_move(6)
+        self.board.make_move(7)
+        self.board.make_move(8)
+        self.board.make_move(9)
+        # print(self.board._board)
+        # print(self.board.full())
+        self.assertTrue(self.board.is_full())
     
 if __name__ == "__main__":
     unittest.main()

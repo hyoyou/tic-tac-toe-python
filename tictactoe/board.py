@@ -15,9 +15,9 @@ class Board:
         self._board[input - 1] = "X"
         return self._board
     
-    def valid_move(self, input):
+    def is_valid_move(self, input):
         return self._board[input - 1] == " "
 
-test = Board()
-test.make_move(5)
-print(test.display_board())
+    def is_full(self):
+        # print(self._board)
+        return not " " in self._board
