@@ -21,3 +21,6 @@ class Board:
     def is_full(self):
         # print(self._board)
         return not " " in self._board
+    
+    def turn_count(self):
+        return 9 - self._board.count(" ")

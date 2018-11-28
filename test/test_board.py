@@ -35,9 +35,13 @@ class BoardTest(unittest.TestCase):
         self.board.make_move(7)
         self.board.make_move(8)
         self.board.make_move(9)
-        # print(self.board._board)
-        # print(self.board.full())
         self.assertTrue(self.board.is_full())
+
+    def testTurnCount(self):
+        self.board.make_move(1)
+        self.board.make_move(3)
+        self.board.make_move(5)
+        self.assertEqual(self.board.turn_count(), 3)
     
 if __name__ == "__main__":
     unittest.main()
