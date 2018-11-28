@@ -11,8 +11,8 @@ class Board:
          {self._board[6]} | {self._board[7]} | {self._board[8]} 
         '''
     
-    def make_move(self, input):
-        self._board[input - 1] = "X"
+    def make_move(self, input, player):
+        self._board[input - 1] = player._symbol
         return self._board
     
     def is_valid_move(self, input):
