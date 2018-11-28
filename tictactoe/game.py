@@ -13,10 +13,10 @@ class Game:
         [2, 4, 6]  # Right diagonal
     ]
 
-    def __init__(self, player1 = Player("X"), player2 = Player("O"), board = Board()):
+    def __init__(self, player1 = Player("X"), player2 = Player("O"), board = None):
         self._player1 = player1
         self._player2 = player2
-        self._board = board
+        self._board = Board()
     
     def current_player(self):
         turns = self._board.turn_count()
@@ -24,7 +24,3 @@ class Game:
             return self._player1
         else:
             return self._player2
-
-
-game = Game()
-print(game.current_player())
