@@ -35,3 +35,10 @@ class Game:
 
     def is_over(self):
         return self.is_won() or self.is_draw()
+
+    def winner(self):
+        for combo in self.WINNING_COMBOS:
+            if (self._board._board[combo[0]] == self._board._board[combo[1]] and 
+                self._board._board[combo[1]] == self._board._board[combo[2]] and
+                self._board._board[combo[0]] != " "):
+                return self._board._board[combo[0]]

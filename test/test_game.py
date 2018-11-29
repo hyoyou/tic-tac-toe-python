@@ -51,4 +51,6 @@ class TestGame(unittest.TestCase):
         self.player1_win()
         self.assertTrue(self.game.is_over())
 
-   
+    def testGameWinner(self):
+        self.player1_win()
+        self.assertEqual(self.game.winner(), self.game._player1._symbol)
