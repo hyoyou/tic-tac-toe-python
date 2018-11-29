@@ -25,3 +25,7 @@ class Game:
         else:
             return self._player2
 
+    def won(self):
+        return any(self._board._board[combo[0]] == self._board._board[combo[1]] and 
+                   self._board._board[combo[1]] == self._board._board[combo[2]] and
+                   self._board._board[combo[0]] != " " for combo in self.WINNING_COMBOS)
