@@ -24,3 +24,4 @@ class Game:
             return self._player1
         else:
             return self._player2
+
