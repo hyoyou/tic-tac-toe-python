@@ -29,3 +29,6 @@ class Game:
         return any(self._board._board[combo[0]] == self._board._board[combo[1]] and 
                    self._board._board[combo[1]] == self._board._board[combo[2]] and
                    self._board._board[combo[0]] != " " for combo in self.WINNING_COMBOS)
+    
+    def draw(self):
+        return self._board.is_full() and not self.won()
