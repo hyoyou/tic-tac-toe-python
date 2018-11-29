@@ -27,7 +27,7 @@ class TestGame(unittest.TestCase):
         self.game._board.make_move(5, self.game._player1)
         self.game._board.make_move(6, self.game._player2)
         self.game._board.make_move(9, self.game._player1)
-        self.assertTrue(self.game.won())
+        self.assertTrue(self.game.is_won())
     
     def testGameDraw(self):
         self.game._board.make_move(5, self.game._player1)
@@ -39,4 +39,12 @@ class TestGame(unittest.TestCase):
         self.game._board.make_move(9, self.game._player1)
         self.game._board.make_move(6, self.game._player2)
         self.game._board.make_move(2, self.game._player1)
-        self.assertTrue(self.game.draw())
+        self.assertTrue(self.game.is_draw())
+
+    def testGameOver(self):
+        self.game._board.make_move(1, self.game._player1)
+        self.game._board.make_move(3, self.game._player2)
+        self.game._board.make_move(5, self.game._player1)
+        self.game._board.make_move(6, self.game._player2)
+        self.game._board.make_move(9, self.game._player1)
+        self.assertTrue(self.game.is_over())
