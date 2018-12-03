@@ -1,3 +1,4 @@
 class MockCLIInput:
     def get_input(self, string):
-        return 5
+        if string == "Please make a move: ":
+            return 5
