@@ -61,4 +61,4 @@ class Game:
         if self.is_won():
             return 'Congratulations Player ' + self.winner() + '! You won!'
         elif self.is_draw():
-            return "Cats game!"
+            return "Cat's game!"

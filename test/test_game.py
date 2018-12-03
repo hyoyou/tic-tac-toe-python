@@ -63,3 +63,7 @@ class TestGame(unittest.TestCase):
     def testGameEndPlayerXWon(self):
         self.player1_win()
         self.assertEqual(self.game.game_play(), "Congratulations Player X! You won!")
+
+    def testGameEndDrawGame(self):
+        self.draw_game()
+        self.assertEqual(self.game.game_play(), "Cat's game!")
