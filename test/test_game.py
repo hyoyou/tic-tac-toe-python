@@ -1,12 +1,14 @@
 import unittest
-from unittest.mock import patch
-from tictactoe.game import Game
-from tictactoe.player import Player
+from test.mock_cli_input import MockCLIInput
 from tictactoe.board import Board
+from tictactoe.game import Game
+from tictactoe.cli_input import CLIInput
+from tictactoe.player import Player
+
 
 class TestGame(unittest.TestCase):
     def setUp(self):
-        self.game = Game()
+        self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), Board())
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)
@@ -54,3 +56,6 @@ class TestGame(unittest.TestCase):
     def testGameWinner(self):
         self.player1_win()
         self.assertEqual(self.game.winner(), self.game._player1._symbol)
+ 
+    def testGamePlay(self):
+        self.assertEqual(self.game.play_move(), self.game._board.display_board())

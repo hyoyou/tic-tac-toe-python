@@ -1,5 +1,6 @@
-from tictactoe.player import Player
 from tictactoe.board import Board
+from tictactoe.cli_input import CLIInput
+from tictactoe.player import Player
 
 class Game:
     WINNING_COMBOS = [
@@ -13,7 +14,7 @@ class Game:
         [2, 4, 6]  # Right diagonal
     ]
 
-    def __init__(self, player1 = Player("X"), player2 = Player("O"), board = None):
+    def __init__(self, player1, player2, board = None):
         self._player1 = player1
         self._player2 = player2
         self._board = Board()
@@ -42,3 +43,13 @@ class Game:
                 self._board._board[combo[1]] == self._board._board[combo[2]] and
                 self._board._board[combo[0]] != " "):
                 return self._board._board[combo[0]]
+
+    def play_move(self):
+        current_player = self.current_player()
+        input = int(current_player.move(self._board._board))
+        
+        if self._board.is_valid_move(input):
+            self._board.make_move(input, current_player)
+            return self._board.display_board()
+        else:
+            self.play_move()

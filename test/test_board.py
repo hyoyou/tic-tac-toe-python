@@ -1,12 +1,13 @@
 import unittest
 from tictactoe.board import Board
+from tictactoe.cli_input import CLIInput
 from tictactoe.player import Player
 
 class BoardTest(unittest.TestCase):
     def setUp(self):
         self.board = Board()
-        self.player1 = Player("X")
-        self.player2 = Player("O")
+        self.player1 = Player("X", CLIInput())
+        self.player2 = Player("O", CLIInput())
 
     def testBoardExists(self):
         self.assertEqual(self.board._board, [" " for i in range(9)])
@@ -22,7 +23,7 @@ class BoardTest(unittest.TestCase):
         ''')
 
     def testMakeMove(self):
-        player = Player("X")
+        player = Player("X", CLIInput())
         self.assertEqual(self.board.make_move(5, self.player1), [" ", " ", " ", " ", "X", " ", " ", " ", " "])
 
     def testValidMove(self):
