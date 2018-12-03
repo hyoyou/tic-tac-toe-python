@@ -53,3 +53,12 @@ class Game:
             return self._board.display_board()
         else:
             self.play_move()
+
+    def game_play(self):
+        while not self.is_over():
+            self.play_move()
+
+        if self.is_won():
+            return 'Congratulations Player ' + self.winner() + '! You won!'
+        elif self.is_draw():
+            return "Cats game!"

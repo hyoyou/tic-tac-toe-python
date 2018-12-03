@@ -59,3 +59,7 @@ class TestGame(unittest.TestCase):
  
     def testGamePlay(self):
         self.assertEqual(self.game.play_move(), self.game._board.display_board())
+
+    def testGameEndPlayerXWon(self):
+        self.player1_win()
+        self.assertEqual(self.game.game_play(), "Congratulations Player X! You won!")
