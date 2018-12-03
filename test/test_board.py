@@ -23,7 +23,6 @@ class BoardTest(unittest.TestCase):
         ''')
 
     def testMakeMove(self):
-        player = Player("X", CLIInput())
         self.assertEqual(self.board.make_move(5, self.player1), [" ", " ", " ", " ", "X", " ", " ", " ", " "])
 
     def testValidMove(self):
