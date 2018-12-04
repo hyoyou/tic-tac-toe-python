@@ -5,7 +5,7 @@ from tictactoe.game import Game
 from tictactoe.cli_output import CLIOutput
 from tictactoe.player import Player
 
-class TestGame(unittest.TestCase):
+class GameTest(unittest.TestCase):
     def setUp(self):
         self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), Board(), CLIOutput())
     
