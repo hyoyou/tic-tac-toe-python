@@ -1,6 +1,7 @@
 import unittest
 from tictactoe.board import Board
 from tictactoe.cli_input import CLIInput
+from tictactoe.cli_output import CLIOutput
 from tictactoe.player import Player
 
 class BoardTest(unittest.TestCase):
@@ -8,6 +9,7 @@ class BoardTest(unittest.TestCase):
         self.board = Board()
         self.player1 = Player("X", CLIInput())
         self.player2 = Player("O", CLIInput())
+        self.output = CLIOutput()
 
     def testBoardExists(self):
         self.assertEqual(self.board._board, [" " for i in range(9)])

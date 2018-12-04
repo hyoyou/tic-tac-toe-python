@@ -2,13 +2,12 @@ import unittest
 from test.mock_cli_input import MockCLIInput
 from tictactoe.board import Board
 from tictactoe.game import Game
-from tictactoe.cli_input import CLIInput
+from tictactoe.cli_output import CLIOutput
 from tictactoe.player import Player
-
 
 class TestGame(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), Board())
+        self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), Board(), CLIOutput())
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)

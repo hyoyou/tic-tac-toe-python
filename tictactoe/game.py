@@ -1,7 +1,3 @@
-from tictactoe.board import Board
-from tictactoe.cli_input import CLIInput
-from tictactoe.player import Player
-
 class Game:
     WINNING_COMBOS = [
         [0, 1, 2], # Top row
@@ -14,11 +10,12 @@ class Game:
         [2, 4, 6]  # Right diagonal
     ]
 
-    def __init__(self, player1, player2, board = None):
+    def __init__(self, player1, player2, board, printer):
         self._player1 = player1
         self._player2 = player2
-        self._board = Board()
-    
+        self._board = board
+        self._printer = printer
+
     def current_player(self):
         turns = self._board.turn_count()
         if turns % 2 == 0:
@@ -59,6 +56,6 @@ class Game:
             self.play_move()
 
         if self.is_won():
-            return 'Congratulations Player ' + self.winner() + '! You won!'
+            return self._printer.output("win", self.winner())
         elif self.is_draw():
-            return "Cat's game!"
+            return self._printer.output("draw")
