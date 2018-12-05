@@ -12,5 +12,5 @@ class StartGame:
         """)
         
 
-# game = StartGame()
-# game.start()
+game = StartGame()
+game.start()

@@ -1,12 +1,13 @@
 import unittest
 from unittest import mock
 from io import StringIO
+from startgame import StartGame
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
 from tictactoe.player import Player
-from tictactoe.startgame import StartGame
+from startgame import StartGame
 
 class StartGameTest(unittest.TestCase):
     def setUp(self):

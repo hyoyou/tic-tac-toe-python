@@ -65,10 +65,10 @@ class GameTest(unittest.TestCase):
     def testGameEndPlayerXWon(self, mock_stdout):
         self.player1_win()
         self.game.game_play()
-        self.assertEqual(mock_stdout.getvalue(), "Congratulations Player X! You won!\n")
+        self.assertTrue("Congratulations Player X! You won!\n" in mock_stdout.getvalue())
 
     @mock.patch("sys.stdout", new_callable=StringIO)
     def testGameEndDrawGame(self, mock_stdout):
         self.draw_game()
         self.game.game_play()
-        self.assertEqual(mock_stdout.getvalue(), "Cat's game!\n")
+        self.assertTrue("Cat's game!\n" in mock_stdout.getvalue())

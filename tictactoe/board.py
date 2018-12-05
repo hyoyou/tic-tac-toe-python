@@ -13,7 +13,7 @@ class Board:
     
     def make_move(self, input, player):
         self._board[input - 1] = player._symbol
-        return self._board
+        print(self._board)
     
     def is_valid_move(self, input):
         return self._board[input - 1] == " "
