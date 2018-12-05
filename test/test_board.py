@@ -1,4 +1,6 @@
 import unittest
+from unittest import mock
+from io import StringIO
 from tictactoe.board import Board
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
@@ -14,15 +16,10 @@ class BoardTest(unittest.TestCase):
     def testBoardExists(self):
         self.assertEqual(self.board._board, [" " for i in range(9)])
     
-    def testDisplayBoard(self):
-        self.assertEqual(self.board.display_board(), 
-        f'''
-         {self.board._board[0]} | {self.board._board[1]} | {self.board._board[2]} 
-        ===+===+===
-         {self.board._board[3]} | {self.board._board[4]} | {self.board._board[5]} 
-        ===+===+===
-         {self.board._board[6]} | {self.board._board[7]} | {self.board._board[8]} 
-        ''')
+    @mock.patch("sys.stdout", new_callable=StringIO)
+    def testDisplayBoard(self, mock_stdout):
+        self.board.display_board()
+        self.assertEqual(mock_stdout.getvalue(), '\n           |   |   \n        ===+===+===\n           |   |   \n        ===+===+===\n           |   |   \n        \n')
 
     def testMakeMove(self):
         self.assertEqual(self.board.make_move(5, self.player1), [" ", " ", " ", " ", "X", " ", " ", " ", " "])

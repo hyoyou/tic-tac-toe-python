@@ -1,4 +1,6 @@
 import unittest
+from unittest import mock
+from io import StringIO
 from test.mock_cli_input import MockCLIInput
 from tictactoe.board import Board
 from tictactoe.game import Game
@@ -7,7 +9,7 @@ from tictactoe.player import Player
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), Board(), CLIOutput())
+        self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), CLIOutput(), Board())
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)
@@ -59,10 +61,14 @@ class GameTest(unittest.TestCase):
     def testGamePlay(self):
         self.assertEqual(self.game.play_move(), self.game._board.display_board())
 
-    def testGameEndPlayerXWon(self):
+    @mock.patch("sys.stdout", new_callable=StringIO)
+    def testGameEndPlayerXWon(self, mock_stdout):
         self.player1_win()
-        self.assertEqual(self.game.game_play(), "Congratulations Player X! You won!")
+        self.game.game_play()
+        self.assertEqual(mock_stdout.getvalue(), "Congratulations Player X! You won!\n")
 
-    def testGameEndDrawGame(self):
+    @mock.patch("sys.stdout", new_callable=StringIO)
+    def testGameEndDrawGame(self, mock_stdout):
         self.draw_game()
-        self.assertEqual(self.game.game_play(), "Cat's game!")
+        self.game.game_play()
+        self.assertEqual(mock_stdout.getvalue(), "Cat's game!\n")

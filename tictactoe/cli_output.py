@@ -1,7 +1,8 @@
 class CLIOutput:
     def output(self, state, winner = None):
         if state == "win":
-            return f'Congratulations Player ' + winner + '! You won!'
+            print('Congratulations Player ' + winner + '! You won!')
         elif state == "draw":
-            return "Cat's game!"
+            print("Cat's game!")
+    
         

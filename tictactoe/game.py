@@ -1,3 +1,5 @@
+from tictactoe.board import Board
+
 class Game:
     WINNING_COMBOS = [
         [0, 1, 2], # Top row
@@ -10,11 +12,11 @@ class Game:
         [2, 4, 6]  # Right diagonal
     ]
 
-    def __init__(self, player1, player2, board, printer):
+    def __init__(self, player1, player2, printer, board = None):
         self._player1 = player1
         self._player2 = player2
-        self._board = board
         self._printer = printer
+        self._board = board
 
     def current_player(self):
         turns = self._board.turn_count()
