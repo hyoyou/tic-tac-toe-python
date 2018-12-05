@@ -4,14 +4,14 @@ from io import StringIO
 from startgame import StartGame
 from tictactoe.board import Board
 from tictactoe.game import Game
-from tictactoe.cli_input import CLIInput
+from test.mock_cli_input import MockCLIInput
 from tictactoe.cli_output import CLIOutput
 from tictactoe.player import Player
 from startgame import StartGame
 
 class StartGameTest(unittest.TestCase):
     def setUp(self):
-        self.start_game = StartGame()
+        self.start_game = StartGame(MockCLIInput())
 
     # method that welcomes user
     @mock.patch("sys.stdout", new_callable=StringIO)

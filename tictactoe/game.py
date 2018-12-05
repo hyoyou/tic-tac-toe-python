@@ -1,5 +1,3 @@
-from tictactoe.board import Board
-
 class Game:
     WINNING_COMBOS = [
         [0, 1, 2], # Top row
