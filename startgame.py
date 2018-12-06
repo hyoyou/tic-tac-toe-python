@@ -21,7 +21,11 @@ class StartGame:
         (2) Player 1   v.   Player 2
         """)
 
-        if game_mode == '2':
+        if game_mode == '0':
+            pass
+        elif game_mode == '1':
+            pass
+        elif game_mode == '2':
             game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
             game.game_play()
 

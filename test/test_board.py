@@ -21,10 +21,9 @@ class BoardTest(unittest.TestCase):
         self.board.display_board()
         self.assertEqual(mock_stdout.getvalue(), '\n           |   |   \n        ===+===+===\n           |   |   \n        ===+===+===\n           |   |   \n        \n')
 
-    @mock.patch("sys.stdout", new_callable=StringIO)
-    def testMakeMove(self, mock_stdout):
+    def testMakeMove(self):
         self.board.make_move(5, self.player1)
-        self.assertEqual(mock_stdout.getvalue(), "[' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ']\n")
+        self.assertEqual(self.board._board, [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' '])
 
     def testValidMove(self):
         self.board.make_move(5, self.player1)
