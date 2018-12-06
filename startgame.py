@@ -26,8 +26,11 @@ class StartGame:
         elif game_mode == '1':
             pass
         elif game_mode == '2':
-            game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
-            game.game_play()
+            self.two_player()
 
-# new_game = StartGame(CLIInput())
-# new_game.start()
+    def two_player(self):
+        game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
+        game.game_play()
+
+new_game = StartGame(CLIInput())
+new_game.start()

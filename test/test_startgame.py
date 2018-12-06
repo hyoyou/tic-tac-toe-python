@@ -1,5 +1,5 @@
 import unittest
-from unittest import mock
+from unittest.mock import patch
 from io import StringIO
 from tictactoe.board import Board
 from tictactoe.game import Game
@@ -12,18 +12,13 @@ class StartGameTest(unittest.TestCase):
     def setUp(self):
         self.start_game = StartGame(MockCLIInput())
 
-    @mock.patch("sys.stdout", new_callable=StringIO)
+    @patch("sys.stdout", new_callable=StringIO)
     def testWelcomeUser(self, mock_stdout):
         self.start_game.start()
         self.assertTrue("Welcome to Tic Tac Toe" in mock_stdout.getvalue())
 
-    # @mock.patch("sys.stdout", new_callable=StringIO)
-    # def testChooseGameHumanVsHuman(self, mock_stdout):
-    #     self.start_game.choose_game()
-    #     print(mock_stdout.getvalue())
-    #     self.assertTrue("(2) Player 1   v.   Player 2" in mock_stdout.getvalue())
+    @patch("startgame.StartGame.choose_game", return_value="2")
+    def testChooseGameHumanVsHuman(self, mock_input):
+        pass
+        #self.assertTrue(new game is instantiated with 2 human players)
         
-        # if "2 Player Game" in mock_stdout.getvalue():
-        #     print("in here")
-
-    # method that instantiates Game object
