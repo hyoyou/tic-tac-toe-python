@@ -4,10 +4,27 @@ from tictactoe.board import Board
 from tictactoe.ai_player import AIPlayer
 
 class AIPlayerTest(unittest.TestCase):
-    def testAIPlayerSymbol(self):
-        ai_player = AIPlayer("X")
-        self.assertEqual(ai_player._symbol, "X")
+    def setUp(self):
+        self.ai_player1 = AIPlayer("X")
+        self.ai_player2 = AIPlayer("O")
+        self.board = Board()
 
-    def testAIPlayerMove(self):
-        ai_player = AIPlayer("X")
-        # self.assertEqual(ai_player.move(Board()), 5)
+    def testAIPlayerSymbol(self):
+        self.assertEqual(self.ai_player1._symbol, "X")
+
+    def testAIPlayer1TriesToTakeCenterAsFirstMove(self):
+        self.assertEqual(self.ai_player1.move(self.board), 5)
+
+    def testAIPlayer2TriesToTakeCenterAsFirstMove(self):
+        self.board.make_move(1, self.ai_player1)
+        self.assertEqual(self.ai_player2.move(self.board), 5)
+
+    def testAIPlayer2TriesToTakeCornerAsFirstMove(self):
+        self.board.make_move(5, self.ai_player1)
+        self.assertEqual(self.ai_player2.move(self.board), 3)
+    
+    def testAIPlayerTakesRandomMove(self):
+       self.board.make_move(5, self.ai_player1)
+       self.board.make_move(3, self.ai_player2)
+       move = self.ai_player1.move(self.board)
+       self.assertTrue(move >= 1 and move <= 9)
