@@ -28,3 +28,19 @@ class AIPlayerTest(unittest.TestCase):
        self.board.make_move(3, self.ai_player2)
        move = self.ai_player1.move(self.board)
        self.assertTrue(move >= 1 and move <= 9)
+
+    def testAIPlayerTriesToWinIfAbleToTopRow(self):
+        self.board.make_move(5, self.ai_player1)
+        self.board.make_move(3, self.ai_player2)
+        self.board.make_move(7, self.ai_player1)
+        self.board.make_move(2, self.ai_player2)
+        self.board.make_move(4, self.ai_player1)
+        self.assertEqual(self.ai_player2.move(self.board), 1)
+
+    def testAIPlayerTriesToWinIfAbleToDiagonal(self):
+        self.board.make_move(5, self.ai_player1)
+        self.board.make_move(3, self.ai_player2)
+        self.board.make_move(1, self.ai_player1)
+        self.board.make_move(8, self.ai_player2)
+        self.assertEqual(self.ai_player1.move(self.board), 9)
+        
