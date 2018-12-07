@@ -43,7 +43,7 @@ class Game:
 
     def play_move(self):
         current_player = self.current_player()
-        input = int(current_player.move(self._board._board))
+        input = int(current_player.move(self._board))
         
         if self._board.is_valid_move(input):
             self._board.make_move(input, current_player)
