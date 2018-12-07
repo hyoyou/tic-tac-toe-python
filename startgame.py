@@ -4,33 +4,36 @@ from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
 
-
 class StartGame:
     def __init__(self, input_getter):
         self._input = input_getter
 
     def start(self):
         print("Welcome to Tic Tac Toe")
-        self.choose_game()
+        self.display_menu()
     
-    def choose_game(self):
+    def display_menu(self):
         game_mode = self._input.get_input("""
         Please choose number of players (0-2):
         (0) Computer   v.   Computer
         (1) Player     v.   Computer
         (2) Player 1   v.   Player 2
         """)
+        self.number_of_players(game_mode)
 
+    def number_of_players(self, game_mode):
         if game_mode == '0':
             pass
         elif game_mode == '1':
             pass
         elif game_mode == '2':
             self.two_player()
+            return "Human v. Human game starting.."
 
     def two_player(self):
         game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
         game.game_play()
 
-new_game = StartGame(CLIInput())
-new_game.start()
+if __name__ == '__main__':
+    new_game = StartGame(CLIInput())
+    new_game.start()
