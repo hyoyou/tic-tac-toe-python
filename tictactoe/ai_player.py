@@ -19,6 +19,7 @@ class AIPlayer:
         best_move = random.randint(1, 11)
 
         sym = self._symbol
+        opp = "O" if sym == "X" else "X"
 
         # Try to take the center
         if board.turn_count() == 0 and board.is_valid_move(5):
@@ -45,6 +46,21 @@ class AIPlayer:
                 best_move = combo[0] + 1
             elif (board._board[combo[0]] == sym and 
                 board._board[combo[2]] == sym and
+                board._board[combo[1]] == " "):
+                best_move = combo[0] + 1
+
+        # Move for a block
+        for combo in self.WINNING_COMBOS:
+            if (board._board[combo[0]] == opp and 
+                board._board[combo[1]] == opp and
+                board._board[combo[2]] == " "):
+                best_move = combo[2] + 1
+            elif (board._board[combo[1]] == opp and 
+                board._board[combo[2]] == opp and
+                board._board[combo[0]] == " "):
+                best_move = combo[0] + 1
+            elif (board._board[combo[0]] == opp and 
+                board._board[combo[2]] == opp and
                 board._board[combo[1]] == " "):
                 best_move = combo[0] + 1
 
