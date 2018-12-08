@@ -24,13 +24,18 @@ class StartGame:
 
     def number_of_players(self, game_mode):
         if game_mode == '0':
-            pass
+            self.zero_player()
+            return "Computer v. Computer game starting"
         elif game_mode == '1':
             self.one_player()
             return "Human v. Computer game starting"
         elif game_mode == '2':
             self.two_player()
             return "Human v. Human game starting.."
+
+    def zero_player(self):
+        game = Game(AIPlayer("X"), AIPlayer("O"), CLIOutput(), Board())
+        game.game_play()
 
     def one_player(self):
         game = Game(Player("X", CLIInput()), AIPlayer("O"), CLIOutput(), Board())
