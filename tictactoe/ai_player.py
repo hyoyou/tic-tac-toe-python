@@ -16,7 +16,7 @@ class AIPlayer:
         self._symbol = symbol
 
     def move(self, board):
-        best_move = random.randint(1, 11)
+        best_move = random.randint(1, 9)
 
         sym = self._symbol
         opp = "O" if sym == "X" else "X"
@@ -34,34 +34,36 @@ class AIPlayer:
             best_move = 3
 
         # Best moves after first 2 moves made:
-        # Move for a win
-        for combo in self.WINNING_COMBOS:
-            if (board._board[combo[0]] == sym and 
-                board._board[combo[1]] == sym and
-                board._board[combo[2]] == " "):
-                best_move = combo[2] + 1
-            elif (board._board[combo[1]] == sym and 
-                board._board[combo[2]] == sym and
-                board._board[combo[0]] == " "):
-                best_move = combo[0] + 1
-            elif (board._board[combo[0]] == sym and 
-                board._board[combo[2]] == sym and
-                board._board[combo[1]] == " "):
-                best_move = combo[0] + 1
-
         # Move for a block
-        for combo in self.WINNING_COMBOS:
-            if (board._board[combo[0]] == opp and 
-                board._board[combo[1]] == opp and
-                board._board[combo[2]] == " "):
-                best_move = combo[2] + 1
-            elif (board._board[combo[1]] == opp and 
-                board._board[combo[2]] == opp and
-                board._board[combo[0]] == " "):
-                best_move = combo[0] + 1
-            elif (board._board[combo[0]] == opp and 
-                board._board[combo[2]] == opp and
-                board._board[combo[1]] == " "):
-                best_move = combo[0] + 1
+        if board.turn_count() >= 2:
+            for combo in self.WINNING_COMBOS:
+                if (board._board[combo[1]] == opp and 
+                    board._board[combo[2]] == opp and
+                    board._board[combo[0]] == " "):
+                    best_move = combo[0] + 1
+                elif (board._board[combo[0]] == opp and 
+                    board._board[combo[2]] == opp and
+                    board._board[combo[1]] == " "):
+                    best_move = combo[1] + 1
+                elif (board._board[combo[0]] == opp and 
+                    board._board[combo[1]] == opp and
+                    board._board[combo[2]] == " "):
+                    best_move = combo[2] + 1
+
+        # Move for a win
+        if board.turn_count() >= 2:
+            for combo in self.WINNING_COMBOS:
+                if (board._board[combo[1]] == sym and 
+                    board._board[combo[2]] == sym and
+                    board._board[combo[0]] == " "):
+                    best_move = combo[0] + 1
+                elif (board._board[combo[0]] == sym and 
+                    board._board[combo[2]] == sym and
+                    board._board[combo[1]] == " "):
+                    best_move = combo[1] + 1
+                elif (board._board[combo[0]] == sym and 
+                    board._board[combo[1]] == sym and
+                    board._board[combo[2]] == " "):
+                    best_move = combo[2] + 1
 
         return best_move
