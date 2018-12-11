@@ -25,10 +25,10 @@ class StartGame:
     def number_of_players(self, game_mode):
         if game_mode == '0':
             self.zero_player()
-            return "Computer v. Computer game starting"
+            return "Computer v. Computer game starting.."
         elif game_mode == '1':
             self.one_player()
-            return "Human v. Computer game starting"
+            return "Human v. Computer game starting.."
         elif game_mode == '2':
             self.two_player()
             return "Human v. Human game starting.."
@@ -42,9 +42,10 @@ class StartGame:
         game.game_play()
 
     def two_player(self):
+        global game                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
         game.game_play()
 
-if __name__ == '__main__':
-    new_game = StartGame(CLIInput())
-    new_game.start()
+# if __name__ == '__main__':
+#     new_game = StartGame(CLIInput())
+#     new_game.start()

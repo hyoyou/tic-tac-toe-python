@@ -20,13 +20,36 @@ class StartGameTest(unittest.TestCase):
         expected_result = "Welcome to Tic Tac Toe\n"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    # @patch("startgame.StartGame.display_menu", return_value="2")
-    # def testChooseGameHumanVsHuman(self, mock_stdin):
-    #     # want to write a test that checks that players are objects of the Player class
-    #     # result = type(---._player1) // Cannot test local variable
-    #     # expected_result = Player
-        
-    #     result = self.start_game.number_of_players(mock_stdin.return_value)
-    #     expected_result = "Human v. Human game starting.."
+    # def testChooseGameHumanVsHuman(self):
+    #     self.start_game.two_player()
+
+    #     result = type(game._player1)
+    #     expected_result = Player
+    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    #     result = type(game._player2)
+    #     expected_result = Player
+    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    # def testChooseGameHumanVsComputer(self):
+    #     self.start_game.one_player()
+
+    #     result = type(game._player1)
+    #     expected_result = Player
+    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    #     result = type(game._player2)
+    #     expected_result = AIPlayer
+    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    # def testChooseGameHumanVsHuman(self):
+    #     self.start_game.zero_player()
+
+    #     result = type(game._player1)
+    #     expected_result = AIPlayer
+    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    #     result = type(game._player2)
+    #     expected_result = AIPlayer
     #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
         
