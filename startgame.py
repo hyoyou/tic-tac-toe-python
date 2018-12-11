@@ -19,6 +19,8 @@ class StartGame:
         (0) Computer   v.   Computer
         (1) Player     v.   Computer
         (2) Player 1   v.   Player 2
+        
+        or type any other key for rules on how to play the game
         """)
         self.number_of_players(game_mode)
 
@@ -32,6 +34,8 @@ class StartGame:
         elif game_mode == '2':
             self.two_player()
             return "Human v. Human game starting.."
+        else:
+            self.display_rules()
 
     def zero_player(self):
         game = Game(AIPlayer("X"), AIPlayer("O"), CLIOutput(), Board())
@@ -45,7 +49,35 @@ class StartGame:
         global game                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
         game.game_play()
+    
+    def display_rules(self):
+        print("""
+        How To Play Tic-Tac-Toe
+        -----------------------
+        The goal of this game is to get three of the same symbols, either an 'X' or an 'O', in a row.
+        This of course counts vertical, horizontal, as well as diagonal wins. The first player to get 3 in
+        a row wins the game. A stalemate, in which all 9 positions of the board are filled without any
+        winners is traditionally referred to as 'Cat\'s Game' in Tic-Tac-Toe. 
+        
+        Sample winning patterns:
 
-# if __name__ == '__main__':
-#     new_game = StartGame(CLIInput())
-#     new_game.start()
+          Diagonal         Vertical        Horizontal
+         X |   |            | X |            |   |   
+        ===+===+===      ===+===+===      ===+===+===
+           | X |            | X |          X | X | X 
+        ===+===+===      ===+===+===      ===+===+===
+           |   | X          | X |            |   |   
+    
+        """)
+
+        user_ready = self._input.get_input("""
+        Are you ready to play?"
+        Please type 'Y' when ready to play or any other key to exit.
+        """)
+
+        if user_ready == "Y":
+            self.display_menu()
+
+if __name__ == '__main__':
+    new_game = StartGame(CLIInput())
+    new_game.start()

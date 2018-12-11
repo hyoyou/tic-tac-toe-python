@@ -18,7 +18,7 @@ class StartGameTest(unittest.TestCase):
         self.start_game.start()
         result = mock_stdout.getvalue()
         expected_result = "Welcome to Tic Tac Toe\n"
-        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     # def testChooseGameHumanVsHuman(self):
     #     self.start_game.two_player()
@@ -52,4 +52,10 @@ class StartGameTest(unittest.TestCase):
     #     result = type(game._player2)
     #     expected_result = AIPlayer
     #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-        
+
+    @patch("sys.stdout", new_callable=StringIO)    
+    def testDisplayRules(self, mock_stdout):
+        self.start_game.display_rules()
+        result = mock_stdout.getvalue()
+        expected_result = "How To Play Tic-Tac-Toe"
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
