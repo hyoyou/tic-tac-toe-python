@@ -9,7 +9,7 @@ from tictactoe.player import Player
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput()), Player("O", MockCLIInput()), CLIOutput(), Board())
+        self.game = Game(Player("X", MockCLIInput(), CLIOutput()), Player("O", MockCLIInput(), CLIOutput()), CLIOutput(), Board(CLIOutput()))
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)

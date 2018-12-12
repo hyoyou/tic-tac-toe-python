@@ -6,15 +6,16 @@ from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 
 class StartGame:
-    def __init__(self, input_getter):
+    def __init__(self, input_getter, cli_output):
         self._input = input_getter
+        self._output = cli_output
 
     def start(self):
-        print("Welcome to Tic Tac Toe")
+        self._output.print("Welcome to Tic Tac Toe")
         self.display_menu()
     
     def display_menu(self):
-        game_mode = self._input.get_input("""
+        self._output.print("""
         Please choose number of players (0-2):
         (0) Computer   v.   Computer
         (1) Player     v.   Computer
@@ -22,6 +23,8 @@ class StartGame:
         
         or type any other key for rules on how to play the game
         """)
+
+        game_mode = self._input.get_input()
         self.number_of_players(game_mode)
 
     def number_of_players(self, game_mode):
@@ -38,20 +41,19 @@ class StartGame:
             self.display_rules()
 
     def zero_player(self):
-        game = Game(AIPlayer("X"), AIPlayer("O"), CLIOutput(), Board())
-        game.game_play()
+        self.game = Game(AIPlayer("X"), AIPlayer("O"), CLIOutput(), Board(CLIOutput()))
+        self.game.game_play()
 
     def one_player(self):
-        game = Game(Player("X", CLIInput()), AIPlayer("O"), CLIOutput(), Board())
-        game.game_play()
+        self.game = Game(Player("X", CLIInput(), CLIOutput()), AIPlayer("O"), CLIOutput(), Board(CLIOutput()))
+        self.game.game_play()
 
-    def two_player(self):
-        global game                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-        game = Game(Player("X", CLIInput()), Player("O", CLIInput()), CLIOutput(), Board())
-        game.game_play()
+    def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        self.game = Game(Player("X", CLIInput(), CLIOutput()), Player("O", CLIInput(), CLIOutput()), CLIOutput(), Board(CLIOutput()))
+        self.game.game_play()
     
     def display_rules(self):
-        print("""
+        self._output.print("""
         How To Play Tic-Tac-Toe
         -----------------------
         The goal of this game is to get three of the same symbols, either an 'X' or an 'O', in a row.
@@ -68,16 +70,15 @@ class StartGame:
         ===+===+===      ===+===+===      ===+===+===
            |   | X          | X |            |   |   
     
-        """)
-
-        user_ready = self._input.get_input("""
         Are you ready to play?"
         Please type 'Y' when ready to play or any other key to exit.
         """)
+
+        user_ready = self._input.get_input()
 
         if user_ready == "Y":
             self.display_menu()
 
 if __name__ == '__main__':
-    new_game = StartGame(CLIInput())
+    new_game = StartGame(CLIInput(), CLIOutput())
     new_game.start()

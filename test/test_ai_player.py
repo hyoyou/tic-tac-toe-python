@@ -2,12 +2,13 @@ import unittest
 from unittest.mock import patch
 from tictactoe.board import Board
 from tictactoe.ai_player import AIPlayer
+from test.mock_cli_output import MockCLIOutput
 
 class AIPlayerTest(unittest.TestCase):
     def setUp(self):
         self.ai_player1 = AIPlayer("X")
         self.ai_player2 = AIPlayer("O")
-        self.board = Board()
+        self.board = Board(MockCLIOutput())
 
     def testAIPlayerSymbol(self):
         self.assertEqual(self.ai_player1._symbol, "X")

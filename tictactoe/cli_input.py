@@ -1,4 +1,4 @@
 class CLIInput:
-    def get_input(self, string):
-        user_input = input(string)
+    def get_input(self):
+        user_input = input()
         return user_input

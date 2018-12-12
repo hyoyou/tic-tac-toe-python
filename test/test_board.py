@@ -8,9 +8,9 @@ from tictactoe.player import Player
 
 class BoardTest(unittest.TestCase):
     def setUp(self):
-        self.board = Board()
-        self.player1 = Player("X", CLIInput())
-        self.player2 = Player("O", CLIInput())
+        self.board = Board(CLIOutput())
+        self.player1 = Player("X", CLIInput(), CLIOutput())
+        self.player2 = Player("O", CLIInput(), CLIOutput())
         self.output = CLIOutput()
 
     def testBoardExists(self):

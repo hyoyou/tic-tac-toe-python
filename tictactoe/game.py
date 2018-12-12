@@ -56,6 +56,6 @@ class Game:
             self.play_move()
 
         if self.is_won():
-            return self._printer.output("win", self.winner())
+            return self._printer.print('Congratulations Player ' + self.winner() + '! You won!')
         elif self.is_draw():
-            return self._printer.output("draw")
+            return self._printer.print("Cat's game!")
