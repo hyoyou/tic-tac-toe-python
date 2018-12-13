@@ -43,13 +43,21 @@ class Game:
 
     def play_move(self):
         current_player = self.current_player()
-        input = int(current_player.move(self._board))
+        input = current_player.move(self._board)
         
-        if self._board.is_valid_move(input):
-            self._output.print(f"Player {current_player._symbol} chose position {input}:")
-            self._board.make_move(input, current_player)
-            return self._board.display_board()
-        else:
+        try:
+            num_input = int(input)
+            if self._board.is_valid_move(num_input):
+                self._output.print(f"Player {current_player._symbol} chose position {num_input}:")
+                self._board.make_move(num_input, current_player)
+                return self._board.display_board()
+            elif num_input >= 1 and num_input <= 9:
+                self._output.print("That position has already been played. Please enter a valid move:")
+                self._board.display_board()
+                self.play_move()
+        except ValueError:
+            self._output.print(f"You entered {input}. Please enter only digits 1-9:")
+            self._board.display_board()
             self.play_move()
 
     def game_play(self):
