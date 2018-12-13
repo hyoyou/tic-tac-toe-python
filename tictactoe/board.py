@@ -16,7 +16,10 @@ class Board:
         self._board[input - 1] = player._symbol
     
     def is_valid_move(self, input):
-        return self._board[input - 1] == " "
+        if input >= 1 and input <= 9:
+            return self._board[input - 1] == " "
+        else:
+            return False
 
     def is_full(self):
         return not " " in self._board
