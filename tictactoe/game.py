@@ -46,6 +46,7 @@ class Game:
         input = int(current_player.move(self._board))
         
         if self._board.is_valid_move(input):
+            self._output.print(f"Player {current_player._symbol} chose position {input}:")
             self._board.make_move(input, current_player)
             return self._board.display_board()
         else:
