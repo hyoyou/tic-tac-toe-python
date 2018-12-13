@@ -10,9 +10,12 @@ class StartGame:
         self._input = input_getter
         self._output = cli_output
 
+    def game_loop(self):
+        self.start()
+        self.display_menu()
+
     def start(self):
         self._output.print("Welcome to Tic Tac Toe")
-        self.display_menu()
     
     def display_menu(self):
         self._output.print("""

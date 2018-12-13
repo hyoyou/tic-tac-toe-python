@@ -14,15 +14,15 @@ class StartGameTest(unittest.TestCase):
     def setUp(self):
         self.start_game = StartGame(MockCLIInput(), MockCLIOutput())
 
-    # def testWelcomeUser(self):
-    #     self.start_game.start()
-    #     result = self.start_game._output._last_output
-    #     print(result)
-    #     expected_result = "Welcome to Tic Tac Toe"
-    #     self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    def testWelcomeUser(self):
+        self.start_game.start()
+        result = self.start_game._output._last_output
+        print(result)
+        expected_result = "Welcome to Tic Tac Toe"
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testChooseGameHumanVsHuman(self):
-        self.start_game.two_player()
+        # self.start_game.two_player()
 
         result = type(self.start_game.game._player1)
         expected_result = Player
@@ -33,7 +33,7 @@ class StartGameTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testChooseGameHumanVsComputer(self):
-        self.start_game.one_player()
+        # self.start_game.one_player()
 
         result = type(self.start_game.game._player1)
         expected_result = Player
@@ -43,8 +43,8 @@ class StartGameTest(unittest.TestCase):
         expected_result = AIPlayer
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testChooseGameHumanVsHuman(self):
-        self.start_game.zero_player()
+    def testChooseGameComputerVsComputer(self):
+        # self.start_game.zero_player()
 
         result = type(self.start_game.game._player1)
         expected_result = AIPlayer
