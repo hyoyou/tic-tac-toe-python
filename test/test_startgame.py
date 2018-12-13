@@ -17,7 +17,6 @@ class StartGameTest(unittest.TestCase):
     def testWelcomeUser(self):
         self.start_game.start()
         result = self.start_game._output._last_output
-        print(result)
         expected_result = "Welcome to Tic Tac Toe"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 

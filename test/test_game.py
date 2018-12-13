@@ -30,45 +30,75 @@ class GameTest(unittest.TestCase):
         self.game._board.make_move(2, self.game._player1)
 
     def testGameBoard(self):
-        self.assertEqual(self.game._board._board, [" " for i in range(9)])
+        result = self.game._board._board
+        expected_result = [" " for i in range(9)]
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
     def testGamePlayers(self):
-        self.assertEqual(self.game._player1._symbol, "X")
-        self.assertEqual(self.game._player2._symbol, "O")
+        result = self.game._player1._symbol
+        expected_result = "X"
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+        
+        result = self.game._player2._symbol
+        expected_result = "O"
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testCurrentPlayer(self):
         self.game._board.make_move(5, self.game._player1)
         self.game._board.make_move(1, self.game._player2)
         self.game._board.make_move(3, self.game._player1)
-        self.assertEqual(self.game.current_player(), self.game._player2)
+
+        result = self.game.current_player()
+        expected_result = self.game._player2
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testGameWon(self):
         self.player1_win()
-        self.assertTrue(self.game.is_won())
+
+        result = self.game.is_won()
+        expected_result = True
+        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
     def testGameDraw(self):
         self.draw_game()
-        self.assertTrue(self.game.is_draw())
+        
+        result = self.game.is_draw()
+        expected_result = True
+        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testGameOver(self):
         self.player1_win()
-        self.assertTrue(self.game.is_over())
+
+        result = self.game.is_over()
+        expected_result = True
+        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testGameWinner(self):
         self.player1_win()
-        self.assertEqual(self.game.winner(), self.game._player1._symbol)
+        
+        result = self.game.winner()
+        expected_result = self.game._player1._symbol
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
     def testGamePlay(self):
-        self.assertEqual(self.game.play_move(), self.game._board.display_board())
+        result = self.game.play_move()
+        expected_result = self.game._board.display_board()
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     @mock.patch("sys.stdout", new_callable=StringIO)
     def testGameEndPlayerXWon(self, mock_stdout):
         self.player1_win()
         self.game.game_play()
-        self.assertTrue("Congratulations Player X! You won!\n" in mock_stdout.getvalue())
+        
+        result = mock_stdout.getvalue()
+        expected_result = "Congratulations Player X! You won!\n"
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     @mock.patch("sys.stdout", new_callable=StringIO)
     def testGameEndDrawGame(self, mock_stdout):
         self.draw_game()
         self.game.game_play()
-        self.assertTrue("Cat's game!\n" in mock_stdout.getvalue())
+
+        result = mock_stdout.getvalue()
+        expected_result = "Cat's game!\n"
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))

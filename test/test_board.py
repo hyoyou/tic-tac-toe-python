@@ -14,20 +14,31 @@ class BoardTest(unittest.TestCase):
         self.output = CLIOutput()
 
     def testBoardExists(self):
-        self.assertEqual(self.board._board, [" " for i in range(9)])
+        result = self.board._board
+        expected_result = [" " for i in range(9)]
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
     @mock.patch("sys.stdout", new_callable=StringIO)
     def testDisplayBoard(self, mock_stdout):
         self.board.display_board()
-        self.assertEqual(mock_stdout.getvalue(), '\n           |   |   \n        ===+===+===\n           |   |   \n        ===+===+===\n           |   |   \n        \n')
+
+        result = mock_stdout.getvalue()
+        expected_result = '\n           |   |   \n        ===+===+===\n           |   |   \n        ===+===+===\n           |   |   \n        \n'
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testMakeMove(self):
         self.board.make_move(5, self.player1)
-        self.assertEqual(self.board._board, [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' '])
+
+        result = self.board._board
+        expected_result = [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ']
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testValidMove(self):
         self.board.make_move(5, self.player1)
-        self.assertFalse(self.board.is_valid_move(5))
+
+        result = self.board.is_valid_move(5)
+        expected_result = False
+        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
     def testBoardFull(self):
         self.board.make_move(1, self.player1)
@@ -39,13 +50,19 @@ class BoardTest(unittest.TestCase):
         self.board.make_move(8, self.player1)
         self.board.make_move(7, self.player2)
         self.board.make_move(9, self.player1)
-        self.assertTrue(self.board.is_full())
+        
+        result = self.board.is_full()
+        expected_result = True
+        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testTurnCount(self):
         self.board.make_move(1, self.player1)
         self.board.make_move(3, self.player2)
         self.board.make_move(5, self.player1)
-        self.assertEqual(self.board.turn_count(), 3)
+
+        result = self.board.turn_count()
+        expected_result = 3
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
 if __name__ == "__main__":
     unittest.main()
