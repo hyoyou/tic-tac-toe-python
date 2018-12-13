@@ -1,29 +1,26 @@
 import unittest
-from unittest import mock
-from io import StringIO
 from tictactoe.board import Board
-from tictactoe.cli_input import CLIInput
-from tictactoe.cli_output import CLIOutput
+from test.mock_cli_input import MockCLIInput
+from test.mock_cli_output import MockCLIOutput
 from tictactoe.player import Player
 
 class BoardTest(unittest.TestCase):
     def setUp(self):
-        self.board = Board(CLIOutput())
-        self.player1 = Player("X", CLIInput(), CLIOutput())
-        self.player2 = Player("O", CLIInput(), CLIOutput())
-        self.output = CLIOutput()
+        self.board = Board(MockCLIOutput())
+        self.player1 = Player("X", MockCLIInput(), MockCLIOutput())
+        self.player2 = Player("O", MockCLIInput(), MockCLIOutput())
+        self.output = MockCLIOutput()
 
     def testBoardExists(self):
         result = self.board._board
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
-    @mock.patch("sys.stdout", new_callable=StringIO)
-    def testDisplayBoard(self, mock_stdout):
+    def testDisplayBoard(self):
         self.board.display_board()
 
-        result = mock_stdout.getvalue()
-        expected_result = '\n           |   |   \n        ===+===+===\n           |   |   \n        ===+===+===\n           |   |   \n        \n'
+        result = self.board._output._last_output
+        expected_result = '\n         1 | 2 | 3 \n        ===+===+===\n         4 | 5 | 6 \n        ===+===+===\n         7 | 8 | 9 \n        '
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testMakeMove(self):
