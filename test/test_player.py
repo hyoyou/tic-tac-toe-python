@@ -1,9 +1,7 @@
 import unittest
-from unittest.mock import patch
 from test.mock_cli_input import MockCLIInput
 from test.mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
-from tictactoe.cli_input import CLIInput
 from tictactoe.player import Player
 
 class PlayerTest(unittest.TestCase):

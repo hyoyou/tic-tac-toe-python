@@ -1,15 +1,13 @@
 import unittest
-from unittest import mock
-from io import StringIO
 from test.mock_cli_input import MockCLIInput
+from test.mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
 from tictactoe.game import Game
-from tictactoe.cli_output import CLIOutput
 from tictactoe.player import Player
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput(), CLIOutput()), Player("O", MockCLIInput(), CLIOutput()), CLIOutput(), Board(CLIOutput()))
+        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Board(MockCLIOutput()))
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)
@@ -84,21 +82,19 @@ class GameTest(unittest.TestCase):
         result = self.game.play_move()
         expected_result = self.game._board.display_board()
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    @mock.patch("sys.stdout", new_callable=StringIO)
-    def testGameEndPlayerXWon(self, mock_stdout):
+ 
+    def testGameEndPlayerXWon(self):
         self.player1_win()
         self.game.game_play()
         
-        result = mock_stdout.getvalue()
-        expected_result = "Congratulations Player X! You won!\n"
+        result = self.game._output._last_output
+        expected_result = "Congratulations Player X! You won!"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    @mock.patch("sys.stdout", new_callable=StringIO)
-    def testGameEndDrawGame(self, mock_stdout):
+    def testGameEndDrawGame(self):
         self.draw_game()
         self.game.game_play()
 
-        result = mock_stdout.getvalue()
-        expected_result = "Cat's game!\n"
+        result = self.game._output._last_output
+        expected_result = "Cat's game!"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))

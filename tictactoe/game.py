@@ -10,10 +10,10 @@ class Game:
         [2, 4, 6]  # Right diagonal
     ]
 
-    def __init__(self, player1, player2, printer, board = None):
+    def __init__(self, player1, player2, cli_output, board = None):
         self._player1 = player1
         self._player2 = player2
-        self._printer = printer
+        self._output = cli_output
         self._board = board
 
     def current_player(self):
@@ -56,6 +56,6 @@ class Game:
             self.play_move()
 
         if self.is_won():
-            return self._printer.print('Congratulations Player ' + self.winner() + '! You won!')
+            return self._output.print('Congratulations Player ' + self.winner() + '! You won!')
         elif self.is_draw():
-            return self._printer.print("Cat's game!")
+            return self._output.print("Cat's game!")
