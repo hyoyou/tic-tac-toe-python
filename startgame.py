@@ -11,10 +11,12 @@ class StartGame:
         self._output = cli_output
 
     def game_loop(self):
-        self.start()
-        self.display_menu()
+        self.welcome()
+        game_mode = self.display_menu()
+        self.number_of_players(game_mode)
+        self.game.game_play()
 
-    def start(self):
+    def welcome(self):
         self._output.print("Welcome to Tic Tac Toe")
     
     def display_menu(self):
@@ -27,8 +29,7 @@ class StartGame:
         or type any other key for rules on how to play the game
         """)
 
-        game_mode = self._input.get_input()
-        self.number_of_players(game_mode)
+        return self._input.get_input()
 
     def number_of_players(self, game_mode):
         if game_mode == '0':
@@ -45,16 +46,13 @@ class StartGame:
 
     def zero_player(self):
         self.game = Game(AIPlayer("X"), AIPlayer("O"), CLIOutput(), Board(CLIOutput()))
-        self.game.game_play()
 
     def one_player(self):
         self.game = Game(Player("X", CLIInput(), CLIOutput()), AIPlayer("O"), CLIOutput(), Board(CLIOutput()))
-        self.game.game_play()
-
+        
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
         self.game = Game(Player("X", CLIInput(), CLIOutput()), Player("O", CLIInput(), CLIOutput()), CLIOutput(), Board(CLIOutput()))
-        self.game.game_play()
-    
+        
     def display_rules(self):
         self._output.print("""
         How To Play Tic-Tac-Toe
@@ -79,9 +77,9 @@ class StartGame:
 
         user_ready = self._input.get_input()
 
-        if user_ready == "Y":
-            self.display_menu()
+        if user_ready == "Y" or user_ready == "y":
+            self.game_loop()
 
 if __name__ == '__main__':
     new_game = StartGame(CLIInput(), CLIOutput())
-    new_game.start()
+    new_game.game_loop()
