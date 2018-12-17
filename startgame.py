@@ -38,7 +38,7 @@ class StartGame:
         elif game_mode == '2':
             return self.two_player()
         else:
-            return self.display_rules()
+            return exit('Goodbye!')
 
     def zero_player(self):
         return Game(AIPlayer("X"), AIPlayer("O"), self._output, Board(self._output))

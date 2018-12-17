@@ -14,7 +14,9 @@ class StartGameTest(unittest.TestCase):
         self.start_game = StartGame(self.mock_cli_input, self.mock_cli_output)
 
     def testWelcomeUser(self):
-        self.start_game.welcome()
+        self.mock_cli_input.set_value('0')
+        self.start_game.game_loop()
+
         result = self.start_game._output._last_output
         expected_result = "Welcome to Tic Tac Toe"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -60,3 +62,10 @@ class StartGameTest(unittest.TestCase):
         expected_result = AIPlayer
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
   
+    def testGameExitsWithAnyOtherInput(self):
+        self.mock_cli_input.set_value('3')
+
+        with self.assertRaises(SystemExit) as cm:
+            self.start_game.game_loop()    
+            the_exception = cm.exception
+            self.assertEqual(the_exception, SystemExit('Goodbye!'))
