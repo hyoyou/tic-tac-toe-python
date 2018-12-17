@@ -12,9 +12,11 @@ class StartGame:
 
     def game_loop(self):
         self.welcome()
-        game_mode = self.display_menu()
-        self.number_of_players(game_mode)
-        self.game.game_play()
+        self.display_rules()
+        self.display_menu()
+        game_mode = self._input.get_input()
+        game = self.number_of_players(game_mode)
+        game.game_play()
 
     def welcome(self):
         self._output.print("Welcome to Tic Tac Toe")
@@ -26,32 +28,26 @@ class StartGame:
         (1) Player     v.   Computer
         (2) Player 1   v.   Player 2
         
-        or type any other key for rules on how to play the game
         """)
-
-        return self._input.get_input()
 
     def number_of_players(self, game_mode):
         if game_mode == '0':
-            self.zero_player()
-            return "Computer v. Computer game starting.."
+            return self.zero_player()
         elif game_mode == '1':
-            self.one_player()
-            return "Human v. Computer game starting.."
+            return self.one_player()
         elif game_mode == '2':
-            self.two_player()
-            return "Human v. Human game starting.."
+            return self.two_player()
         else:
-            self.display_rules()
+            return self.display_rules()
 
     def zero_player(self):
-        self.game = Game(AIPlayer("X"), AIPlayer("O"), CLIOutput(), Board(CLIOutput()))
+        return Game(AIPlayer("X"), AIPlayer("O"), self._output, Board(self._output))
 
     def one_player(self):
-        self.game = Game(Player("X", CLIInput(), CLIOutput()), AIPlayer("O"), CLIOutput(), Board(CLIOutput()))
+        return Game(Player("X", CLIInput(), self._output), AIPlayer("O"), self._output, Board(self._output))
         
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-        self.game = Game(Player("X", CLIInput(), CLIOutput()), Player("O", CLIInput(), CLIOutput()), CLIOutput(), Board(CLIOutput()))
+        return Game(Player("X", CLIInput(), self._output), Player("O", CLIInput(), self._output), self._output, Board(self._output))
         
     def display_rules(self):
         self._output.print("""
@@ -71,14 +67,7 @@ class StartGame:
         ===+===+===      ===+===+===      ===+===+===
            |   | X          | X |            |   |   
     
-        Are you ready to play?"
-        Please type 'Y' when ready to play or any other key to exit.
         """)
-
-        user_ready = self._input.get_input()
-
-        if user_ready == "Y" or user_ready == "y":
-            self.game_loop()
 
 if __name__ == '__main__':
     new_game = StartGame(CLIInput(), CLIOutput())

@@ -9,7 +9,9 @@ from startgame import StartGame
 
 class StartGameTest(unittest.TestCase):
     def setUp(self):
-        self.start_game = StartGame(MockCLIInput(), MockCLIOutput())
+        self.mock_cli_input = MockCLIInput()
+        self.mock_cli_output = MockCLIOutput()
+        self.start_game = StartGame(self.mock_cli_input, self.mock_cli_output)
 
     def testWelcomeUser(self):
         self.start_game.welcome()
@@ -17,43 +19,44 @@ class StartGameTest(unittest.TestCase):
         expected_result = "Welcome to Tic Tac Toe"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testChooseGameHumanVsHuman(self):
-        self.start_game.two_player()
+    def testDisplayRulesToUser(self):
+        self.mock_cli_input.set_value('0')
+        self.start_game.game_loop()
 
-        result = type(self.start_game.game._player1)
+        result = self.mock_cli_output._last_output
+        expected_result = "How To Play Tic-Tac-Toe"
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testChooseGameHumanVsHuman(self):
+        game = self.start_game.two_player()
+
+        result = type(game._player1)
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = type(self.start_game.game._player2)
+        result = type(game._player2)
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testChooseGameHumanVsComputer(self):
-        self.start_game.one_player()
+        game = self.start_game.one_player()
 
-        result = type(self.start_game.game._player1)
+        result = type(game._player1)
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = type(self.start_game.game._player2)
+        result = type(game._player2)
         expected_result = AIPlayer
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testChooseGameComputerVsComputer(self):
-        self.start_game.zero_player()
+        game = self.start_game.zero_player()
 
-        result = type(self.start_game.game._player1)
+        result = type(game._player1)
         expected_result = AIPlayer
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = type(self.start_game.game._player2)
+        result = type(game._player2)
         expected_result = AIPlayer
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
   
-    def testDisplayRules(self):
-        self.start_game.display_rules()
-        result = self.start_game._output._last_output
-        expected_result = "How To Play Tic-Tac-Toe"
-        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-
