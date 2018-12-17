@@ -19,7 +19,7 @@ class BoardTest(unittest.TestCase):
     def testDisplayBoard(self):
         self.board.display_board()
 
-        result = self.board._output._last_output
+        result = self.board._output._display_board
         expected_result = '\n         1 | 2 | 3 \n        ===+===+===\n         4 | 5 | 6 \n        ===+===+===\n         7 | 8 | 9 \n        '
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
