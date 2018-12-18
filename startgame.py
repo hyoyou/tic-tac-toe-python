@@ -6,8 +6,8 @@ from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 
 class StartGame:
-    def __init__(self, input_getter, cli_output):
-        self._input = input_getter
+    def __init__(self, cli_input, cli_output):
+        self._input = cli_input
         self._output = cli_output
 
     def game_loop(self):
@@ -44,10 +44,10 @@ class StartGame:
         return Game(AIPlayer("X"), AIPlayer("O"), self._output, Board(self._output))
 
     def one_player(self):
-        return Game(Player("X", CLIInput(), self._output), AIPlayer("O"), self._output, Board(self._output))
+        return Game(Player("X", self._input, self._output), AIPlayer("O"), self._output, Board(self._output))
         
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-        return Game(Player("X", CLIInput(), self._output), Player("O", CLIInput(), self._output), self._output, Board(self._output))
+        return Game(Player("X", self._input, self._output), Player("O", self._input, self._output), self._output, Board(self._output))
         
     def display_rules(self):
         self._output.print("""
