@@ -1,24 +1,27 @@
 import random
 from tictactoe.game import Game
+from tictactoe.validations import Validations
 
 class AIPlayer:
     def __init__(self, symbol):
         self._symbol = symbol
 
     def move(self, board):
+        validator = Validations()
+
         best_move = random.randint(1, 9)
 
         sym = self._symbol
         opp = "O" if sym == "X" else "X"
 
-        if board.turn_count() == 0 and board.is_valid_move(5):
+        if board.turn_count() == 0 and validator.is_valid_move(5, board._board):
             best_move = 5
-        elif board.turn_count() == 1 and board.is_valid_move(5):
+        elif board.turn_count() == 1 and validator.is_valid_move(5, board._board):
             best_move = 5
 
-        if board.turn_count() == 1 and board.is_valid_move(3) and not board.is_valid_move(5):
+        if board.turn_count() == 1 and validator.is_valid_move(3, board._board) and not validator.is_valid_move(5, board._board):
             best_move = 3
-        elif board.turn_count() >= 2 and board.is_valid_move(3):
+        elif board.turn_count() >= 2 and validator.is_valid_move(3, board._board):
             best_move = 3
 
         if board.turn_count() >= 2:

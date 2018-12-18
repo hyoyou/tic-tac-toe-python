@@ -30,12 +30,12 @@ class BoardTest(unittest.TestCase):
         expected_result = [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ']
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testValidMove(self):
-        self.board.make_move(5, self.player1)
+    # def testValidMove(self):
+    #     self.board.make_move(5, self.player1)
 
-        result = self.board.is_valid_move(5)
-        expected_result = False
-        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    #     result = self.board.is_valid_move(5)
+    #     expected_result = False
+    #     self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
     def testBoardFull(self):
         self.board.make_move(1, self.player1)

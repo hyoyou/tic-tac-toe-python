@@ -10,10 +10,11 @@ class Game:
         [2, 4, 6]  # Right diagonal
     ]
 
-    def __init__(self, player1, player2, cli_output, board = None):
+    def __init__(self, player1, player2, cli_output, validator, board = None):
         self._player1 = player1
         self._player2 = player2
         self._output = cli_output
+        self._validator = validator
         self._board = board
 
     def current_player(self):
@@ -47,7 +48,8 @@ class Game:
         
         try:
             num_input = int(input)
-            if self._board.is_valid_move(num_input):
+            
+            if self._validator.is_valid_move(num_input, self._board._board):
                 self._output.print(f"Player {current_player._symbol} chose position {num_input}:")
                 self._board.make_move(num_input, current_player)
                 return self._output.print_board(self._board._board)

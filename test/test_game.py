@@ -4,10 +4,11 @@ from test.mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
+from tictactoe.validations import Validations
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Board(MockCLIOutput()))
+        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board(MockCLIOutput()))
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)
