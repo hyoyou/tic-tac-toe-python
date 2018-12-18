@@ -1,10 +1,10 @@
 class Board:
     def __init__(self, cli_output):
         self._board = [" " for i in range(9)]
-        self._output = cli_output
+        # self._output = cli_output
     
-    def display_board(self):
-        self._output.print_board(self._board)
+    # def display_board(self):
+    #     self._output.print_board(self._board)
     
     def make_move(self, input, player):
         self._board[input - 1] = player._symbol

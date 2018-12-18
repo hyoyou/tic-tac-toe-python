@@ -80,7 +80,7 @@ class GameTest(unittest.TestCase):
  
     def testGamePlay(self):
         result = self.game.play_move()
-        expected_result = self.game._board.display_board()
+        expected_result = self.game._output.print_board(self.game._board._board)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
     def testGameEndPlayerXWon(self):
