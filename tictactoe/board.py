@@ -1,5 +1,5 @@
 class Board:
-    def __init__(self, cli_output):
+    def __init__(self):
         self._board = [" " for i in range(9)]
 
     def spaces(self):

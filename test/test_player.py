@@ -15,7 +15,7 @@ class PlayerTest(unittest.TestCase):
     def testPlayerMove(self):
         player = Player("X", MockCLIInput(), MockCLIOutput())
 
-        result = player.move(Board(MockCLIOutput()))
+        result = player.move(Board())
         expected_result = 1
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
@@ -24,6 +24,6 @@ class PlayerTest(unittest.TestCase):
         player = Player("X", mock_cli_input, MockCLIOutput())
         mock_cli_input.set_value(5)
 
-        result = player.move(Board(MockCLIOutput()))
+        result = player.move(Board())
         expected_result = 5
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))

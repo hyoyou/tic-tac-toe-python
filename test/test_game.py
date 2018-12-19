@@ -8,7 +8,7 @@ from tictactoe.validations import Validations
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board(MockCLIOutput()))
+        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)

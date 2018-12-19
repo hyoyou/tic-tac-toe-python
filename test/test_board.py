@@ -6,7 +6,7 @@ from tictactoe.player import Player
 
 class BoardTest(unittest.TestCase):
     def setUp(self):
-        self.board = Board(MockCLIOutput())
+        self.board = Board()
         self.player1 = Player("X", MockCLIInput(), MockCLIOutput())
         self.player2 = Player("O", MockCLIInput(), MockCLIOutput())
         self.output = MockCLIOutput()

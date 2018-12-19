@@ -8,7 +8,7 @@ class AIPlayerTest(unittest.TestCase):
     def setUp(self):
         self.ai_player1 = AIPlayer("X")
         self.ai_player2 = AIPlayer("O")
-        self.board = Board(MockCLIOutput())
+        self.board = Board()
 
     def testAIPlayerSymbol(self):
         result = self.ai_player1._symbol

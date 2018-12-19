@@ -7,7 +7,7 @@ from tictactoe.validations import Validations
 
 class TestValidations(unittest.TestCase):
     def testUserInputForMove(self):
-        board = Board(MockCLIOutput())
+        board = Board()
         player1 = Player("X", MockCLIInput(), MockCLIOutput())
         validator = Validations()
         board.make_move(5, player1)

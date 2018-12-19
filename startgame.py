@@ -42,13 +42,13 @@ class StartGame:
             return exit('Goodbye!')
 
     def zero_player(self):
-        return Game(AIPlayer("X"), AIPlayer("O"), self._output, Validations(), Board(self._output))
+        return Game(AIPlayer("X"), AIPlayer("O"), self._output, Validations(), Board())
 
     def one_player(self):
-        return Game(Player("X", self._input, self._output), AIPlayer("O"), self._output, Validations(), Board(self._output))
+        return Game(Player("X", self._input, self._output), AIPlayer("O"), self._output, Validations(), Board())
         
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-        return Game(Player("X", self._input, self._output), Player("O", self._input, self._output), self._output, Validations(), Board(self._output))
+        return Game(Player("X", self._input, self._output), Player("O", self._input, self._output), self._output, Validations(), Board())
         
     def display_rules(self):
         self._output.print("""

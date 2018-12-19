@@ -7,4 +7,3 @@ class Player:
     def move(self, board):
         self._output.print("Please make a move:")
         return self._input.get_input()
-        
