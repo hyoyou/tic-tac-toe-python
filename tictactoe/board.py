@@ -4,6 +4,9 @@ class Board:
 
     def spaces(self):
         return self._board
+
+    def space(self, cell):
+        return self._board[cell-1] if self._board[cell-1] != " " else cell
         
     def make_move(self, input, player):
         self._board[input - 1] = player._symbol

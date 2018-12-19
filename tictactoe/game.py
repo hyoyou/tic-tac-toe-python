@@ -55,18 +55,18 @@ class Game:
             if self._validator.is_valid_move(num_input, spaces):
                 self._output.print(f"Player {current_player._symbol} chose position {num_input}:")
                 self._board.make_move(num_input, current_player)
-                return self._output.print_board(spaces)
+                return self._output.print_board(self._board)
             elif num_input >= 1 and num_input <= 9:
                 self._output.print("That position has already been played. Please enter a valid move:")
-                self._output.print_board(spaces)
+                self._output.print_board(self._board)
                 self.play_move()
             elif num_input == 0 or num_input > 9:
                 self._output.print("Position out of range. Please enter only digits 1-9:")
-                self._output.print_board(spaces)
+                self._output.print_board(self._board)
                 self.play_move()
         except ValueError:
             self._output.print(f"You entered {input}. Please enter only digits 1-9:")
-            self._output.print_board(spaces)
+            self._output.print_board(self._board)
             self.play_move()
 
     def game_play(self):

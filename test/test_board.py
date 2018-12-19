@@ -29,6 +29,18 @@ class BoardTest(unittest.TestCase):
         expected_result = ['X', ' ', ' ', ' ', 'O', ' ', ' ', ' ', ' ']
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
+    def testBoardReturnsTheNumberOfTheCellWhenSpaceCalledOnEmptyCell(self):
+        result = self.board.space(5)
+        expected_result = 5
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testBoardReturnsThePlayerSymbolWhenSpaceCalledOnCellThatHasBeenPlayed(self):
+        self.board.make_move(5, self.player1)
+
+        result = self.board.space(5)
+        expected_result = "X"
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
     def testMakeMove(self):
         self.board.make_move(5, self.player1)
 
