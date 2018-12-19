@@ -16,27 +16,26 @@ class BoardTest(unittest.TestCase):
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
-    # def testDisplayBoard(self):
-    #     self.board.display_board()
+    def testBoardReturnsSpacesAsAnEmptyListWithoutMove(self):
+        result = self.board.spaces()
+        expected_result = [" " for i in range(9)]
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    #     result = self.board._output._display_board
-    #     expected_result = '\n         1 | 2 | 3 \n        ===+===+===\n         4 | 5 | 6 \n        ===+===+===\n         7 | 8 | 9 \n        '
-    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    def testBoardReturnsCorrectSpacesAsListWithMoves(self):
+        self.board.make_move(1, self.player1)
+        self.board.make_move(5, self.player2)
+
+        result = self.board.spaces()
+        expected_result = ['X', ' ', ' ', ' ', 'O', ' ', ' ', ' ', ' ']
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testMakeMove(self):
         self.board.make_move(5, self.player1)
 
-        result = self.board._board
+        result = self.board.spaces()
         expected_result = [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ']
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    # def testValidMove(self):
-    #     self.board.make_move(5, self.player1)
-
-    #     result = self.board.is_valid_move(5)
-    #     expected_result = False
-    #     self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
     def testBoardFull(self):
         self.board.make_move(1, self.player1)
         self.board.make_move(2, self.player2)

@@ -29,7 +29,7 @@ class GameTest(unittest.TestCase):
         self.game._board.make_move(2, self.game._player1)
 
     def testGameBoard(self):
-        result = self.game._board._board
+        result = self.game._board.spaces()
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
