@@ -1,6 +1,7 @@
 class Validations:
     def is_valid_move(self, input, board):
-        if input >= 1 and input <= 9:
+        if self.is_input_in_range(input):
             return board[input - 1] == " "
-        else:
-            return False
+    
+    def is_input_in_range(self, input):
+        return input >= 1 and input <= 9

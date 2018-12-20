@@ -26,6 +26,16 @@ class TestValidations(unittest.TestCase):
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
+    def testValidationsReturnsTrueForAnInputWithinRange(self):
+        result = self.validator.is_input_in_range(2)
+        expected_result = True
+        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testValidationsReturnsFalseForAnInputOutOfRange(self):
+        result = self.validator.is_input_in_range(0)
+        expected_result = False
+        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
     def testValidityOfUserInputForAMoveOutOfRange(self):
         result = self.validator.is_valid_move(10, self.board.spaces())
         expected_result = False
