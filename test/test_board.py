@@ -11,7 +11,7 @@ class BoardTest(unittest.TestCase):
         self.player2 = Player("O", MockCLIInput(), MockCLIOutput())
         self.output = MockCLIOutput()
 
-    def testBoardExists(self):
+    def testBoardExistsAndIsAnEmptyListWith9Spaces(self):
         result = self.board._board
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -41,14 +41,14 @@ class BoardTest(unittest.TestCase):
         expected_result = "X"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testMakeMove(self):
+    def testBoardUpdatesWhenPlayerMakesMove(self):
         self.board.make_move(5, self.player1)
 
         result = self.board.spaces()
         expected_result = [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ']
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testBoardFull(self):
+    def testBoardIsFullReturnsTrueWhenTheBoardIsFull(self):
         self.board.make_move(1, self.player1)
         self.board.make_move(2, self.player2)
         self.board.make_move(3, self.player1)
@@ -63,7 +63,7 @@ class BoardTest(unittest.TestCase):
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testTurnCount(self):
+    def testBoardReturnsTurnCountBasedOnNumberOfAvailableSpacesOnBoard(self):
         self.board.make_move(1, self.player1)
         self.board.make_move(3, self.player2)
         self.board.make_move(5, self.player1)
