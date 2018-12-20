@@ -29,7 +29,7 @@ class Game:
         return any(spaces[combo[0]] == spaces[combo[1]] and 
                    spaces[combo[1]] == spaces[combo[2]] and
                    spaces[combo[0]] != " " for combo in self.WINNING_COMBOS)
-    
+
     def is_draw(self):
         return self._board.is_full() and not self.is_won()
 
