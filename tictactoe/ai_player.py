@@ -10,18 +10,18 @@ class AIPlayer:
         validator = Validations()
         spaces = board.spaces()
         best_move = random.randint(1, 9)
-
+        
         sym = self._symbol
         opp = "O" if sym == "X" else "X"
 
-        if board.turn_count() == 0 and validator.is_valid_move(5, spaces):
+        if board.turn_count() == 0 and validator.is_empty(5, board):
             best_move = 5
-        elif board.turn_count() == 1 and validator.is_valid_move(5, spaces):
+        elif board.turn_count() == 1 and validator.is_empty(5, board):
             best_move = 5
 
-        if board.turn_count() == 1 and validator.is_valid_move(3, spaces) and not validator.is_valid_move(5, spaces):
+        if board.turn_count() == 1 and validator.is_empty(3, board) and not validator.is_empty(5, board):
             best_move = 3
-        elif board.turn_count() >= 2 and validator.is_valid_move(3, spaces):
+        elif board.turn_count() >= 2 and validator.is_empty(3, board):
             best_move = 3
 
         if board.turn_count() >= 2:
@@ -53,5 +53,8 @@ class AIPlayer:
                     spaces[combo[1]] == sym and
                     spaces[combo[2]] == " "):
                     best_move = combo[2] + 1
+
+        while not validator.is_empty(best_move, board):
+            best_move = random.randint(1, 9)
 
         return best_move

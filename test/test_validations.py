@@ -14,15 +14,16 @@ class TestValidations(unittest.TestCase):
 
     def testValidityOfUserInputForMoveAlreadyPlayed(self):
         self.board.make_move(5, self.player1)
+        validity, message = self.validator.is_valid_move(5, self.board)
 
-        result = self.validator.is_valid_move(5, self.board.spaces())
+        result = validity
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testValidityOfUserInputForMoveNotYetPlayed(self):
         self.board.make_move(5, self.player1)
 
-        result = self.validator.is_valid_move(3, self.board.spaces())
+        result = self.validator.is_valid_move(3, self.board)
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
@@ -37,6 +38,15 @@ class TestValidations(unittest.TestCase):
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testValidityOfUserInputForAMoveOutOfRange(self):
-        result = self.validator.is_valid_move(10, self.board.spaces())
+        validity, message = self.validator.is_valid_move(10, self.board.spaces())
+
+        result = validity
+        expected_result = False
+        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testValidityOfUserInputForANonIntegerMove(self):
+        validity, message = self.validator.is_valid_move('p', self.board.spaces())
+
+        result = validity
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))

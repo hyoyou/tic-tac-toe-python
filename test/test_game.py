@@ -65,7 +65,7 @@ class GameTest(unittest.TestCase):
     
     def testGameIsWonReturnsFalseWhenGameIsNotWon(self):
         self.draw_game()
-        
+
         result = self.game.is_won()
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -105,7 +105,7 @@ class GameTest(unittest.TestCase):
  
     def testGameDisplaysMessageWhenGameIsWon(self):
         self.player1_win()
-        self.game.game_play()
+        self.game.game_play_loop()
         
         result = self.game._output._last_output
         expected_result = "Congratulations Player X! You won!"
@@ -113,7 +113,7 @@ class GameTest(unittest.TestCase):
 
     def testGameDisplaysMessageWhenGameIsADraw(self):
         self.draw_game()
-        self.game.game_play()
+        self.game.game_play_loop()
 
         result = self.game._output._last_output
         expected_result = "Cat's game!"
