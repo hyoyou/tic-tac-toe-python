@@ -5,7 +5,7 @@ from tictactoe.board import Board
 from tictactoe.player import Player
 
 class PlayerTest(unittest.TestCase):
-    def testPlayerSymbol(self):
+    def testPlayerIsInitializedWithASymbol(self):
         player = Player("X", MockCLIInput(), MockCLIOutput())
         
         result = player._symbol
