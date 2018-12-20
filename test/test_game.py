@@ -28,12 +28,12 @@ class GameTest(unittest.TestCase):
         self.game._board.make_move(6, self.game._player2)
         self.game._board.make_move(2, self.game._player1)
 
-    def testGameBoard(self):
+    def testGameBoardReturnsEmptyListAtGameStart(self):
         result = self.game._board.spaces()
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
-    def testGamePlayers(self):
+    def testGamePlayersHaveSeparateSymbolsOnGameStart(self):
         result = self.game._player1._symbol
         expected_result = "X"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -42,7 +42,12 @@ class GameTest(unittest.TestCase):
         expected_result = "O"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testCurrentPlayer(self):
+    def testCurrentPlayerIsPlayerXWhenGameStarts(self):
+        result = self.game.current_player()
+        expected_result = self.game._player1
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testCurrentPlayerAfterAFewMovesAreMade(self):
         self.game._board.make_move(5, self.game._player1)
         self.game._board.make_move(1, self.game._player2)
         self.game._board.make_move(3, self.game._player1)
@@ -51,40 +56,54 @@ class GameTest(unittest.TestCase):
         expected_result = self.game._player2
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testGameWon(self):
+    def testGameIsWonReturnsTrueWhenGameIsWon(self):
         self.player1_win()
 
         result = self.game.is_won()
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
-    def testGameDraw(self):
+    def testGameIsWonReturnsFalseWhenGameIsNotWon(self):
+        self.draw_game()
+        
+        result = self.game.is_won()
+        expected_result = False
+        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    
+    def testGameIsDrawReturnsTrueWhenGameIsADraw(self):
         self.draw_game()
         
         result = self.game.is_draw()
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testGameOver(self):
+    def testGameIsDrawReturnsFalseWhenGameIsNotADraw(self):
+        self.player1_win()
+
+        result = self.game.is_draw()
+        expected_result = False
+        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testGameKnowsWhenGameEndsWhenThereIsAWinOrADraw(self):
         self.player1_win()
 
         result = self.game.is_over()
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testGameWinner(self):
+    def testGameReturnsWinningPlayersSymbol(self):
         self.player1_win()
         
         result = self.game.winner()
         expected_result = self.game._player1._symbol
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
-    def testGamePlay(self):
+    def testGameDisplaysBoardWhenMovePlayed(self):
         result = self.game.play_move()
         expected_result = self.game._output.print_board(self.game._board)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
-    def testGameEndPlayerXWon(self):
+    def testGameDisplaysMessageWhenGameIsWon(self):
         self.player1_win()
         self.game.game_play()
         
@@ -92,7 +111,7 @@ class GameTest(unittest.TestCase):
         expected_result = "Congratulations Player X! You won!"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testGameEndDrawGame(self):
+    def testGameDisplaysMessageWhenGameIsADraw(self):
         self.draw_game()
         self.game.game_play()
 
