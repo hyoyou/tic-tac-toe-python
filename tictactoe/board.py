@@ -8,8 +8,8 @@ class Board:
     def space(self, cell):
         return self._board[cell-1] if self._board[cell-1] != " " else cell
         
-    def make_move(self, input, player):
-        self._board[input - 1] = player._symbol
+    def make_move(self, cell, player):
+        self._board[cell-1] = player._symbol
 
     def is_full(self):
         return not " " in self._board
