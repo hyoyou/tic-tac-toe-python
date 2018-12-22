@@ -26,8 +26,7 @@ class Game:
 
     def is_won(self):
         spaces = self._board.spaces()
-        return any(spaces[combo[0]] == spaces[combo[1]] and 
-                   spaces[combo[1]] == spaces[combo[2]] and
+        return any(spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
                    spaces[combo[0]] != " " for combo in self.WINNING_COMBOS)
 
     def is_draw(self):
@@ -61,5 +60,5 @@ class Game:
 
         if self.is_won():
             return self._output.print('Congratulations Player ' + self.winner() + '! You won!')
-        elif self.is_draw():
+        else:
             return self._output.print("Cat's game!")
