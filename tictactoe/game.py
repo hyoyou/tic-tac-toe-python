@@ -16,9 +16,7 @@ class Game:
             return self._player2
 
     def is_won(self):
-        spaces = self._board.spaces()
-        return any(spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
-                   spaces[combo[0]] != " " for combo in WINNING_COMBOS)
+        return self._board.is_winner()
 
     def is_draw(self):
         return self._board.is_full() and not self.is_won()
@@ -29,8 +27,7 @@ class Game:
     def winner(self):
         spaces = self._board.spaces()
         for combo in WINNING_COMBOS:
-            if (spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
-                spaces[combo[0]] != " "):
+            if self.is_won:
                 return spaces[combo[0]]
 
     def play_move(self):
