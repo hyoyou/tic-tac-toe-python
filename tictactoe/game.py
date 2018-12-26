@@ -1,15 +1,6 @@
-class Game:
-    WINNING_COMBOS = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ]
+from tictactoe.constants import WINNING_COMBOS
 
+class Game:
     def __init__(self, player1, player2, cli_output, validator, board = None):
         self._player1 = player1
         self._player2 = player2
@@ -27,7 +18,7 @@ class Game:
     def is_won(self):
         spaces = self._board.spaces()
         return any(spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
-                   spaces[combo[0]] != " " for combo in self.WINNING_COMBOS)
+                   spaces[combo[0]] != " " for combo in WINNING_COMBOS)
 
     def is_draw(self):
         return self._board.is_full() and not self.is_won()
@@ -37,7 +28,7 @@ class Game:
 
     def winner(self):
         spaces = self._board.spaces()
-        for combo in self.WINNING_COMBOS:
+        for combo in WINNING_COMBOS:
             if (spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
                 spaces[combo[0]] != " "):
                 return spaces[combo[0]]

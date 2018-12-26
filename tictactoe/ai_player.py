@@ -1,6 +1,7 @@
 import random
 from tictactoe.game import Game
 from tictactoe.validations import Validations
+from tictactoe.constants import *
 
 class AIPlayer:
     def __init__(self, symbol):
@@ -10,13 +11,13 @@ class AIPlayer:
         validator = Validations()
         
         sym = self._symbol
-        opp = "O" if sym == "X" else "X"
+        opp = O if sym == X else X
 
         if self.middle_cell_is_available(validator, board):
-            return 5
+            return MIDDLE_CELL
 
         if self.corner_cell_is_available(validator, board):
-            return 3
+            return CORNER_CELL
    
         if self.winning_move_is_available(board, sym):
             return self.make_move(board, sym)
@@ -39,7 +40,7 @@ class AIPlayer:
 
     def make_move(self, board, symbol):
         spaces = board.spaces()
-        for combo in Game.WINNING_COMBOS:
+        for combo in WINNING_COMBOS:
             if (spaces[combo[1]] == symbol and 
                 spaces[combo[2]] == symbol and
                 spaces[combo[0]] == " "):
