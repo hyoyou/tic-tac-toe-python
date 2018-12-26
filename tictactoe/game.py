@@ -38,8 +38,7 @@ class Game:
     def winner(self):
         spaces = self._board.spaces()
         for combo in self.WINNING_COMBOS:
-            if (spaces[combo[0]] == spaces[combo[1]] and 
-                spaces[combo[1]] == spaces[combo[2]] and
+            if (spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
                 spaces[combo[0]] != " "):
                 return spaces[combo[0]]
 
