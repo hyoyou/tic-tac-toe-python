@@ -26,10 +26,10 @@ class AIPlayer:
         return self.random_move(board, validator)
         
     def middle_cell_is_available(self, validator, board):
-        return validator.is_empty(5, board)
+        return validator.is_empty(MIDDLE_CELL, board)
     
     def corner_cell_is_available(self, validator, board):
-        return validator.is_empty(3, board)
+        return validator.is_empty(CORNER_CELL, board)
     
     def winning_move_is_available(self, board, symbol):
         return self.make_move(board, symbol) != None
@@ -55,7 +55,7 @@ class AIPlayer:
         return None
 
     def random_move(self, board, validator):
-        best_move = 5
+        best_move = MIDDLE_CELL
         while not validator.is_empty(best_move, board):
             best_move = random.randint(1, 9)
         return best_move
