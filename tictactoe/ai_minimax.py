@@ -1,5 +1,4 @@
 import code
-from operator import itemgetter
 from tictactoe.constants import *
 
 class AIMinimax:
@@ -28,9 +27,9 @@ class AIMinimax:
             board.make_move(i+1, " ")
 
         if player == X:
-            return min(moves, key=itemgetter(1))
+            return min(moves, key=lambda x: x[1])
         elif player == O:
-            return max(moves, key=itemgetter(1))
+            return max(moves, key=lambda x: x[1])
 
     def is_player_winning(self, board, player):
         if (board._board[0] == player and board._board[1] == player and board._board[2] == player or
