@@ -80,19 +80,19 @@ class AIMinimaxTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def test_itReturnsTrueWhenAskedIfPlayerSymbolWinsTheGame(self):
-        result = self.ai.winning_player(self.x_winning(), "X")
+        result = self.ai.is_player_winning(self.x_winning(), "X")
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = self.ai.winning_player(self.o_winning(), "O")
+        result = self.ai.is_player_winning(self.o_winning(), "O")
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def test_itReturnsFalseWhenAskedIfOpponentPlayerSymbolWinsTheGame(self):
-        result = self.ai.winning_player(self.x_winning(), "O")
+        result = self.ai.is_player_winning(self.x_winning(), "O")
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = self.ai.winning_player(self.o_winning(), "X")
+        result = self.ai.is_player_winning(self.o_winning(), "X")
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
