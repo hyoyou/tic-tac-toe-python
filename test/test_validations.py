@@ -5,7 +5,7 @@ from tictactoe.board import Board
 from tictactoe.player import Player
 from tictactoe.validations import Validations
 
-class TestValidations(unittest.TestCase):
+class ValidationsTest(unittest.TestCase):
     def setUp(self):
         self.board = Board()
         self.player1 = Player("X", MockCLIInput(), MockCLIOutput())

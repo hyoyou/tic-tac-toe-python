@@ -11,22 +11,22 @@ class GameTest(unittest.TestCase):
         self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
     
     def player1_win(self):
-        self.game._board.make_move(1, self.game._player1)
-        self.game._board.make_move(3, self.game._player2)
-        self.game._board.make_move(5, self.game._player1)
-        self.game._board.make_move(6, self.game._player2)
-        self.game._board.make_move(9, self.game._player1)
+        self.game._board.make_move(1, self.game._player1._symbol)
+        self.game._board.make_move(3, self.game._player2._symbol)
+        self.game._board.make_move(5, self.game._player1._symbol)
+        self.game._board.make_move(6, self.game._player2._symbol)
+        self.game._board.make_move(9, self.game._player1._symbol)
 
     def draw_game(self):
-        self.game._board.make_move(5, self.game._player1)
-        self.game._board.make_move(1, self.game._player2)
-        self.game._board.make_move(3, self.game._player1)
-        self.game._board.make_move(7, self.game._player2)
-        self.game._board.make_move(4, self.game._player1)
-        self.game._board.make_move(8, self.game._player2)
-        self.game._board.make_move(9, self.game._player1)
-        self.game._board.make_move(6, self.game._player2)
-        self.game._board.make_move(2, self.game._player1)
+        self.game._board.make_move(5, self.game._player1._symbol)
+        self.game._board.make_move(1, self.game._player2._symbol)
+        self.game._board.make_move(3, self.game._player1._symbol)
+        self.game._board.make_move(7, self.game._player2._symbol)
+        self.game._board.make_move(4, self.game._player1._symbol)
+        self.game._board.make_move(8, self.game._player2._symbol)
+        self.game._board.make_move(9, self.game._player1._symbol)
+        self.game._board.make_move(6, self.game._player2._symbol)
+        self.game._board.make_move(2, self.game._player1._symbol)
 
     def testGameBoardReturnsEmptyListAtGameStart(self):
         result = self.game._board.spaces()
@@ -48,9 +48,9 @@ class GameTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testCurrentPlayerAfterAFewMovesAreMade(self):
-        self.game._board.make_move(5, self.game._player1)
-        self.game._board.make_move(1, self.game._player2)
-        self.game._board.make_move(3, self.game._player1)
+        self.game._board.make_move(5, self.game._player1._symbol)
+        self.game._board.make_move(1, self.game._player2._symbol)
+        self.game._board.make_move(3, self.game._player1._symbol)
 
         result = self.game.current_player()
         expected_result = self.game._player2

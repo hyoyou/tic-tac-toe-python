@@ -5,6 +5,7 @@ from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
+from tictactoe.ai_minimax import AIMinimax
 from startgame import StartGame
 
 class StartGameTest(unittest.TestCase):
@@ -48,7 +49,7 @@ class StartGameTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
         result = type(game._player2)
-        expected_result = AIPlayer
+        expected_result = AIMinimax
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testChooseGameComputerVsComputer(self):
@@ -59,7 +60,7 @@ class StartGameTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
         result = type(game._player2)
-        expected_result = AIPlayer
+        expected_result = AIMinimax
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
   
     def testGameExitsWithAnyOtherInput(self):

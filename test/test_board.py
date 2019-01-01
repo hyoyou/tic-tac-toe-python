@@ -22,8 +22,8 @@ class BoardTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testBoardReturnsCorrectSpacesAsListWithMoves(self):
-        self.board.make_move(1, self.player1)
-        self.board.make_move(5, self.player2)
+        self.board.make_move(1, self.player1._symbol)
+        self.board.make_move(5, self.player2._symbol)
 
         result = self.board.spaces()
         expected_result = ['X', ' ', ' ', ' ', 'O', ' ', ' ', ' ', ' ']
@@ -34,39 +34,50 @@ class BoardTest(unittest.TestCase):
         expected_result = 5
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
+    def testBoardReturnsAListOfEmptyCellsWhenEmptyCellsCalled(self):
+        self.board.make_move(1, self.player1._symbol)
+        self.board.make_move(2, self.player2._symbol)
+        self.board.make_move(3, self.player1._symbol)
+        self.board.make_move(4, self.player2._symbol)
+        self.board.make_move(5, self.player1._symbol)
+
+        result = self.board.empty_cells()
+        expected_result = [5, 6, 7, 8]
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
     def testBoardReturnsThePlayerSymbolWhenSpaceCalledOnCellThatHasBeenPlayed(self):
-        self.board.make_move(5, self.player1)
+        self.board.make_move(5, self.player1._symbol)
 
         result = self.board.space(5)
         expected_result = "X"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testBoardUpdatesWhenPlayerMakesMove(self):
-        self.board.make_move(5, self.player1)
+        self.board.make_move(5, self.player1._symbol)
 
         result = self.board.spaces()
         expected_result = [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ']
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testBoardIsFullReturnsTrueWhenTheBoardIsFull(self):
-        self.board.make_move(1, self.player1)
-        self.board.make_move(2, self.player2)
-        self.board.make_move(3, self.player1)
-        self.board.make_move(4, self.player2)
-        self.board.make_move(5, self.player1)
-        self.board.make_move(6, self.player2)
-        self.board.make_move(8, self.player1)
-        self.board.make_move(7, self.player2)
-        self.board.make_move(9, self.player1)
+        self.board.make_move(1, self.player1._symbol)
+        self.board.make_move(2, self.player2._symbol)
+        self.board.make_move(3, self.player1._symbol)
+        self.board.make_move(4, self.player2._symbol)
+        self.board.make_move(5, self.player1._symbol)
+        self.board.make_move(6, self.player2._symbol)
+        self.board.make_move(8, self.player1._symbol)
+        self.board.make_move(7, self.player2._symbol)
+        self.board.make_move(9, self.player1._symbol)
         
         result = self.board.is_full()
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testBoardReturnsTurnCountBasedOnNumberOfAvailableSpacesOnBoard(self):
-        self.board.make_move(1, self.player1)
-        self.board.make_move(3, self.player2)
-        self.board.make_move(5, self.player1)
+        self.board.make_move(1, self.player1._symbol)
+        self.board.make_move(3, self.player2._symbol)
+        self.board.make_move(5, self.player1._symbol)
 
         result = self.board.turn_count()
         expected_result = 3

@@ -7,7 +7,7 @@ class Validations:
             elif self.is_input_in_range(num_input) and not self.is_empty(num_input, board):
                 return False, "That position has already been played. Please enter a valid move:"
             elif not self.is_input_in_range(num_input):
-                return False, "Position out of range. Please enter only digits 1-9:"
+                return False, f"{num_input} Position out of range. Please enter only digits 1-9:"
         except ValueError:
             return False, f"You entered {input}. Please enter only digits 1-9:"
     

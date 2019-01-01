@@ -36,7 +36,7 @@ class Game:
         
         valid, message = self._validator.is_valid_move(user_move, self._board)
         if valid:
-            self._board.make_move(int(user_move), current_player)
+            self._board.make_move(int(user_move), current_player._symbol)
         
         self._output.print(message)
         self._output.print_board(self._board)

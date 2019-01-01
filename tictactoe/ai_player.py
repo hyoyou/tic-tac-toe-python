@@ -1,5 +1,4 @@
 import random
-from tictactoe.game import Game
 from tictactoe.validations import Validations
 from tictactoe.constants import *
 
