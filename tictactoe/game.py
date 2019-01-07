@@ -1,4 +1,5 @@
 from tictactoe.constants import WINNING_COMBOS
+import code
 
 class Game:
     def __init__(self, player1, player2, cli_output, validator, board = None):
@@ -35,8 +36,12 @@ class Game:
         user_move = current_player.move(self._board)
         
         valid, message = self._validator.is_valid_move(user_move, self._board)
+        # code.interact(local=locals())
         if valid:
             self._board.make_move(int(user_move), current_player._symbol)
+        elif message == "Quit game? (Y/N)":
+            # A Function that asks to save game, then save to database
+            exit()
         
         self._output.print(message)
         self._output.print_board(self._board)

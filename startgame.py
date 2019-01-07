@@ -1,3 +1,4 @@
+import db.database_functions as db
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
 from tictactoe.board import Board
@@ -7,6 +8,7 @@ from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.validations import Validations
+import code
 
 class StartGame:
     def __init__(self, cli_input, cli_output):
@@ -30,6 +32,10 @@ class StartGame:
         (0) Computer   v.   Computer
         (1) Player     v.   Computer
         (2) Player 1   v.   Player 2
+
+        or
+
+        (c) to continue playing previous game
         
         """)
 
@@ -40,17 +46,27 @@ class StartGame:
             return self.one_player()
         elif game_mode == '2':
             return self.two_player()
+        elif game_mode == 'c':
+            session = db.create_session()
+            return db.retrieve_last_game(session)
         else:
             return exit('Goodbye!')
 
     def zero_player(self):
-        return Game(AIPlayer(X), AIMinimax(O), self._output, Validations(), Board())
+        session = db.create_session()
+        game_object = Game(AIPlayer(X), AIMinimax(O), self._output, Validations(), Board())
+        db.add_game_to_database(game_object, session)
+
+        return game_object
 
     def one_player(self):
         return Game(Player(X, self._input, self._output), AIMinimax(O), self._output, Validations(), Board())
         
-    def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-        return Game(Player(X, self._input, self._output), Player(O, self._input, self._output), self._output, Validations(), Board())
+    def two_player(self):
+        session = db.create_session()
+        game_object = Game(Player(X, self._input, self._output), Player(O, self._input, self._output), self._output, Validations(), Board())
+        db.add_game_to_database(game_object, session)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+        return game_object
         
     def display_rules(self):
         self._output.print("""

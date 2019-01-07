@@ -1,5 +1,11 @@
+import code
+
 class Validations:
     def is_valid_move(self, input, board):
+        # code.interact(local=locals())
+        # if input.upper() == 'Q':
+        #     return False, "Quit game? (Y/N)"
+
         try:
             num_input = int(input)
             if self.is_input_in_range(num_input) and self.is_empty(num_input, board):
@@ -9,7 +15,7 @@ class Validations:
             elif not self.is_input_in_range(num_input):
                 return False, f"{num_input} Position out of range. Please enter only digits 1-9:"
         except ValueError:
-            return False, f"You entered {input}. Please enter only digits 1-9:"
+            return False, f"You entered {input}. Please enter only digits 1-9 or 'q' to quit:"
     
     def is_input_in_range(self, input):
         return input >= 1 and input <= 9
