@@ -8,12 +8,14 @@ from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.validations import Validations
+from tictactoe.ui_wrapper import UIWrapper
 import code
 
 class StartGame:
     def __init__(self, cli_input, cli_output):
         self._input = cli_input
         self._output = cli_output
+        self._ui = UIWrapper(cli_output)
 
     def game_loop(self):
         self.welcome()
@@ -24,23 +26,13 @@ class StartGame:
         game.game_play_loop()
 
     def welcome(self):
-        self._output.print("Welcome to Tic Tac Toe")
+        self._ui.print_welcome()
     
     def display_menu(self):
-        self._output.print("""
-        Please choose number of players (0-2):
-        (0) Computer   v.   Computer
-        (1) Player     v.   Computer
-        (2) Player 1   v.   Player 2
-        """)
-        
         if db.check_for_saved_game():
-            self._output.print("""
-            or
+            return self._ui.print_option_to_play_saved_game()
 
-        (c) to continue playing previous game
-        
-        """)
+        self._ui.print_option_to_choose_num_of_players()
 
     def number_of_players(self, game_mode):
         if game_mode == '0':
@@ -65,24 +57,7 @@ class StartGame:
         return Game(Player(X, self._input, self._output), Player(O, self._input, self._output), self._output, Validations(), Board())
         
     def display_rules(self):
-        self._output.print("""
-        How To Play Tic-Tac-Toe
-        -----------------------
-        The goal of this game is to get three of the same symbols, either an 'X' or an 'O', in a row.
-        This of course counts vertical, horizontal, as well as diagonal wins. The first player to get 3 in
-        a row wins the game. A stalemate, in which all 9 positions of the board are filled without any
-        winners is traditionally referred to as 'Cat\'s Game' in Tic-Tac-Toe. 
-        
-        Sample winning patterns:
-
-          Diagonal         Vertical        Horizontal
-         X |   |            | X |            |   |   
-        ===+===+===      ===+===+===      ===+===+===
-           | X |            | X |          X | X | X 
-        ===+===+===      ===+===+===      ===+===+===
-           |   | X          | X |            |   |   
-    
-        """)
+        return self._ui.print_rules()
 
 if __name__ == '__main__':
     new_game = StartGame(CLIInput(), CLIOutput())
