@@ -2,6 +2,7 @@ from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import *
 from db import engine
+from .mutable_wrapper import MutableTypeWrapper
 import datetime
 
 Base = declarative_base()

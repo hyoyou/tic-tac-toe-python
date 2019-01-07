@@ -3,8 +3,8 @@ import code
 class Validations:
     def is_valid_move(self, input, board):
         # code.interact(local=locals())
-        # if input.upper() == 'Q':
-        #     return False, "Quit game? (Y/N)"
+        if input == 'Q':
+            return False, "Your game progress has been saved."
 
         try:
             num_input = int(input)
