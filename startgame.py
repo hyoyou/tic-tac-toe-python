@@ -9,7 +9,6 @@ from tictactoe.ai_player import AIPlayer
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.validations import Validations
 from tictactoe.ui_wrapper import UIWrapper
-import code
 
 class StartGame:
     def __init__(self, cli_input, cli_output):
