@@ -15,6 +15,11 @@ def create_session():
     session = Session()
     return session
 
+def check_for_saved_game():
+    session = create_session()
+    saved_game = session.query(game).count()
+    return saved_game > 0
+
 def retrieve_last_game(session):
     engine.connect()
     game_id, pickled_game, date = session.query(game).order_by(desc(Game.id)).first()
