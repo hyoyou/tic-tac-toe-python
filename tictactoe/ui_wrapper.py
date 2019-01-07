@@ -1,4 +1,3 @@
-from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
 
 class UIWrapper:
