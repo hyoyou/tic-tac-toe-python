@@ -32,8 +32,11 @@ class StartGame:
         (0) Computer   v.   Computer
         (1) Player     v.   Computer
         (2) Player 1   v.   Player 2
-
-        or
+        """)
+        
+        if db.check_for_saved_game():
+            self._output.print("""
+            or
 
         (c) to continue playing previous game
         
