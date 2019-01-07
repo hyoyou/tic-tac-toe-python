@@ -1,9 +1,6 @@
-import code
-
 class Validations:
     def is_valid_move(self, input, board):
-        # code.interact(local=locals())
-        if input == 'Q':
+        if input == 'q':
             return False, "Your game progress has been saved."
 
         try:
