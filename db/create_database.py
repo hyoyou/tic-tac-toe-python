@@ -1,8 +1,6 @@
 import datetime
-from sqlalchemy import *
-from sqlalchemy.sql import *
+from sqlalchemy import Column, Integer, PickleType, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from db import engine
 
 Base = declarative_base()
 
@@ -15,5 +13,3 @@ class Game(Base):
 
     def __repr__(self):
         return "<Game(id='%s', game='%s', timestamp='%s')>" % (self.id, self.game, self.timestamp)
-
-Game.__table__.create(bind=engine, checkfirst=True)
