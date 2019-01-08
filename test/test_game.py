@@ -9,7 +9,7 @@ from tictactoe.validations import Validations
 class GameTest(unittest.TestCase):
     def setUp(self):
         self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
-    
+
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1)
         self.game._board.make_move(3, self.game._player2)
@@ -32,12 +32,12 @@ class GameTest(unittest.TestCase):
         result = self.game._board.spaces()
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testGamePlayersHaveSeparateSymbolsOnGameStart(self):
         result = self.game._player1._symbol
         expected_result = "X"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-        
+
         result = self.game._player2._symbol
         expected_result = "O"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -62,17 +62,17 @@ class GameTest(unittest.TestCase):
         result = self.game.is_won()
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testGameIsWonReturnsFalseWhenGameIsNotWon(self):
         self.draw_game()
 
         result = self.game.is_won()
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testGameIsDrawReturnsTrueWhenGameIsADraw(self):
         self.draw_game()
-        
+
         result = self.game.is_draw()
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -93,20 +93,20 @@ class GameTest(unittest.TestCase):
 
     def testGameReturnsWinningPlayersSymbol(self):
         self.player1_win()
-        
+
         result = self.game.winner()
         expected_result = self.game._player1._symbol
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
- 
+
     def testGameDisplaysBoardWhenMovePlayed(self):
         result = self.game.play_move()
         expected_result = self.game._output.print_board(self.game._board)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
- 
+
     def testGameDisplaysMessageWhenGameIsWon(self):
         self.player1_win()
         self.game.game_play_loop()
-        
+
         result = self.game._output._last_output
         expected_result = "Congratulations Player X! You won!"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
