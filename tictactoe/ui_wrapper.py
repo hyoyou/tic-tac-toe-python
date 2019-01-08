@@ -1,4 +1,4 @@
-from tictactoe.cli_output import CLIOutput
+from .cli_output import CLIOutput
 
 class UIWrapper:
     def __init__(self, cli_output):
@@ -44,3 +44,12 @@ class UIWrapper:
         or
 
         To begin a new game""")
+
+    def print_board(self, board):
+        return self._output.print(f'''
+         {board.space(1)} | {board.space(2)} | {board.space(3)} 
+        ===+===+===
+         {board.space(4)} | {board.space(5)} | {board.space(6)} 
+        ===+===+===
+         {board.space(7)} | {board.space(8)} | {board.space(9)} 
+        ''')
