@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 from db.database import Database
-from db.create_database import Game
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
 from tictactoe.board import Board
@@ -28,13 +27,16 @@ class StartGame:
         game.game_play_loop(self._db)
 
     def welcome(self):
-        self._ui.print_welcome()
+        return self._ui.print_welcome()
     
+    def display_rules(self):
+        return self._ui.print_rules()
+
     def display_menu(self):
         if self._db.check_for_saved_game():
             return self._ui.print_option_to_play_saved_game(), self._ui.print_option_to_choose_num_of_players()
 
-        self._ui.print_option_to_choose_num_of_players()
+        return self._ui.print_option_to_choose_num_of_players()
 
     def number_of_players(self, game_mode):
         if game_mode == '0':
@@ -46,7 +48,7 @@ class StartGame:
         elif game_mode == 'c':
             return self._db.retrieve_last_game()
         else:
-            return exit('Goodbye!')
+            return self.exit_application()
 
     def zero_player(self):
         return Game(AIPlayer(X), AIMinimax(O), self._output, Validations(), Board())
@@ -56,9 +58,9 @@ class StartGame:
         
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         return Game(Player(X, self._input, self._output), Player(O, self._input, self._output), self._output, Validations(), Board())
-        
-    def display_rules(self):
-        return self._ui.print_rules()
+
+    def exit_application(self):
+        return exit('Goodbye!')
 
 if __name__ == '__main__':
     engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/tictactoe')
