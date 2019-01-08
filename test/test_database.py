@@ -8,6 +8,7 @@ from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.validations import Validations
+from tictactoe.setup_game import SetupGame
 from startgame import StartGame
 
 class DatabaseTest(unittest.TestCase):
@@ -17,7 +18,7 @@ class DatabaseTest(unittest.TestCase):
         self.mock_cli_output = MockCLIOutput()
         self.ui = UIWrapper(self.mock_cli_output)
         self.game = Game(Player("X", MockCLIInput(), self.ui), Player("O", MockCLIInput(), self.ui), self.ui, Validations(), Board())
-        self.startgame = StartGame(MockCLIInput(), self.mock_cli_output, self.engine)
+        self.setup_game = SetupGame(MockCLIInput(), self.mock_cli_output, self.engine)
 
     def playIncompleteGame(self):
         self.game._board.make_move(1, self.game._player1._symbol)
@@ -52,7 +53,7 @@ class DatabaseTest(unittest.TestCase):
     def testGameLoadsMenuToContinuePlayingSavedGameOnlyWhenThereIsASavedGame(self):
         self.playIncompleteGame()
         self.db.add_game_to_database(self.game)
-        self.startgame.display_menu()
+        self.setup_game.display_menu()
 
         result = self.mock_cli_output._last_output
         expected_result = "There is a saved game"
