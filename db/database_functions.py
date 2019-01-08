@@ -20,12 +20,14 @@ def check_for_saved_game():
     session.close()
     return saved_game > 0
 
-def retrieve_last_game(session):
+def retrieve_last_game():
+    session = create_session()
     game_id, pickled_game, date = session.query(game).order_by(desc(Game.id)).first()
     game_obj = pickle.loads(pickled_game)
     return game_obj
 
-def add_game_to_database(game_object, session):
+def add_game_to_database(game_object):
+    session = create_session()
     if check_for_saved_game():
         delete_game_from_database(session)
     current_game = Game(game=game_object)
@@ -33,7 +35,8 @@ def add_game_to_database(game_object, session):
     session.commit()
     session.close()
 
-def delete_game_from_database(session):
+def delete_game_from_database():
+    session = create_session()
     if session.query(game).order_by(desc(Game.id)).first():
         completed_game_id, pickled_game, date = session.query(game).order_by(desc(Game.id)).first()
         completed_game_entry = session.query(Game).filter_by(id = completed_game_id).one()
