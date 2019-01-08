@@ -1,4 +1,5 @@
 import unittest
+from sqlalchemy import create_engine
 from test.mock_cli_input import MockCLIInput
 from test.mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
@@ -12,7 +13,8 @@ class StartGameTest(unittest.TestCase):
     def setUp(self):
         self.mock_cli_input = MockCLIInput()
         self.mock_cli_output = MockCLIOutput()
-        self.start_game = StartGame(self.mock_cli_input, self.mock_cli_output)
+        self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
+        self.start_game = StartGame(self.mock_cli_input, self.mock_cli_output, self.engine)
 
     def testWelcomeUser(self):
         self.mock_cli_input.set_value('0')
