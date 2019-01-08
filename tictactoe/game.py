@@ -1,4 +1,5 @@
-from tictactoe.constants import WINNING_COMBOS
+from .constants import WINNING_COMBOS
+from .ui_wrapper import UIWrapper
 import code
 
 class Game:
@@ -44,10 +45,12 @@ class Game:
             self.exit_game()
         
         self._output.print(message)
-        self._output.print_board(self._board)
+        ui = UIWrapper(self._output)
+        ui.print_board(self._board)
 
     def game_play_loop(self, db):
-        self._output.print_board(self._board)
+        ui = UIWrapper(self._output)
+        ui.print_board(self._board)
         while not self.is_over():
             self.play_move(db)
 
