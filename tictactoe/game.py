@@ -60,9 +60,7 @@ class Game:
             return self._output.print("Cat's game!")
     
     def update_database(self):
-        session = db.create_session()
-        db.add_game_to_database(self, session)
+        db.add_game_to_database(self)
     
     def remove_complete_game_from_database(self):
-        session = db.create_session()
-        db.delete_game_from_database(session)
+        db.delete_game_from_database()

@@ -41,8 +41,7 @@ class StartGame:
         elif game_mode == '2':
             return self.two_player()
         elif game_mode == 'c':
-            session = db.create_session()
-            return db.retrieve_last_game(session)
+            return db.retrieve_last_game()
         else:
             return exit('Goodbye!')
 
