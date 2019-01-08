@@ -51,13 +51,13 @@ class StartGame:
             return self.exit_application()
 
     def zero_player(self):
-        return Game(AIPlayer(X), AIMinimax(O), self._output, Validations(), Board())
+        return Game(AIPlayer(X), AIMinimax(O), self._ui, Validations(), Board())
 
     def one_player(self):
-        return Game(Player(X, self._input, self._output), AIMinimax(O), self._output, Validations(), Board())
+        return Game(Player(X, self._input, self._ui), AIMinimax(O), self._ui, Validations(), Board())
         
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-        return Game(Player(X, self._input, self._output), Player(O, self._input, self._output), self._output, Validations(), Board())
+        return Game(Player(X, self._input, self._ui), Player(O, self._input, self._ui), self._ui, Validations(), Board())
 
     def exit_application(self):
         return exit('Goodbye!')
