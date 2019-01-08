@@ -1,4 +1,6 @@
 import unittest
+from sqlalchemy import create_engine
+from db.database import Database
 from test.mock_cli_input import MockCLIInput
 from test.mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
@@ -9,6 +11,8 @@ from tictactoe.validations import Validations
 class GameTest(unittest.TestCase):
     def setUp(self):
         self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
+        self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
+        self.db = Database(self.engine)
     
     def player1_win(self):
         self.game._board.make_move(1, self.game._player1._symbol)
@@ -99,13 +103,13 @@ class GameTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
     def testGameDisplaysBoardWhenMovePlayed(self):
-        result = self.game.play_move()
+        result = self.game.play_move(self.db)
         expected_result = self.game._output.print_board(self.game._board)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
     def testGameDisplaysMessageWhenGameIsWon(self):
         self.player1_win()
-        self.game.game_play_loop()
+        self.game.game_play_loop(self.db)
         
         result = self.game._output._last_output
         expected_result = "Congratulations Player X! You won!"
@@ -113,7 +117,7 @@ class GameTest(unittest.TestCase):
 
     def testGameDisplaysMessageWhenGameIsADraw(self):
         self.draw_game()
-        self.game.game_play_loop()
+        self.game.game_play_loop(self.db)
 
         result = self.game._output._last_output
         expected_result = "Cat's game!"

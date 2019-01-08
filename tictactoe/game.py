@@ -1,5 +1,4 @@
 from tictactoe.constants import WINNING_COMBOS
-import db.database_functions as db
 import code
 
 class Game:
@@ -32,7 +31,7 @@ class Game:
             if self.is_won:
                 return spaces[combo[0]]
 
-    def play_move(self):
+    def play_move(self, db):
         current_player = self.current_player()
         user_move = current_player.move(self._board)
         
@@ -41,26 +40,26 @@ class Game:
             self._board.make_move(int(user_move), current_player._symbol)
         elif message == "Your game progress has been saved.":
             self._output.print(message)
-            self.update_database()
+            self.update_database(db)
             exit()
         
         self._output.print(message)
         self._output.print_board(self._board)
 
-    def game_play_loop(self):
+    def game_play_loop(self, db):
         self._output.print_board(self._board)
         while not self.is_over():
-            self.play_move()
+            self.play_move(db)
 
         if self.is_won():
-            self.remove_complete_game_from_database()
+            self.remove_complete_game_from_database(db)
             return self._output.print('Congratulations Player ' + self.winner() + '! You won!')
         else:
-            self.remove_complete_game_from_database()
+            self.remove_complete_game_from_database(db)
             return self._output.print("Cat's game!")
     
-    def update_database(self):
+    def update_database(self, db):
         db.add_game_to_database(self)
     
-    def remove_complete_game_from_database(self):
+    def remove_complete_game_from_database(self, db):
         db.delete_game_from_database()
