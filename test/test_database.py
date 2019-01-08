@@ -1,15 +1,13 @@
 import unittest
-import sqlalchemy.orm
 from sqlalchemy import create_engine
+from .mock_cli_input import MockCLIInput
+from .mock_cli_output import MockCLIOutput
 from db.database import Database
-from test.mock_cli_input import MockCLIInput
-from test.mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.validations import Validations
 from startgame import StartGame
-import code
 
 class DatabaseTest(unittest.TestCase):
     def setUp(self):

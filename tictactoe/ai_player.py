@@ -1,6 +1,6 @@
 import random
-from tictactoe.validations import Validations
-from tictactoe.constants import *
+from .validations import Validations
+from .constants import *
 
 class AIPlayer:
     def __init__(self, symbol):
