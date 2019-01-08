@@ -19,7 +19,6 @@ class Database:
     def check_for_saved_game(self):
         session = self.create_session()
         saved_game = session.query(self.game).count()
-        session.close()
         return saved_game > 0
 
     def retrieve_last_game(self):
@@ -35,7 +34,6 @@ class Database:
         current_game = Game(game=game_object)
         session.add(current_game)
         session.commit()
-        session.close()
 
     def delete_game_from_database(self):
         session = self.create_session()
@@ -44,4 +42,3 @@ class Database:
             completed_game_entry = session.query(Game).filter_by(id = completed_game_id).one()
             session.delete(completed_game_entry)
             session.commit()
-            session.close()

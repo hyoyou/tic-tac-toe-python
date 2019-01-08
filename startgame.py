@@ -32,7 +32,7 @@ class StartGame:
     
     def display_menu(self):
         if self._db.check_for_saved_game():
-            return self._ui.print_option_to_play_saved_game()
+            return self._ui.print_option_to_play_saved_game(), self._ui.print_option_to_choose_num_of_players()
 
         self._ui.print_option_to_choose_num_of_players()
 
