@@ -6,6 +6,7 @@ from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 from tictactoe.setup_game import SetupGame
+from tictactoe.printer import Printer
 
 class SetupGameTest(unittest.TestCase):
     def setUp(self):
@@ -61,6 +62,17 @@ class SetupGameTest(unittest.TestCase):
         result = type(game._player2)
         expected_result = AIPlayer
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testDisplaysBoardOnce(self):
+        self.mock_cli_input.set_value('0')
+        board = Board()
+        printer = Printer()
+        board_string = printer.print_board(board)
+
+        self.start_game.run()
+
+        result = self.mock_cli_output._last_output
+        self.assertTrue(board_string in result, msg='\nRetrieved:\n{0} \nExpected to contain:\n{1}'.format(result, board_string))
 
     def testGameExitsWithAnyOtherInput(self):
         self.mock_cli_input.set_value('3')

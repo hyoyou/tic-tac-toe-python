@@ -17,7 +17,11 @@ class SetupGame:
         self.display_rules()
         self.display_menu()
         game_mode = self._input.get_input()
-        return self.number_of_players(game_mode)
+        game = self.number_of_players(game_mode)
+        board = Board()
+        printer = Printer()
+        self._output.print(printer.print_board(board))
+        return game
 
     def welcome(self):
         self._output.print("Welcome to Tic Tac Toe")
