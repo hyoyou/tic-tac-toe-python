@@ -1,5 +1,5 @@
 import code
-from tictactoe.constants import *
+from .constants import X, O
 
 class AIMinimax:
     def __init__(self, symbol):
