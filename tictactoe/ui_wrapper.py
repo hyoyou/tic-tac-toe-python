@@ -4,6 +4,9 @@ class UIWrapper:
     def __init__(self, cli_output):
         self._output = cli_output
 
+    def print(self, message):
+        return self._output.print(message)
+
     def print_welcome(self):
         return self._output.print("\tWelcome to Tic Tac Toe")
 

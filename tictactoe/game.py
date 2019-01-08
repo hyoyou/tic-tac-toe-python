@@ -45,8 +45,7 @@ class Game:
             self.exit_game()
         
         self._output.print(message)
-        ui = UIWrapper(self._output)
-        ui.print_board(self._board)
+        self._output.print_board(self._board)
 
     def game_play_loop(self, db):
         ui = UIWrapper(self._output)
