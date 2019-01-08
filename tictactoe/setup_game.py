@@ -1,5 +1,6 @@
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
+from tictactoe.printer import Printer
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
@@ -41,13 +42,13 @@ class SetupGame:
             return exit('Goodbye!')
 
     def zero_player(self):
-        return Game(AIPlayer("X"), AIPlayer("O"), self._output, Validations(), Board())
+        return Game(AIPlayer("X"), AIPlayer("O"), Printer(), self._output, Validations(), Board())
 
     def one_player(self):
-        return Game(Player("X", self._input, self._output), AIPlayer("O"), self._output, Validations(), Board())
+        return Game(Player("X", self._input, self._output), AIPlayer("O"), Printer(), self._output, Validations(), Board())
 
     def two_player(self):
-        return Game(Player("X", self._input, self._output), Player("O", self._input, self._output), self._output, Validations(), Board())
+        return Game(Player("X", self._input, self._output), Player("O", self._input, self._output), Printer(), self._output, Validations(), Board())
 
     def display_rules(self):
         self._output.print("""

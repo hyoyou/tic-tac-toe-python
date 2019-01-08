@@ -1,9 +1,10 @@
 from tictactoe.constants import WINNING_COMBOS
 
 class Game:
-    def __init__(self, player1, player2, cli_output, validator, board = None):
+    def __init__(self, player1, player2, printer, cli_output, validator, board = None):
         self._player1 = player1
         self._player2 = player2
+        self._printer = printer
         self._output = cli_output
         self._validator = validator
         self._board = board
@@ -39,7 +40,8 @@ class Game:
             self._board.make_move(int(user_move), current_player)
         
         self._output.print(message)
-        self._output.print_board(self._board)
+        string_board = self._printer.print_board(self._board)
+        self._output.print(string_board)
 
     def game_play_loop(self):
         while not self.is_over():
