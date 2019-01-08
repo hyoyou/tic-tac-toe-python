@@ -41,7 +41,7 @@ class Game:
         elif message == "Your game progress has been saved.":
             self._output.print(message)
             self.update_database(db)
-            exit()
+            self.exit_game()
         
         self._output.print(message)
         self._output.print_board(self._board)
@@ -63,3 +63,6 @@ class Game:
     
     def remove_complete_game_from_database(self, db):
         db.delete_game_from_database()
+
+    def exit_game(self):
+        return exit('Goodbye!')

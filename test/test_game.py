@@ -10,7 +10,8 @@ from tictactoe.validations import Validations
 
 class GameTest(unittest.TestCase):
     def setUp(self):
-        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
+        self.mock_cli_input = MockCLIInput()
+        self.game = Game(Player("X", self.mock_cli_input, MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
         self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
         self.db = Database(self.engine)
     
@@ -45,6 +46,14 @@ class GameTest(unittest.TestCase):
         result = self.game._player2._symbol
         expected_result = "O"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    # def testGameDisplaysEmptyBoardToUserOnGameStart(self):
+    #     self.mock_cli_input.set_value('q')
+    #     self.game.game_play_loop(self.db)
+
+    #     result = self.game._output._last_output
+    #     expected_result = self.game._board.spaces()
+    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testCurrentPlayerIsPlayerXWhenGameStarts(self):
         result = self.game.current_player()
