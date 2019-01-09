@@ -1,4 +1,4 @@
-from tictactoe.constants import WINNING_COMBOS
+from .constants import WINNING_COMBOS
 
 class Board:
     def __init__(self):
