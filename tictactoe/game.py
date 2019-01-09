@@ -1,6 +1,5 @@
 from .constants import WINNING_COMBOS
 from .ui_wrapper import UIWrapper
-import code
 
 class Game:
     def __init__(self, player1, player2, cli_output, validator, board = None):

@@ -1,4 +1,3 @@
-import code
 from .constants import X, O
 
 class AIMinimax:

@@ -9,7 +9,6 @@ from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.setup_game import SetupGame
-import code
 
 class SetupGameTest(unittest.TestCase):
     def setUp(self):
