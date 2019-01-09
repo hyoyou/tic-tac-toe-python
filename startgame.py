@@ -14,7 +14,6 @@ from tictactoe.ui_wrapper import UIWrapper
 class StartGame:
     def __init__(self, cli_input, cli_output, engine):
         self._input = cli_input
-        self._output = cli_output
         self._ui = UIWrapper(cli_output)
         self._db = Database(engine)
 

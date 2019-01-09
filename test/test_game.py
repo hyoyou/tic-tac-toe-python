@@ -7,6 +7,7 @@ from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.validations import Validations
+import code
 
 class GameTest(unittest.TestCase):
     def setUp(self):
@@ -46,14 +47,6 @@ class GameTest(unittest.TestCase):
         result = self.game._player2._symbol
         expected_result = "O"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    # def testGameDisplaysEmptyBoardToUserOnGameStart(self):
-    #     self.mock_cli_input.set_value('q')
-    #     self.game.game_play_loop(self.db)
-
-    #     result = self.game._output._last_output
-    #     expected_result = self.game._board.spaces()
-    #     self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testCurrentPlayerIsPlayerXWhenGameStarts(self):
         result = self.game.current_player()
@@ -109,11 +102,6 @@ class GameTest(unittest.TestCase):
         
         result = self.game.winner()
         expected_result = self.game._player1._symbol
-        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
- 
-    def testGameDisplaysBoardWhenMovePlayed(self):
-        result = self.game.play_move(self.db)
-        expected_result = self.game._output.print_board(self.game._board)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
     def testGameDisplaysMessageWhenGameIsWon(self):
