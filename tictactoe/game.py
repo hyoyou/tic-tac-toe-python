@@ -27,10 +27,14 @@ class Game:
         return self.is_won() or self.is_draw()
 
     def winner(self):
-        spaces = self._board.spaces()
         for combo in WINNING_COMBOS:
-            if self.is_won:
-                return spaces[combo[0]]
+            if self.match_symbol(combo):
+                return self.match_symbol(combo)
+    
+    def match_symbol(self, combo):
+        spaces = self._board.spaces()
+        if spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and spaces[combo[0]] != " ":
+            return spaces[combo[0]]
 
     def play_move(self, db):
         current_player = self.current_player()
