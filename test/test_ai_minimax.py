@@ -80,24 +80,6 @@ class AIMinimaxTest(unittest.TestCase):
         expected_result = (0, 0)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testAIMinimaxReturnsTrueWhenAskedIfPlayerSymbolWinsTheGame(self):
-        result = self.ai.is_player_winning(self.x_winning(), "X")
-        expected_result = True
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-        result = self.ai.is_player_winning(self.o_winning(), "O")
-        expected_result = True
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testAIMinimaxReturnsFalseWhenAskedIfOpponentPlayerSymbolWinsTheGame(self):
-        result = self.ai.is_player_winning(self.x_winning(), "O")
-        expected_result = False
-        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-        result = self.ai.is_player_winning(self.o_winning(), "X")
-        expected_result = False
-        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
     def testAIMinimaxTriesToWinIfAbleToTopRow(self):
         self.board.make_move(5, "X")
         self.board.make_move(3, "O")
