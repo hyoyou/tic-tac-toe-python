@@ -48,8 +48,7 @@ class Game:
         self._output.print_board(self._board)
 
     def game_play_loop(self, db):
-        ui = UIWrapper(self._output)
-        ui.print_board(self._board)
+        self._output.print_board(self._board)
         while not self.is_over():
             self.play_move(db)
 

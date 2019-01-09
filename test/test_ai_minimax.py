@@ -5,6 +5,7 @@ from tictactoe.board import Board
 class AIMinimaxTest(unittest.TestCase):
     def setUp(self):
         self.ai = AIMinimax("O")
+        self.board = Board()
 
     def x_winning(self):
         x_winning = Board()
@@ -45,7 +46,7 @@ class AIMinimaxTest(unittest.TestCase):
         new_game.make_move(1, "X")
         return new_game
     
-    def test_itEvaluatesTheStateOfTheGameAsTrueWhenThereIsAWin(self):
+    def testAIMinimaxEvaluatesTheStateOfTheGameAsTrueWhenThereIsAWin(self):
         result = self.ai.is_terminal_state(self.x_winning())
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -54,32 +55,32 @@ class AIMinimaxTest(unittest.TestCase):
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
-    def test_itEvaluatesTheStateOfTheGameAsTrueWhenThereIsADraw(self):
+    def testAIMinimaxEvaluatesTheStateOfTheGameAsTrueWhenThereIsADraw(self):
         result = self.ai.is_terminal_state(self.tie_game())
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def test_itEvaluatesTheStateOfTheGameAsFalseWhenGameIsNotOver(self):
+    def testAIMinimaxEvaluatesTheStateOfTheGameAsFalseWhenGameIsNotOver(self):
         result = self.ai.is_terminal_state(self.new_game())
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def test_itReturnsTheTerminalStateAsNeg10WhenXIsWinning(self):
+    def testAIMinimaxReturnsTheTerminalStateAsNeg10WhenXIsWinning(self):
         result = self.ai.terminal_state_score(self.x_winning(), "X")
         expected_result = (0, -10)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def test_itReturnsTheTerminalStateAs10WhenOIsWinning(self):
+    def testAIMinimaxReturnsTheTerminalStateAs10WhenOIsWinning(self):
         result = self.ai.terminal_state_score(self.o_winning(), "O")
         expected_result = (0, 10)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def test_itReturnsTheTerminalStateAs0WhenItsADraw(self):
+    def testAIMinimaxReturnsTheTerminalStateAs0WhenItsADraw(self):
         result = self.ai.terminal_state_score(self.tie_game(), "X")
         expected_result = (0, 0)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def test_itReturnsTrueWhenAskedIfPlayerSymbolWinsTheGame(self):
+    def testAIMinimaxReturnsTrueWhenAskedIfPlayerSymbolWinsTheGame(self):
         result = self.ai.is_player_winning(self.x_winning(), "X")
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -88,7 +89,7 @@ class AIMinimaxTest(unittest.TestCase):
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def test_itReturnsFalseWhenAskedIfOpponentPlayerSymbolWinsTheGame(self):
+    def testAIMinimaxReturnsFalseWhenAskedIfOpponentPlayerSymbolWinsTheGame(self):
         result = self.ai.is_player_winning(self.x_winning(), "O")
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -96,3 +97,34 @@ class AIMinimaxTest(unittest.TestCase):
         result = self.ai.is_player_winning(self.o_winning(), "X")
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testAIMinimaxTriesToWinIfAbleToTopRow(self):
+        self.board.make_move(5, "X")
+        self.board.make_move(3, "O")
+        self.board.make_move(7, "X")
+        self.board.make_move(2, "O")
+        self.board.make_move(4, "X")
+
+        result = self.ai.move(self.board)
+        expected_result = 1
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    
+    def testAIMinimaxTriesToBlockOpponentWinTopRow(self):
+        self.board.make_move(5, "X")
+        self.board.make_move(3, "O")
+        self.board.make_move(7, "X")
+        self.board.make_move(2, "O")
+        self.board.make_move(4, "X")
+
+        result = self.ai.move(self.board)
+        expected_result = 1
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testAIMinimaxTriesToBlockOpponentWinDiagonal(self):
+        self.board.make_move(5, "X")
+        self.board.make_move(3, "O")
+        self.board.make_move(1, "X")
+        
+        result = self.ai.move(self.board)
+        expected_result = 9
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
