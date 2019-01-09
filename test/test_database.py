@@ -13,7 +13,9 @@ class DatabaseTest(unittest.TestCase):
     def setUp(self):
         self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
         self.db = Database(self.engine)
-        self.game = Game(Player("X", MockCLIInput(), MockCLIOutput()), Player("O", MockCLIInput(), MockCLIOutput()), MockCLIOutput(), Validations(), Board())
+        self.mock_cli_output = MockCLIOutput()
+        self.game = Game(Player("X", MockCLIInput(), self.mock_cli_output), Player("O", MockCLIInput(), self.mock_cli_output), self.mock_cli_output, Validations(), Board())
+        self.startgame = StartGame(MockCLIInput(), self.mock_cli_output, self.engine)
 
     def playIncompleteGame(self):
         self.game._board.make_move(1, self.game._player1._symbol)
@@ -48,10 +50,9 @@ class DatabaseTest(unittest.TestCase):
     def testGameLoadsMenuToContinuePlayingSavedGameOnlyWhenThereIsASavedGame(self):
         self.playIncompleteGame()
         self.db.add_game_to_database(self.game)
-        startgame = StartGame(MockCLIInput(), MockCLIOutput(), self.engine)
-        startgame.display_menu()
+        self.startgame.display_menu()
 
-        result = startgame._output._last_output
+        result = self.mock_cli_output._last_output
         expected_result = "There is a saved game"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 

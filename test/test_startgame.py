@@ -2,6 +2,7 @@ import unittest
 from sqlalchemy import create_engine
 from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
+from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
@@ -20,7 +21,7 @@ class StartGameTest(unittest.TestCase):
         self.mock_cli_input.set_value('0')
         self.start_game.game_loop()
 
-        result = self.start_game._output._last_output
+        result = self.mock_cli_output._last_output
         expected_result = "Welcome to Tic Tac Toe"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
