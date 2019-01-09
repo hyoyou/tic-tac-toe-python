@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
 from db.database import Database
+from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
@@ -14,7 +15,8 @@ class DatabaseTest(unittest.TestCase):
         self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
         self.db = Database(self.engine)
         self.mock_cli_output = MockCLIOutput()
-        self.game = Game(Player("X", MockCLIInput(), self.mock_cli_output), Player("O", MockCLIInput(), self.mock_cli_output), self.mock_cli_output, Validations(), Board())
+        self.ui = UIWrapper(self.mock_cli_output)
+        self.game = Game(Player("X", MockCLIInput(), self.ui), Player("O", MockCLIInput(), self.ui), self.ui, Validations(), Board())
         self.startgame = StartGame(MockCLIInput(), self.mock_cli_output, self.engine)
 
     def playIncompleteGame(self):

@@ -5,5 +5,5 @@ class Player:
         self._output = cli_output
 
     def move(self, board):
-        self._output.print("Player " + self._symbol + ", please make a move or type 'q' to save and quit game:")
+        self._output.print_request_player_move(self._symbol)
         return self._input.get_input()

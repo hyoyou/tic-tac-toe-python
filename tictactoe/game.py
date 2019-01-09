@@ -54,10 +54,10 @@ class Game:
 
         if self.is_won():
             self.remove_complete_game_from_database(db)
-            return self._output.print('Congratulations Player ' + self.winner() + '! You won!')
+            return self._output.print_congratulations(self.winner())
         else:
             self.remove_complete_game_from_database(db)
-            return self._output.print("Cat's game!")
+            return self._output.print_draw_game()
     
     def update_database(self, db):
         db.add_game_to_database(self)
