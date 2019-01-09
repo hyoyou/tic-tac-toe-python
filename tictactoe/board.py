@@ -1,4 +1,4 @@
-from tictactoe.constants import *
+from tictactoe.constants import WINNING_COMBOS
 
 class Board:
     def __init__(self):
@@ -23,6 +23,15 @@ class Board:
         spaces = self.spaces()
         return any(spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
                spaces[combo[0]] != " " for combo in WINNING_COMBOS)
+
+    def winning_symbol_check(self, symbol):
+        for combo in WINNING_COMBOS:
+            if self.is_matching_symbol(combo, symbol):
+                return self.is_matching_symbol(combo, symbol)
+    
+    def is_matching_symbol(self, combo, symbol):
+        spaces = self.spaces()
+        return spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and spaces[combo[0]] == symbol
 
     def game_over(self):
         return self.is_winner() or self.is_full()

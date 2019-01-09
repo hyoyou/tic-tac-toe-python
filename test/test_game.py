@@ -26,6 +26,14 @@ class GameTest(unittest.TestCase):
         self.game._board.make_move(6, self.game._player2._symbol)
         self.game._board.make_move(9, self.game._player1._symbol)
 
+    def player2_win(self):
+        self.game._board.make_move(2, self.game._player1._symbol)
+        self.game._board.make_move(3, self.game._player2._symbol)
+        self.game._board.make_move(6, self.game._player1._symbol)
+        self.game._board.make_move(5, self.game._player2._symbol)
+        self.game._board.make_move(9, self.game._player1._symbol)
+        self.game._board.make_move(7, self.game._player2._symbol)
+
     def draw_game(self):
         self.game._board.make_move(5, self.game._player1._symbol)
         self.game._board.make_move(1, self.game._player2._symbol)
@@ -100,11 +108,18 @@ class GameTest(unittest.TestCase):
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testGameReturnsWinningPlayersSymbol(self):
+    def testGameReturnsWinningPlayersSymbolXWhenPlayer1HasWon(self):
         self.player1_win()
         
         result = self.game.winner()
         expected_result = self.game._player1._symbol
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testGameReturnsWinningPlayersSymbolOWhenPlayer2HasWon(self):
+        self.player2_win()
+        
+        result = self.game.winner()
+        expected_result = self.game._player2._symbol
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
  
     def testGameDisplaysMessageWhenGameIsWon(self):
