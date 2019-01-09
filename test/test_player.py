@@ -1,6 +1,7 @@
 import unittest
 from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
+from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.board import Board
 from tictactoe.player import Player
 
@@ -8,7 +9,8 @@ class PlayerTest(unittest.TestCase):
     def setUp(self):
         self.mock_cli_input = MockCLIInput()
         self.mock_cli_output = MockCLIOutput()
-        self.player1 = Player("X", self.mock_cli_input, self.mock_cli_output)
+        self.ui = UIWrapper(self.mock_cli_output)
+        self.player1 = Player("X", self.mock_cli_input, self.ui)
 
     def testPlayerIsInitializedWithASymbol(self):
         result = self.player1._symbol

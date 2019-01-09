@@ -25,9 +25,7 @@ class Board:
                spaces[combo[0]] != " " for combo in WINNING_COMBOS)
 
     def game_over(self):
-        if self.is_winner() or self.is_full():
-            return True
-        return False
+        return self.is_winner() or self.is_full()
 
     def turn_count(self):
         return 9 - self._board.count(" ")

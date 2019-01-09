@@ -56,3 +56,12 @@ class UIWrapper:
         ===+===+===
          {board.space(7)} | {board.space(8)} | {board.space(9)} 
         ''')
+
+    def print_request_player_move(self, symbol):
+        return self._output.print("Player " + symbol + ", please make a move or type 'q' to save and quit game:")
+
+    def print_congratulations(self, player):
+        return self._output.print('Congratulations Player ' + player + '! You won!')
+
+    def print_draw_game(self):
+        return self._output.print("Cat's game!")
