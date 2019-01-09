@@ -31,22 +31,10 @@ class AIMinimax:
         elif player == O:
             return max(moves, key=lambda x: x[1])
 
-    def is_player_winning(self, board, player):
-        if (board._board[0] == player and board._board[1] == player and board._board[2] == player or
-            board._board[3] == player and board._board[4] == player and board._board[5] == player or
-            board._board[6] == player and board._board[7] == player and board._board[8] == player or
-            board._board[0] == player and board._board[3] == player and board._board[6] == player or
-            board._board[1] == player and board._board[4] == player and board._board[7] == player or
-            board._board[2] == player and board._board[5] == player and board._board[8] == player or
-            board._board[0] == player and board._board[4] == player and board._board[8] == player or
-            board._board[2] == player and board._board[4] == player and board._board[6] == player):
-            return True
-        return False
-
     def terminal_state_score(self, board, player):
-        if self.is_player_winning(board, X):
+        if board.winning_symbol_check(X):
             return 0, -10
-        elif self.is_player_winning(board, O):
+        elif board.winning_symbol_check(O):
             return 0, 10
         return 0, 0
 
