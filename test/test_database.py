@@ -10,10 +10,12 @@ from tictactoe.player import Player
 from tictactoe.validations import Validations
 from tictactoe.setup_game import SetupGame
 from startgame import StartGame
+from settings import TEST_DB_ADDRESS
+import code
 
 class DatabaseTest(unittest.TestCase):
     def setUp(self):
-        self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
+        self.engine = create_engine(TEST_DB_ADDRESS)
         self.db = Database(self.engine)
         self.mock_cli_output = MockCLIOutput()
         self.ui = UIWrapper(self.mock_cli_output)

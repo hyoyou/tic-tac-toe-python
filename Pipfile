@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 sqlalchemy = "*"
 psycopg2-binary = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
