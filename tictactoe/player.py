@@ -5,5 +5,5 @@ class Player:
         self._output = cli_output
 
     def move(self, board):
-        self._output.print("Please make a move:")
+        self._output.print_request_player_move(self._symbol)
         return self._input.get_input()

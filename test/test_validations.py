@@ -1,11 +1,11 @@
 import unittest
-from test.mock_cli_input import MockCLIInput
-from test.mock_cli_output import MockCLIOutput
+from .mock_cli_input import MockCLIInput
+from .mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
 from tictactoe.player import Player
 from tictactoe.validations import Validations
 
-class TestValidations(unittest.TestCase):
+class ValidationsTest(unittest.TestCase):
     def setUp(self):
         self.board = Board()
         self.player1 = Player("X", MockCLIInput(), MockCLIOutput())

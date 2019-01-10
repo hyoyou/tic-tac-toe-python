@@ -1,4 +1,5 @@
-from tictactoe.constants import WINNING_COMBOS
+from .constants import WINNING_COMBOS
+from .ui_wrapper import UIWrapper
 
 class Game:
     def __init__(self, player1, player2, cli_output, validator, board = None):
@@ -25,27 +26,46 @@ class Game:
         return self.is_won() or self.is_draw()
 
     def winner(self):
-        spaces = self._board.spaces()
         for combo in WINNING_COMBOS:
-            if self.is_won:
-                return spaces[combo[0]]
+            if self.match_symbol(combo):
+                return self.match_symbol(combo)
+    
+    def match_symbol(self, combo):
+        spaces = self._board.spaces()
+        if spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and spaces[combo[0]] != " ":
+            return spaces[combo[0]]
 
-    def play_move(self):
+    def play_move(self, db):
         current_player = self.current_player()
         user_move = current_player.move(self._board)
         
         valid, message = self._validator.is_valid_move(user_move, self._board)
         if valid:
-            self._board.make_move(int(user_move), current_player)
+            self._board.make_move(int(user_move), current_player._symbol)
+        elif message == "Your game progress has been saved.":
+            self._output.print(message)
+            self.update_database(db)
+            self.exit_game()
         
         self._output.print(message)
         self._output.print_board(self._board)
 
-    def game_play_loop(self):
+    def game_play_loop(self, db):
         while not self.is_over():
-            self.play_move()
+            self.play_move(db)
 
         if self.is_won():
-            return self._output.print('Congratulations Player ' + self.winner() + '! You won!')
+            self.remove_complete_game_from_database(db)
+            return self._output.print_congratulations(self.winner())
         else:
-            return self._output.print("Cat's game!")
+            self.remove_complete_game_from_database(db)
+            return self._output.print_draw_game()
+    
+    def update_database(self, db):
+        db.add_game_to_database(self)
+    
+    def remove_complete_game_from_database(self, db):
+        db.delete_game_from_database()
+
+    def exit_game(self):
+        return exit('Goodbye!')
