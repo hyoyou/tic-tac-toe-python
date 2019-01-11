@@ -9,12 +9,13 @@ from tictactoe.player import Player
 from tictactoe.ai_player import AIPlayer
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.setup_game import SetupGame
+from settings import TEST_DB_ADDRESS
 
 class SetupGameTest(unittest.TestCase):
     def setUp(self):
         self.mock_cli_input = MockCLIInput()
         self.mock_cli_output = MockCLIOutput()
-        self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
+        self.engine = create_engine(TEST_DB_ADDRESS)
         self.setup_game = SetupGame(self.mock_cli_input, self.mock_cli_output, self.engine)
 
     def testWelcomeUser(self):
