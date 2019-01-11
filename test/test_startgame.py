@@ -1,5 +1,4 @@
 import unittest
-from sqlalchemy import create_engine
 from startgame import StartGame
 
 class MockGame:

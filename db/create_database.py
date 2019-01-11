@@ -1,43 +1,51 @@
 import datetime
 from sqlalchemy import Column, Integer, DateTime, String, Boolean, ForeignKey
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-class Game(Base):
-    __tablename__ = "games"
+class SavedGame(Base):
+    __tablename__ = "saved_games"
 
     id = Column(Integer, primary_key=True)
-    time_played = Column(DateTime, default=datetime.datetime.now)
+    timestamp = Column(DateTime, default=datetime.datetime.now)
+    board_state = relationship('BoardState', back_populates="saved_game")
+    player_x = relationship('PlayerX', back_populates="saved_game")
+    player_o = relationship('PlayerO', back_populates="saved_game")
 
     def __repr__(self):
-        return "<Game(id='%s', game='%s', time_played='%s')>" % (self.id, self.game, self.time_played)
+        return "<Saved_Game(id='%s', game='%s', timestamp='%s')>" % (self.id, self.game, self.timestamp)
 
-class Board(Base):
-    __tablename__ = "boards"
+class BoardState(Base):
+    __tablename__ = "board_states"
 
     id = Column(Integer, primary_key=True)
-    game_id = Column(Integer, ForeignKey('games.id'))
-    state = Column(String)
+    state = Column(postgresql.ARRAY(String))
+    saved_game_id = Column(Integer, ForeignKey('saved_games.id'))
+    saved_game = relationship("SavedGame", back_populates="board_state", uselist=False)
 
     def __repr__(self):
-        return "<Game(id='%s', game_id='%s', state='%s')>" % (self.id, self.game_id, self.state)
+        return "<BoardState(id='%s', game_id='%s', state='%s')>" % (self.id, self.game_id, self.state)
 
 class PlayerX(Base):
     __tablename__ = "players_x"
 
     id = Column(Integer, primary_key=True)
-    game_id = Column(Integer, ForeignKey('games.id'))
+    saved_game_id = Column(Integer, ForeignKey('saved_games.id'))
+    saved_game = relationship("SavedGame", back_populates="player_x", uselist=False)
 
     def __repr__(self):
-        return "<Game(id='%s', game_id='%s')>" % (self.id, self.game_id)
+        return "<Player_X(id='%s', game_id='%s')>" % (self.id, self.game_id)
 
 class PlayerO(Base):
     __tablename__ = "players_o"
 
     id = Column(Integer, primary_key=True)
-    game_id = Column(Integer, ForeignKey('games.id'))
     is_ai = Column(Boolean, default=False)
+    saved_game_id = Column(Integer, ForeignKey('saved_games.id'))
+    saved_game = relationship("SavedGame", back_populates="player_o", uselist=False)
 
     def __repr__(self):
-        return "<Game(id='%s', game_id='%s', is_ai='%s')>" % (self.id, self.game_id, self.is_ai)
+        return "<Player_O(id='%s', game_id='%s', is_ai='%s')>" % (self.id, self.game_id, self.is_ai)

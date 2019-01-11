@@ -1,8 +1,8 @@
 from .constants import WINNING_COMBOS
 
 class Board:
-    def __init__(self):
-        self._board = [" " for i in range(9)]
+    def __init__(self, board=[" " for i in range(9)]):
+        self._board = board
 
     def spaces(self):
         return self._board
