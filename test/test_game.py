@@ -8,6 +8,7 @@ from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.validations import Validations
+from settings import TEST_DB_ADDRESS
 import code
 
 class GameTest(unittest.TestCase):
@@ -16,7 +17,7 @@ class GameTest(unittest.TestCase):
         self.mock_cli_output = MockCLIOutput()
         self.ui = UIWrapper(self.mock_cli_output)
         self.game = Game(Player("X", self.mock_cli_input, self.ui), Player("O", MockCLIInput(), self.ui), self.ui, Validations(), Board())
-        self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
+        self.engine = create_engine(TEST_DB_ADDRESS)
         self.db = Database(self.engine)
     
     def player1_win(self):
