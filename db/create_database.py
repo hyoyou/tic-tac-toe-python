@@ -11,12 +11,13 @@ class SavedGame(Base):
 
     id = Column(Integer, primary_key=True)
     timestamp = Column(DateTime, default=datetime.datetime.now)
+    game_complete = Column(Boolean, default=False)
     board_state = relationship('BoardState', back_populates="saved_game")
     player_x = relationship('PlayerX', back_populates="saved_game")
     player_o = relationship('PlayerO', back_populates="saved_game")
 
     def __repr__(self):
-        return "<Saved_Game(id='%s', game='%s', timestamp='%s')>" % (self.id, self.game, self.timestamp)
+        return "<Saved_Game(id='%s', game_complete='%s', timestamp='%s')>" % (self.id, self.game_complete, self.timestamp)
 
 class BoardState(Base):
     __tablename__ = "board_states"
@@ -27,7 +28,7 @@ class BoardState(Base):
     saved_game = relationship("SavedGame", back_populates="board_state", uselist=False)
 
     def __repr__(self):
-        return "<BoardState(id='%s', game_id='%s', state='%s')>" % (self.id, self.game_id, self.state)
+        return "<BoardState(id='%s', saved_game_id='%s', state='%s')>" % (self.id, self.saved_game_id, self.state)
 
 class PlayerX(Base):
     __tablename__ = "players_x"
@@ -37,7 +38,7 @@ class PlayerX(Base):
     saved_game = relationship("SavedGame", back_populates="player_x", uselist=False)
 
     def __repr__(self):
-        return "<Player_X(id='%s', game_id='%s')>" % (self.id, self.game_id)
+        return "<Player_X(id='%s', saved_game_id='%s')>" % (self.id, self.saved_game_id)
 
 class PlayerO(Base):
     __tablename__ = "players_o"
@@ -48,4 +49,4 @@ class PlayerO(Base):
     saved_game = relationship("SavedGame", back_populates="player_o", uselist=False)
 
     def __repr__(self):
-        return "<Player_O(id='%s', game_id='%s', is_ai='%s')>" % (self.id, self.game_id, self.is_ai)
+        return "<Player_O(id='%s', saved_game_id='%s', is_ai='%s')>" % (self.id, self.saved_game_id, self.is_ai)

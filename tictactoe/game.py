@@ -2,12 +2,13 @@ from .constants import WINNING_COMBOS
 from .ui_wrapper import UIWrapper
 
 class Game:
-    def __init__(self, player1, player2, cli_output, validator, board = None):
+    def __init__(self, player1, player2, cli_output, validator, board=None, db_id=None):
         self._player1 = player1
         self._player2 = player2
         self._output = cli_output
         self._validator = validator
         self._board = board
+        self._id = db_id
 
     def current_player(self):
         turns = self._board.turn_count()
@@ -55,17 +56,17 @@ class Game:
             self.play_move(db)
 
         if self.is_won():
-            # self.remove_complete_game_from_database(db)
+            self.mark_game_complete_in_database(db)
             return self._output.print_congratulations(self.winner())
         else:
-            # self.remove_complete_game_from_database(db)
+            self.mark_game_complete_in_database(db)
             return self._output.print_draw_game()
     
     def update_database(self, db):
         db.add_game_to_database(self)
     
-    def remove_complete_game_from_database(self, db):
-        db.delete_game_from_database()
+    def mark_game_complete_in_database(self, db):
+        db.mark_complete_in_database(self)
 
     def exit_game(self):
         return exit('Goodbye!')

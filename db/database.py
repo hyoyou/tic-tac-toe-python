@@ -1,5 +1,5 @@
 import pickle
-from sqlalchemy import MetaData, Table, desc
+from sqlalchemy import MetaData, Table, desc, func
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
 from .create_database import SavedGame, BoardState, PlayerX, PlayerO
@@ -36,8 +36,8 @@ class Database:
 
     def check_for_saved_game(self):
         session = self.create_session()
-        saved_game = session.query(self.game).count()
-        return saved_game > 0
+        saved_games = session.query(func.count(SavedGame.id)).filter(SavedGame.game_complete == False)
+        return saved_games.scalar() > 0
 
     def retrieve_last_game(self):
         session = self.create_session()
@@ -53,13 +53,13 @@ class Database:
             player_o_obj = AIMinimax("O")
         else:
             player_o_obj = Player("O", cli_input, ui)
-        game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), board_obj)
+        game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), board_obj, saved_game.id)
         return game_obj
     
     def add_game_to_database(self, game_object):
         session = self.create_session()
-        if self.check_for_saved_game():
-            self.delete_game_from_database()
+        if game_object._id:
+            self.mark_complete_in_database(game_object._id)
         board_list = game_object._board.spaces()
         board_state = BoardState(state=board_list)
         player_x = PlayerX()
@@ -73,10 +73,9 @@ class Database:
         session.add(current_game)
         session.commit()
 
-    def delete_game_from_database(self):
-        session = self.create_session()
-        if session.query(self.game).order_by(desc(SavedGame.id)).first():
-            completed_game_id, timestamp = session.query(self.game).order_by(desc(SavedGame.id)).first()
-            completed_game_entry = session.query(SavedGame).filter_by(id = completed_game_id).one()
-            session.delete(completed_game_entry)
+    def mark_complete_in_database(self, game):
+        if game._id:
+            session = self.create_session()
+            completed_game = session.query(SavedGame).filter(SavedGame.id == game._id).first()
+            completed_game.game_complete = True
             session.commit()
