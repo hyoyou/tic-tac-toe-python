@@ -1,8 +1,9 @@
 import datetime
 from sqlalchemy import Column, Integer, DateTime, String, Boolean, ForeignKey
-from sqlalchemy.dialects import postgresql
+from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from .mutable_list import MutableList
 
 Base = declarative_base()
 
@@ -23,7 +24,7 @@ class BoardState(Base):
     __tablename__ = "board_states"
 
     id = Column(Integer, primary_key=True)
-    state = Column(postgresql.ARRAY(String))
+    state = Column(MutableList.as_mutable(ARRAY(String)))
     saved_game_id = Column(Integer, ForeignKey('saved_games.id'))
     saved_game = relationship("SavedGame", back_populates="board_state", uselist=False)
 

@@ -1,5 +1,6 @@
 import unittest
-from sqlalchemy import create_engine, Table
+import contextlib
+from sqlalchemy import create_engine, Table, MetaData
 from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
 from db.database import Database
@@ -97,5 +98,7 @@ class DatabaseTest(unittest.TestCase):
         expected_result = False
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    # def tearDown(self):
-    #     self.db.delete_game_from_database()
+    def tearDown(self):
+        meta = MetaData()
+        for table in reversed(meta.sorted_tables):
+            self.engine.execute(table.delete())

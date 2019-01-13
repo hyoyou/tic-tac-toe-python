@@ -45,7 +45,7 @@ class Game:
             self._board.make_move(int(user_move), current_player._symbol)
         elif message == "Your game progress has been saved.":
             self._output.print(message)
-            self.update_database(db)
+            self.add_or_update_game_in_database(db)
             self.exit_game()
         
         self._output.print(message)
@@ -62,8 +62,8 @@ class Game:
             self.mark_game_complete_in_database(db)
             return self._output.print_draw_game()
     
-    def update_database(self, db):
-        db.add_game_to_database(self)
+    def add_or_update_game_in_database(self, db):
+        db.add_or_update_database(self)
     
     def mark_game_complete_in_database(self, db):
         db.mark_complete_in_database(self)
