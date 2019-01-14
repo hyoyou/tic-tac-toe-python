@@ -7,7 +7,9 @@ from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
+from tictactoe.rules import Rules
 from tictactoe.validations import Validations
+from settings import TEST_DB_ADDRESS
 import code
 
 class GameTest(unittest.TestCase):
@@ -15,8 +17,9 @@ class GameTest(unittest.TestCase):
         self.mock_cli_input = MockCLIInput()
         self.mock_cli_output = MockCLIOutput()
         self.ui = UIWrapper(self.mock_cli_output)
-        self.game = Game(Player("X", self.mock_cli_input, self.ui), Player("O", MockCLIInput(), self.ui), self.ui, Validations(), Board())
-        self.engine = create_engine('postgresql+psycopg2://heatheryou:hello@localhost:5432/test_tictactoe')
+        self.rules = Rules()
+        self.game = Game(Player("X", self.mock_cli_input, self.ui), Player("O", MockCLIInput(), self.ui), self.ui, Validations(), self.rules, Board())
+        self.engine = create_engine(TEST_DB_ADDRESS)
         self.db = Database(self.engine)
     
     def player1_win(self):
@@ -80,61 +83,20 @@ class GameTest(unittest.TestCase):
         expected_result = self.game._player2
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testGameIsWonReturnsTrueWhenGameIsWon(self):
-        self.player1_win()
-
-        result = self.game.is_won()
-        expected_result = True
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameIsWonReturnsFalseWhenGameIsNotWon(self):
-        self.draw_game()
-
-        result = self.game.is_won()
-        expected_result = False
-        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameIsDrawReturnsTrueWhenGameIsADraw(self):
-        self.draw_game()
-
-        result = self.game.is_draw()
-        expected_result = True
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameIsDrawReturnsFalseWhenGameIsNotADraw(self):
-        self.player1_win()
-
-        result = self.game.is_draw()
-        expected_result = False
-        self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameKnowsWhenGameEndsWhenThereIsAWinOrADraw(self):
-        self.player1_win()
-
-        result = self.game.is_over()
-        expected_result = True
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameReturnsWinningPlayersSymbolXWhenPlayer1HasWon(self):
-        self.player1_win()
-
-        result = self.game.winner()
-        expected_result = self.game._player1._symbol
-        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameReturnsWinningPlayersSymbolOWhenPlayer2HasWon(self):
-        self.player2_win()
-        
-        result = self.game.winner()
-        expected_result = self.game._player2._symbol
-        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
-    def testGameDisplaysMessageWhenGameIsWon(self):
+    def testGameDisplaysMessageWhenGameIsWonCongratulatingTheCorrectPlayerX(self):
         self.player1_win()
         self.game.game_play_loop(self.db)
         
         result = self.mock_cli_output._last_output
         expected_result = "Congratulations Player X! You won!"
+        self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testGameDisplaysMessageWhenGameIsWonCongratulatingTheCorrectPlayerO(self):
+        self.player2_win()
+        self.game.game_play_loop(self.db)
+        
+        result = self.mock_cli_output._last_output
+        expected_result = "Congratulations Player O! You won!"
         self.assertTrue(expected_result in result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testGameDisplaysMessageWhenGameIsADraw(self):

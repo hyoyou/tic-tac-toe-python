@@ -4,13 +4,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
 from .create_database import SavedGame, BoardState, PlayerX, PlayerO
 from tictactoe.ai_minimax import AIMinimax
-from tictactoe.game import Game
-from tictactoe.player import Player
-from tictactoe.validations import Validations
 from tictactoe.board import Board
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
+from tictactoe.game import Game
+from tictactoe.player import Player
+from tictactoe.rules import Rules
 from tictactoe.ui_wrapper import UIWrapper
+from tictactoe.validations import Validations
 import code
 
 class Database:
@@ -43,7 +44,7 @@ class Database:
         player_x_obj = self.create_player_x_object(session, saved_game, cli_input, ui)
         player_o_obj = self.create_player_o_object(session, saved_game, cli_input, ui)
         
-        game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), board_obj, saved_game.id)
+        game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), Rules(), board_obj, saved_game.id)
         return game_obj
 
     def create_board_object(self, session, saved_game):

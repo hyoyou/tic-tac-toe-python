@@ -8,6 +8,7 @@ from .ai_minimax import AIMinimax
 from .rules import Rules
 from .validations import Validations
 from .ui_wrapper import UIWrapper
+import code
 
 class SetupGame:
     def __init__(self, cli_input, cli_output, engine):

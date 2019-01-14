@@ -3,36 +3,34 @@ from .mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
 from tictactoe.ai_player import AIPlayer
 from tictactoe.ui_wrapper import UIWrapper
+import code
 
 class UIWrapperTest(unittest.TestCase):
-    def testPrintEmptyBoard(self):
-        board = Board()
-        printer = UIWrapper(MockCLIOutput())
+    def setUp(self):
+        self.board = Board()
+        self.printer = UIWrapper(MockCLIOutput())
 
-        expected = '''
+    def testPrintEmptyBoard(self):
+        result = self.printer.print_board(self.board)
+        expected_result = '''
          1 | 2 | 3 
         ===+===+===
          4 | 5 | 6 
         ===+===+===
          7 | 8 | 9 
         '''
-        actual = printer.print_board(board)
-
-        self.assertEqual(expected, actual)
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testPrintBoardWithSpaceTaken(self):
-        board = Board()
         ai_player = AIPlayer("X")
-        board.make_move(1, ai_player._symbol)
-        printer = UIWrapper(MockCLIOutput())
+        self.board.make_move(1, ai_player._symbol)
 
-        expected = '''
+        result = self.printer.print_board(self.board)
+        expected_result = '''
          X | 2 | 3 
         ===+===+===
          4 | 5 | 6 
         ===+===+===
          7 | 8 | 9 
         '''
-        actual = printer.print_board(board)
-
-        self.assertEqual(expected, actual)
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
