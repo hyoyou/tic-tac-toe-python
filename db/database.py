@@ -11,7 +11,6 @@ from tictactoe.player import Player
 from tictactoe.rules import Rules
 from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.validations import Validations
-import code
 
 class Database:
     def __init__(self, engine):

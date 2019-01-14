@@ -118,6 +118,18 @@ class DatabaseTest(unittest.TestCase):
         result = type(self.db.create_player_o_object(game_entry, self.mock_cli_input, self.ui))
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testAbleToRecreateAIPlayerXObjectFromSavedGame(self):
+        ai_game = Game(AIMinimax("X", Rules()), Player("O", self.mock_cli_input, self.ui), self.ui, Validations(), Rules(), Board())
+        ai_game._board.make_move(1, self.game._player1._symbol)
+        ai_game._board.make_move(3, self.game._player2._symbol)
+        self.db.add_game_to_database(ai_game)
+        session = self.db.create_session()
+        game_entry = session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
+        
+        result = type(self.db.create_player_x_object(game_entry, self.mock_cli_input, self.ui))
+        expected_result = AIMinimax
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
     
     def testAbleToRecreateAIPlayerOObjectFromSavedGame(self):
         ai_game = Game(Player("X", self.mock_cli_input, self.ui), AIMinimax("O", Rules()), self.ui, Validations(), Rules(), Board())

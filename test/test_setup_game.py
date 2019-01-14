@@ -10,7 +10,6 @@ from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.setup_game import SetupGame
 from tictactoe.ui_wrapper import UIWrapper
-import code
 
 class SetupGameTest(unittest.TestCase):
     def setUp(self):
