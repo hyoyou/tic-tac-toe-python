@@ -1,4 +1,3 @@
-import pickle
 from sqlalchemy import MetaData, Table, desc, func, update
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
