@@ -17,3 +17,4 @@ if __name__ == '__main__':
     engine = create_engine(DB_ADDRESS)
     setup_game = SetupGame(CLIInput(), CLIOutput(), engine)
     StartGame(setup_game).run()
+ 

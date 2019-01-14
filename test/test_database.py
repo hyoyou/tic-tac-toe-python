@@ -40,24 +40,24 @@ class DatabaseTest(unittest.TestCase):
         self.game._board.make_move(6, self.game._player2._symbol)
         self.game._board.make_move(2, self.game._player1._symbol)
 
-    def testTablesAreCreatedInTheDatabase(self):
-        self.db.find_or_create_tables(self.engine)
+    # def testTablesAreCreatedInTheDatabase(self):
+    #     self.db.find_or_create_tables(self.engine)
         
-        result = type(self.db.game)
-        expected_result = Table
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    #     result = type(self.db.game)
+    #     expected_result = Table
+    #     self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = type(self.db.board)
-        expected_result = Table
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    #     result = type(self.db.board)
+    #     expected_result = Table
+    #     self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = type(self.db.player_x)
-        expected_result = Table
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    #     result = type(self.db.player_x)
+    #     expected_result = Table
+    #     self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-        result = type(self.db.player_o)
-        expected_result = Table
-        self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    #     result = type(self.db.player_o)
+    #     expected_result = Table
+    #     self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testCheckingForSavedGameWhenThereIsNoneReturnsFalse(self):
         result = self.db.check_for_saved_game()
