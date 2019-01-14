@@ -39,17 +39,27 @@ class Database:
         saved_game = session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
         cli_input = CLIInput()
         ui = UIWrapper(CLIOutput())
-        board_state = session.query(BoardState.state).filter(BoardState.saved_game_id == saved_game.id).first()
-        board_obj = Board(board_state[0])
-        player_x = session.query(PlayerX.id).filter(PlayerX.saved_game_id == saved_game.id).first()
-        player_x_obj = Player("X", cli_input, ui)
-        player_o = session.query(PlayerO.is_ai).filter(PlayerO.saved_game_id == saved_game.id).first()
-        if player_o[0]:
-            player_o_obj = AIMinimax("O")
-        else:
-            player_o_obj = Player("O", cli_input, ui)
+        board_obj = self.create_board_object(session, saved_game)
+        player_x_obj = self.create_player_x_object(session, saved_game, cli_input, ui)
+        player_o_obj = self.create_player_o_object(session, saved_game, cli_input, ui)
+        
         game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), board_obj, saved_game.id)
         return game_obj
+
+    def create_board_object(self, session, saved_game):
+        board_state = session.query(BoardState.state).filter(BoardState.saved_game_id == saved_game.id).first()
+        return Board(board_state[0])
+
+    def create_player_x_object(self, session, saved_game, cli_input, ui):
+        session.query(PlayerX.id).filter(PlayerX.saved_game_id == saved_game.id).first()
+        return Player("X", cli_input, ui)
+
+    def create_player_o_object(self, session, saved_game, cli_input, ui):
+        player_o = session.query(PlayerO.is_ai).filter(PlayerO.saved_game_id == saved_game.id).first()
+        if player_o[0]:
+            return AIMinimax("O")
+        else:
+            return Player("O", cli_input, ui)
     
     def add_or_update_database(self, game_object):
         if game_object._id:
@@ -64,22 +74,29 @@ class Database:
         updated_board = update(BoardState).where(BoardState.saved_game_id == in_progress_game.id).values(state=game_object._board.spaces())
         conn.execute(updated_board)
         conn.close()
-        session.commit()
         
     def add_game_to_database(self, game_object):
         session = self.create_session()
-        board_list = game_object._board.spaces()
-        board_state = BoardState(state=board_list)
-        player_x = PlayerX()
-        if type(game_object._player2) == AIMinimax:
-            player_o = PlayerO(is_ai=True)
-        else:
-            player_o = PlayerO()
+        board_state = self.add_board_entry_to_database(game_object)
+        player_x = self.add_player_x_entry_to_database()
+        player_o = self.add_player_o_entry_to_database(game_object)
 
         current_game = SavedGame(board_state=[board_state], player_x=[player_x], player_o=[player_o])
-
         session.add(current_game)
         session.commit()
+
+    def add_board_entry_to_database(self, game_object):
+        board_list = game_object._board.spaces()
+        return BoardState(state=board_list)
+    
+    def add_player_x_entry_to_database(self):
+        return PlayerX()
+
+    def add_player_o_entry_to_database(self, game_object):
+        if type(game_object._player2) == AIMinimax:
+            return PlayerO(is_ai=True)
+        else:
+            return PlayerO()
 
     def mark_complete_in_database(self, game_object):
         if game_object._id:
