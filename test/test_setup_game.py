@@ -10,6 +10,7 @@ from tictactoe.game import Game
 from tictactoe.player import Player
 from tictactoe.setup_game import SetupGame
 from tictactoe.ui_wrapper import UIWrapper
+import code
 
 class SetupGameTest(unittest.TestCase):
     def setUp(self):
@@ -45,7 +46,8 @@ class SetupGameTest(unittest.TestCase):
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testChooseGameHumanVsComputer(self):
+    def testChooseGameHumanVsComputerWhereHumanPlaysFirst(self):
+        self.mock_cli_input.set_value('y')
         game = self.setup_game.one_player()
 
         result = type(game._player1)
@@ -54,6 +56,18 @@ class SetupGameTest(unittest.TestCase):
 
         result = type(game._player2)
         expected_result = AIMinimax
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    
+    def testChooseGameHumanVsComputerWhereAIPlaysFirst(self):
+        self.mock_cli_input.set_value('n')
+        game = self.setup_game.one_player()
+        
+        result = type(game._player1)
+        expected_result = AIMinimax
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+        result = type(game._player2)
+        expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testChooseGameComputerVsComputer(self):

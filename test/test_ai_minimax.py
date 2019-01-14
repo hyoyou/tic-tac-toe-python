@@ -47,6 +47,16 @@ class AIMinimaxTest(unittest.TestCase):
         new_game.make_move(1, "X")
         return new_game
     
+    def testCanGetOpponentSymbolOWhenPlayerIsX(self):
+        result = self.ai.set_opponent_symbol("X")
+        expected_result = "O"
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testCanGetOpponentSymbolXWhenPlayerIsO(self):
+        result = self.ai.set_opponent_symbol("O")
+        expected_result = "X"
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+    
     def testAIMinimaxEvaluatesTheStateOfTheGameAsTrueWhenThereIsAWin(self):
         result = self.ai.is_terminal_state(self.x_winning())
         expected_result = True

@@ -35,11 +35,12 @@ class PlayerX(Base):
     __tablename__ = "players_x"
 
     id = Column(Integer, primary_key=True)
+    is_ai = Column(Boolean, default=False)
     saved_game_id = Column(Integer, ForeignKey('saved_games.id'))
     saved_game = relationship("SavedGame", back_populates="player_x", uselist=False)
 
     def __repr__(self):
-        return "<Player_X(id='%s', saved_game_id='%s')>" % (self.id, self.saved_game_id)
+        return "<Player_X(id='%s', saved_game_id='%s', is_ai='%s')>" % (self.id, self.saved_game_id, self.is_ai)
 
 class PlayerO(Base):
     __tablename__ = "players_o"

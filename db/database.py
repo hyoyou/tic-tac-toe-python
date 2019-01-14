@@ -11,6 +11,7 @@ from tictactoe.player import Player
 from tictactoe.rules import Rules
 from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.validations import Validations
+import code
 
 class Database:
     def __init__(self, engine):
@@ -55,8 +56,11 @@ class Database:
 
     def create_player_x_object(self, saved_game, cli_input, ui):
         session = self.create_session()
-        session.query(PlayerX.id).filter(PlayerX.saved_game_id == saved_game.id).first()
-        return Player("X", cli_input, ui)
+        player_x = session.query(PlayerX.is_ai).filter(PlayerX.saved_game_id == saved_game.id).first()
+        if player_x[0]:
+            return AIMinimax("X", Rules())
+        else:
+            return Player("X", cli_input, ui)
 
     def create_player_o_object(self, saved_game, cli_input, ui):
         session = self.create_session()
@@ -83,7 +87,7 @@ class Database:
     def add_game_to_database(self, game_object):
         session = self.create_session()
         board_state = self.add_board_entry_to_database(game_object)
-        player_x = self.add_player_x_entry_to_database()
+        player_x = self.add_player_x_entry_to_database(game_object)
         player_o = self.add_player_o_entry_to_database(game_object)
 
         current_game = SavedGame(board_state=[board_state], player_x=[player_x], player_o=[player_o])
@@ -94,8 +98,11 @@ class Database:
         board_list = game_object._board.spaces()
         return BoardState(state=board_list)
     
-    def add_player_x_entry_to_database(self):
-        return PlayerX()
+    def add_player_x_entry_to_database(self, game_object):
+        if type(game_object._player1) == AIMinimax:
+            return PlayerX(is_ai=True)
+        else:
+            return PlayerX()
 
     def add_player_o_entry_to_database(self, game_object):
         if type(game_object._player2) == AIMinimax:
