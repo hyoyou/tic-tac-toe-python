@@ -1,14 +1,13 @@
-from db.database import Database
+from .ai_minimax import AIMinimax
+from .ai_player import AIPlayer
 from .board import Board
 from .constants import X, O
 from .game import Game
 from .player import Player
-from .ai_player import AIPlayer
-from .ai_minimax import AIMinimax
 from .rules import Rules
-from .validations import Validations
 from .ui_wrapper import UIWrapper
-import code
+from .validations import Validations
+from db.database import Database
 
 class SetupGame:
     def __init__(self, cli_input, cli_output, engine):

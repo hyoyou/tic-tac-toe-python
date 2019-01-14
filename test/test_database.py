@@ -14,7 +14,6 @@ from tictactoe.rules import Rules
 from tictactoe.setup_game import SetupGame
 from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.validations import Validations
-import code
 
 class DatabaseTest(unittest.TestCase):
     def setUp(self):

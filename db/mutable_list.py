@@ -1,5 +1,5 @@
-from sqlalchemy.ext.mutable import Mutable
 from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.ext.mutable import Mutable
 
 class MutableList(Mutable, list):
     def append(self, value):

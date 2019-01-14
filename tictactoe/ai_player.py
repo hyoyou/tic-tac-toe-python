@@ -1,6 +1,6 @@
 import random
-from .validations import Validations
 from .constants import *
+from .validations import Validations
 
 class AIPlayer:
     def __init__(self, symbol):

@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
+from settings import DB_ADDRESS
 from db.database import Database
 from tictactoe.cli_input import CLIInput
 from tictactoe.cli_output import CLIOutput
 from tictactoe.setup_game import SetupGame
-from settings import DB_ADDRESS
 
 class StartGame:
     def __init__(self, setup_game):
