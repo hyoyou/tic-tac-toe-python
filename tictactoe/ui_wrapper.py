@@ -47,6 +47,9 @@ class UIWrapper:
         or
 
         To begin a new game""")
+    
+    def print_who_goes_first(self):
+        return self._output.print("Would you like to be the first player? (y/n):")
 
     def print_board(self, board):
         return self._output.print(f'''
