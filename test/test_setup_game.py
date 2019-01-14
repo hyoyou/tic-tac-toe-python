@@ -2,14 +2,14 @@ import unittest
 from sqlalchemy import create_engine
 from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
-from tictactoe.ui_wrapper import UIWrapper
+from settings import TEST_DB_ADDRESS
+from tictactoe.ai_minimax import AIMinimax
+from tictactoe.ai_player import AIPlayer
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
-from tictactoe.ai_player import AIPlayer
-from tictactoe.ai_minimax import AIMinimax
 from tictactoe.setup_game import SetupGame
-from settings import TEST_DB_ADDRESS
+from tictactoe.ui_wrapper import UIWrapper
 
 class SetupGameTest(unittest.TestCase):
     def setUp(self):

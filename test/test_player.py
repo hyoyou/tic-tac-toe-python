@@ -1,9 +1,9 @@
 import unittest
 from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
-from tictactoe.ui_wrapper import UIWrapper
 from tictactoe.board import Board
 from tictactoe.player import Player
+from tictactoe.ui_wrapper import UIWrapper
 
 class PlayerTest(unittest.TestCase):
     def setUp(self):

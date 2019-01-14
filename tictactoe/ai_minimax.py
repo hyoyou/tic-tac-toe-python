@@ -1,8 +1,9 @@
 from .constants import X, O
 
 class AIMinimax:
-    def __init__(self, symbol):
+    def __init__(self, symbol, rules):
         self._symbol = symbol
+        self._rules = rules
 
     def move(self, board):
         return self.minimax(board, O)[0]
@@ -31,11 +32,11 @@ class AIMinimax:
             return max(moves, key=lambda x: x[1])
 
     def terminal_state_score(self, board, player):
-        if board.winning_symbol_check(X):
+        if self._rules.winning_symbol_check(X, board):
             return 0, -10
-        elif board.winning_symbol_check(O):
+        elif self._rules.winning_symbol_check(O, board):
             return 0, 10
         return 0, 0
 
     def is_terminal_state(self, board):
-        return board.game_over()
+        return self._rules.game_over(board)

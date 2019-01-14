@@ -42,7 +42,7 @@ class UIWrapper:
     def print_option_to_play_saved_game(self):
         return self._output.print("""
         There is a saved game, type:
-        (c) to continue playing previous game
+        (c) to continue playing previously saved game
         
         or
 
