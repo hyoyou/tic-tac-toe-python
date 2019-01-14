@@ -32,7 +32,7 @@ class SetupGame:
         return self._ui.print_rules()
 
     def display_menu(self):
-        if self._db.check_for_saved_game():
+        if self._db.check_for_in_progress_game():
             return self._ui.print_option_to_play_saved_game(), self._ui.print_option_to_choose_num_of_players()
 
         return self._ui.print_option_to_choose_num_of_players()
@@ -50,10 +50,10 @@ class SetupGame:
             return self.exit_application()
 
     def zero_player(self):
-        return Game(AIPlayer(X), AIMinimax(O), self._ui, Validations(), Rules(), Board())
+        return Game(AIPlayer(X), AIMinimax(O, Rules()), self._ui, Validations(), Rules(), Board())
 
     def one_player(self):
-        return Game(Player(X, self._input, self._ui), AIMinimax(O), self._ui, Validations(), Rules(), Board())
+        return Game(Player(X, self._input, self._ui), AIMinimax(O, Rules()), self._ui, Validations(), Rules(), Board())
         
     def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         return Game(Player(X, self._input, self._ui), Player(O, self._input, self._ui), self._ui, Validations(), Rules(), Board())

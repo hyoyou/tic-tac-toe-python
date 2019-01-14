@@ -2,6 +2,7 @@ import unittest
 from .mock_cli_output import MockCLIOutput
 from tictactoe.board import Board
 from tictactoe.ai_player import AIPlayer
+from tictactoe.rules import Rules
 import code
 
 class AIPlayerTest(unittest.TestCase):

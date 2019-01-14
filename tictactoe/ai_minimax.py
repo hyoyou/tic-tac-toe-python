@@ -1,10 +1,9 @@
 from .constants import X, O
-from .rules import Rules
 
 class AIMinimax:
-    def __init__(self, symbol):
+    def __init__(self, symbol, rules):
         self._symbol = symbol
-        self._rules = Rules()
+        self._rules = rules
 
     def move(self, board):
         return self.minimax(board, O)[0]

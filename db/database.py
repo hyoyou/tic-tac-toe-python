@@ -30,7 +30,7 @@ class Database:
         session = Session()
         return session
 
-    def check_for_saved_game(self):
+    def check_for_in_progress_game(self):
         session = self.create_session()
         saved_games = session.query(func.count(SavedGame.id)).filter(SavedGame.game_complete == False)
         return saved_games.scalar() > 0
@@ -38,27 +38,33 @@ class Database:
     def retrieve_last_game(self):
         session = self.create_session()
         saved_game = session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
+        return self.recreate_game_object(saved_game)
+
+    def recreate_game_object(self, saved_game):
         cli_input = CLIInput()
         ui = UIWrapper(CLIOutput())
-        board_obj = self.create_board_object(session, saved_game)
-        player_x_obj = self.create_player_x_object(session, saved_game, cli_input, ui)
-        player_o_obj = self.create_player_o_object(session, saved_game, cli_input, ui)
+        board_obj = self.create_board_object(saved_game)
+        player_x_obj = self.create_player_x_object(saved_game, cli_input, ui)
+        player_o_obj = self.create_player_o_object(saved_game, cli_input, ui)
         
         game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), Rules(), board_obj, saved_game.id)
         return game_obj
 
-    def create_board_object(self, session, saved_game):
+    def create_board_object(self, saved_game):
+        session = self.create_session()
         board_state = session.query(BoardState.state).filter(BoardState.saved_game_id == saved_game.id).first()
         return Board(board_state[0])
 
-    def create_player_x_object(self, session, saved_game, cli_input, ui):
+    def create_player_x_object(self, saved_game, cli_input, ui):
+        session = self.create_session()
         session.query(PlayerX.id).filter(PlayerX.saved_game_id == saved_game.id).first()
         return Player("X", cli_input, ui)
 
-    def create_player_o_object(self, session, saved_game, cli_input, ui):
+    def create_player_o_object(self, saved_game, cli_input, ui):
+        session = self.create_session()
         player_o = session.query(PlayerO.is_ai).filter(PlayerO.saved_game_id == saved_game.id).first()
         if player_o[0]:
-            return AIMinimax("O")
+            return AIMinimax("O", Rules())
         else:
             return Player("O", cli_input, ui)
     

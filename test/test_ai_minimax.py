@@ -1,10 +1,11 @@
 import unittest
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.board import Board
+from tictactoe.rules import Rules
 
 class AIMinimaxTest(unittest.TestCase):
     def setUp(self):
-        self.ai = AIMinimax("O")
+        self.ai = AIMinimax("O", Rules())
         self.board = Board()
 
     def x_winning(self):
