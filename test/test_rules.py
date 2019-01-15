@@ -72,7 +72,7 @@ class RulesTest(unittest.TestCase):
 
     def testRuleIsFullReturnsTrueWhenTheBoardIsFull(self):
         self.draw_game()
-        
+
         result = self.rules.is_full(self.board)
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
@@ -149,7 +149,7 @@ class RulesTest(unittest.TestCase):
 
     def testRulesReturnsWinningPlayersSymbolOWhenPlayer2HasWon(self):
         self.player2_win()
-        
+
         result = self.rules.winner(self.game._board)
         expected_result = self.game._player2._symbol
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
