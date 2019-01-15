@@ -5,7 +5,7 @@ class AIMinimax:
         self._symbol = symbol
         self._opponent = self.set_opponent_symbol(self._symbol)
         self._rules = rules
-    
+
     def set_opponent_symbol(self, symbol):
         return O if symbol == X else X
 
@@ -15,7 +15,7 @@ class AIMinimax:
     def minimax(self, board, player):
         available_moves = board.empty_cells()
 
-        if self.is_terminal_state(board):     
+        if self.is_terminal_state(board):
             for player in [O, X]:
                 return self.terminal_state_score(board, player)
 

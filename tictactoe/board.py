@@ -9,10 +9,10 @@ class Board:
 
     def space(self, cell):
         return self._board[cell-1] if self._board[cell-1] != " " else cell
-    
+
     def empty_cells(self):
         return [i for i, e in enumerate(self._board) if e == " "]
-        
+
     def make_move(self, cell, player_symbol):
         self._board[cell-1] = player_symbol
 

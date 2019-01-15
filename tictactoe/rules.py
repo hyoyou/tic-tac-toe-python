@@ -6,7 +6,7 @@ class Rules:
         spaces = board.spaces()
         return any(spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and
                spaces[combo[0]] != " " for combo in WINNING_COMBOS)
-    
+
     def is_full(self, board):
         return not " " in board.spaces()
 
@@ -17,7 +17,7 @@ class Rules:
         for combo in WINNING_COMBOS:
             if self.match_symbol(combo, board):
                 return self.match_symbol(combo, board)
-    
+
     def match_symbol(self, combo, board):
         spaces = board.spaces()
         if spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and spaces[combo[0]] != " ":
@@ -27,12 +27,8 @@ class Rules:
         for combo in WINNING_COMBOS:
             if self.is_matching_symbol(board, combo, symbol):
                 return self.is_matching_symbol(board, combo, symbol)
-    
+
     def is_matching_symbol(self, board, combo, symbol):
         spaces = board.spaces()
         return spaces[combo[0]] == spaces[combo[1]] == spaces[combo[2]] and spaces[combo[0]] == symbol
 
-    
-    
-    
-    

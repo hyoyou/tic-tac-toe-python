@@ -26,7 +26,7 @@ class SetupGame:
 
     def welcome(self):
         return self._ui.print_welcome()
-    
+
     def display_rules(self):
         return self._ui.print_rules()
 
@@ -58,8 +58,8 @@ class SetupGame:
             return Game(Player(X, self._input, self._ui), AIMinimax(O, Rules()), self._ui, Validations(), Rules(), Board())
         else:
             return Game(AIMinimax(X, Rules()), Player(O, self._input, self._ui), self._ui, Validations(), Rules(), Board())
-        
-    def two_player(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+
+    def two_player(self):
         return Game(Player(X, self._input, self._ui), Player(O, self._input, self._ui), self._ui, Validations(), Rules(), Board())
 
     def exit_application(self):
