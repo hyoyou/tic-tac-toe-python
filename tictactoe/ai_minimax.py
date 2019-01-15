@@ -1,4 +1,5 @@
 from .constants import X, O
+import code
 
 class AIMinimax:
     def __init__(self, symbol, rules):
@@ -10,6 +11,8 @@ class AIMinimax:
         return O if symbol == X else X
 
     def move(self, board):
+        if board.turn_count() == 0:
+            return 5
         return self.minimax(board, self._symbol)[0]
 
     def minimax(self, board, player):

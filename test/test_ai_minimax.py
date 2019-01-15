@@ -19,6 +19,14 @@ class AIMinimaxTest(unittest.TestCase):
         x_winning.make_move(9, "X")
         return x_winning
 
+    def x_winning_move(self):
+        x_winning_move = Board()
+        x_winning_move.make_move(3, "X")
+        x_winning_move.make_move(5, "O")
+        x_winning_move.make_move(2, "X")
+        x_winning_move.make_move(9, "O")
+        return x_winning_move
+
     def o_winning(self):
         o_winning = Board()
         o_winning.make_move(1, "X")
@@ -28,6 +36,15 @@ class AIMinimaxTest(unittest.TestCase):
         o_winning.make_move(6, "X")
         o_winning.make_move(7, "O")
         return o_winning
+
+    def o_winning_move(self):
+        o_winning_move = Board()
+        o_winning_move.make_move(1, "X")
+        o_winning_move.make_move(5, "O")
+        o_winning_move.make_move(2, "X")
+        o_winning_move.make_move(3, "O")
+        o_winning_move.make_move(8, "X")
+        return o_winning_move
 
     def tie_game(self):
         tie_game = Board()
@@ -92,24 +109,24 @@ class AIMinimaxTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxTriesToWinIfAbleToTopRow(self):
-        self.board.make_move(5, "X")
-        self.board.make_move(3, "O")
-        self.board.make_move(7, "X")
-        self.board.make_move(2, "O")
-        self.board.make_move(4, "X")
+        x_winning_move = self.x_winning_move()
 
-        result = self.ai.move(self.board)
+        result = self.ai.move(x_winning_move)
         expected_result = 1
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testAIMinimaxTriesToBlockOpponentWinTopRow(self):
-        self.board.make_move(5, "X")
-        self.board.make_move(3, "O")
-        self.board.make_move(7, "X")
-        self.board.make_move(2, "O")
-        self.board.make_move(4, "X")
+    def testAIMinimaxTriesToWinIfAbleToDiagonal(self):
+        o_winning_move = self.o_winning_move()
 
-        result = self.ai.move(self.board)
+        result = self.ai.move(o_winning_move)
+        expected_result = 7
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testAIMinimaxTriesToBlockOpponentWinTopRow(self):
+        x_winning_move = self.x_winning_move()
+        x_winning_move.make_move(7, "X")
+
+        result = self.ai.move(x_winning_move)
         expected_result = 1
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
