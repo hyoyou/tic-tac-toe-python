@@ -26,7 +26,7 @@ class DatabaseTest(unittest.TestCase):
         self.setup_game = SetupGame(self.mock_cli_input, self.mock_cli_output, self.engine)
         meta = MetaData(bind=self.engine)
         self.game_table = Table("saved_games", meta, autoload=True, autoload_with=self.engine)
-    
+
     def tearDown(self):
         session = self.db.create_session()
         if self.db.check_for_in_progress_game():
@@ -35,7 +35,7 @@ class DatabaseTest(unittest.TestCase):
                 game_to_delete = session.query(SavedGame).filter_by(id = game_id).one()
                 session.delete(game_to_delete)
             session.commit()
- 
+
     def playIncompleteGame(self):
         self.game._board.make_move(1, self.game._player1._symbol)
         self.game._board.make_move(3, self.game._player2._symbol)
@@ -52,10 +52,20 @@ class DatabaseTest(unittest.TestCase):
         self.game._board.make_move(9, self.game._player1._symbol)
         self.game._board.make_move(6, self.game._player2._symbol)
         self.game._board.make_move(2, self.game._player1._symbol)
-    
-    def saveAndRetrieveEntry(self):
-        self.playIncompleteGame()
-        self.db.add_game_to_database(self.game)
+
+    def playIncompleteGameAIPlaysFirst(self):
+        ai_game = Game(AIMinimax("X", Rules()), Player("O", self.mock_cli_input, self.ui), self.ui, Validations(), Rules(), Board())
+        ai_game._board.make_move(1, self.game._player1._symbol)
+        ai_game._board.make_move(3, self.game._player2._symbol)
+        self.db.add_game_to_database(ai_game)
+
+    def playIncompleteGameAIPlaysSecond(self):
+        ai_game = Game(Player("X", self.mock_cli_input, self.ui), AIMinimax("O", Rules()), self.ui, Validations(), Rules(), Board())
+        ai_game._board.make_move(1, self.game._player1._symbol)
+        ai_game._board.make_move(3, self.game._player2._symbol)
+        self.db.add_game_to_database(ai_game)
+
+    def retrieveLastGame(self):
         session = self.db.create_session()
         return session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
 
@@ -91,14 +101,18 @@ class DatabaseTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAbleToRecreateBoardObjectFromSavedGame(self):
-        game_entry = self.saveAndRetrieveEntry()
+        self.playIncompleteGame()
+        self.db.add_game_to_database(self.game)
+        game_entry = self.retrieveLastGame()
         
         result = type(self.db.create_board_object(game_entry))
         expected_result = Board
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testCorrectBoardIsRetrievedFromSavedGame(self):
-        game_entry = self.saveAndRetrieveEntry()
+        self.playIncompleteGame()
+        self.db.add_game_to_database(self.game)
+        game_entry = self.retrieveLastGame()
         board_obj = self.db.create_board_object(game_entry)
 
         result = board_obj.spaces()
@@ -106,43 +120,39 @@ class DatabaseTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAbleToRecreatePlayerXObjectFromSavedGame(self):
-        game_entry = self.saveAndRetrieveEntry()
-        
+        self.playIncompleteGame()
+        self.db.add_game_to_database(self.game)
+        game_entry = self.retrieveLastGame()
+
         result = type(self.db.create_player_x_object(game_entry, self.mock_cli_input, self.ui))
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAbleToRecreatePlayerOObjectFromSavedGame(self):
-        game_entry = self.saveAndRetrieveEntry()
-        
+        self.playIncompleteGame()
+        self.db.add_game_to_database(self.game)
+        game_entry = self.retrieveLastGame()
+
         result = type(self.db.create_player_o_object(game_entry, self.mock_cli_input, self.ui))
         expected_result = Player
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAbleToRecreateAIPlayerXObjectFromSavedGame(self):
-        ai_game = Game(AIMinimax("X", Rules()), Player("O", self.mock_cli_input, self.ui), self.ui, Validations(), Rules(), Board())
-        ai_game._board.make_move(1, self.game._player1._symbol)
-        ai_game._board.make_move(3, self.game._player2._symbol)
-        self.db.add_game_to_database(ai_game)
-        session = self.db.create_session()
-        game_entry = session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
-        
+        self.playIncompleteGameAIPlaysFirst()
+        game_entry = self.retrieveLastGame()
+
         result = type(self.db.create_player_x_object(game_entry, self.mock_cli_input, self.ui))
         expected_result = AIMinimax
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testAbleToRecreateAIPlayerOObjectFromSavedGame(self):
-        ai_game = Game(Player("X", self.mock_cli_input, self.ui), AIMinimax("O", Rules()), self.ui, Validations(), Rules(), Board())
-        ai_game._board.make_move(1, self.game._player1._symbol)
-        ai_game._board.make_move(3, self.game._player2._symbol)
-        self.db.add_game_to_database(ai_game)
-        session = self.db.create_session()
-        game_entry = session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
-        
+        self.playIncompleteGameAIPlaysSecond()
+        game_entry = self.retrieveLastGame()
+
         result = type(self.db.create_player_o_object(game_entry, self.mock_cli_input, self.ui))
         expected_result = AIMinimax
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testAbleToUpdateGameWhenSavingAgain(self):
         self.playIncompleteGame()
         self.db.add_game_to_database(self.game)
@@ -151,9 +161,8 @@ class DatabaseTest(unittest.TestCase):
         game._board.make_move(4, self.game._player1._symbol)
         game._board.make_move(8, self.game._player2._symbol)
         self.db.update_game_in_database(game)
-        
-        session = self.db.create_session()
-        updated_game_entry = session.query(SavedGame).filter(SavedGame.game_complete == False).order_by(desc(SavedGame.timestamp)).first()
+
+        updated_game_entry = self.retrieveLastGame()
         board_obj = self.db.create_board_object(updated_game_entry)
 
         result = board_obj.spaces()
