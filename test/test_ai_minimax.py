@@ -115,13 +115,6 @@ class AIMinimaxTest(unittest.TestCase):
         expected_result = 1
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
-    def testAIMinimaxTriesToWinIfAbleToDiagonal(self):
-        o_winning_move = self.o_winning_move()
-
-        result = self.ai.move(o_winning_move)
-        expected_result = 7
-        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-
     def testAIMinimaxTriesToBlockOpponentWinTopRow(self):
         x_winning_move = self.x_winning_move()
         x_winning_move.make_move(7, "X")
