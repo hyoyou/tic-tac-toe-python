@@ -17,8 +17,8 @@ class UIWrapper:
         The goal of this game is to get three of the same symbols, either an 'X' or an 'O', in a row.
         This of course counts vertical, horizontal, as well as diagonal wins. The first player to get 3 in
         a row wins the game. A stalemate, in which all 9 positions of the board are filled without any
-        winners is traditionally referred to as 'Cat\'s Game' in Tic-Tac-Toe. 
-        
+        winners is traditionally referred to as 'Cat\'s Game' in Tic-Tac-Toe.
+
         Sample winning patterns:
 
           Diagonal         Vertical        Horizontal
@@ -27,7 +27,7 @@ class UIWrapper:
            | X |            | X |          X | X | X 
         ===+===+===      ===+===+===      ===+===+===
            |   | X          | X |            |   |   
-    
+
         """)
 
 
@@ -43,11 +43,11 @@ class UIWrapper:
         return self._output.print("""
         There is a saved game, type:
         (c) to continue playing previously saved game
-        
+
         or
 
         To begin a new game""")
-    
+
     def print_who_goes_first(self):
         return self._output.print("Would you like to be the first player? (y/n):")
 

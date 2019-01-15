@@ -20,7 +20,7 @@ class Game:
     def play_move(self, db):
         current_player = self.current_player()
         user_move = current_player.move(self._board)
-        
+
         valid, message = self._validator.is_valid_move(user_move, self._board)
         if valid:
             self._board.make_move(int(user_move), current_player._symbol)
@@ -28,7 +28,7 @@ class Game:
             self._output.print(message)
             self.add_or_update_game_in_database(db)
             self.exit_game()
-        
+
         self._output.print(message)
         self._output.print_board(self._board)
 
@@ -42,10 +42,10 @@ class Game:
         else:
             self.mark_game_complete_in_database(db)
             return self._output.print_draw_game()
-    
+
     def add_or_update_game_in_database(self, db):
         db.add_or_update_database(self)
-    
+
     def mark_game_complete_in_database(self, db):
         db.mark_complete_in_database(self)
 

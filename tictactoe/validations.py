@@ -13,7 +13,7 @@ class Validations:
                 return False, f"{num_input} Position out of range. Please enter only digits 1-9:"
         except ValueError:
             return False, f"You entered {input}. Please enter only digits 1-9 or 'q' to quit:"
-    
+
     def is_input_in_range(self, input):
         return input >= 1 and input <= 9
 
