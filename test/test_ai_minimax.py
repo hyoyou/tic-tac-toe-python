@@ -46,7 +46,7 @@ class AIMinimaxTest(unittest.TestCase):
         new_game = Board()
         new_game.make_move(1, "X")
         return new_game
-    
+
     def testCanGetOpponentSymbolOWhenPlayerIsX(self):
         result = self.ai.set_opponent_symbol("X")
         expected_result = "O"
@@ -56,7 +56,7 @@ class AIMinimaxTest(unittest.TestCase):
         result = self.ai.set_opponent_symbol("O")
         expected_result = "X"
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testAIMinimaxEvaluatesTheStateOfTheGameAsTrueWhenThereIsAWin(self):
         result = self.ai.is_terminal_state(self.x_winning())
         expected_result = True
@@ -65,7 +65,7 @@ class AIMinimaxTest(unittest.TestCase):
         result = self.ai.is_terminal_state(self.o_winning())
         expected_result = True
         self.assertTrue(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testAIMinimaxEvaluatesTheStateOfTheGameAsTrueWhenThereIsADraw(self):
         result = self.ai.is_terminal_state(self.tie_game())
         expected_result = True
@@ -101,7 +101,7 @@ class AIMinimaxTest(unittest.TestCase):
         result = self.ai.move(self.board)
         expected_result = 1
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testAIMinimaxTriesToBlockOpponentWinTopRow(self):
         self.board.make_move(5, "X")
         self.board.make_move(3, "O")
@@ -117,7 +117,7 @@ class AIMinimaxTest(unittest.TestCase):
         self.board.make_move(5, "X")
         self.board.make_move(3, "O")
         self.board.make_move(1, "X")
-        
+
         result = self.ai.move(self.board)
         expected_result = 9
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))

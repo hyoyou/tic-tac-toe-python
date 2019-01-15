@@ -68,13 +68,13 @@ class Database:
             return AIMinimax("O", Rules())
         else:
             return Player("O", cli_input, ui)
-    
+
     def add_or_update_database(self, game_object):
         if game_object._id:
             self.update_game_in_database(game_object)
         else:
             self.add_game_to_database(game_object)
-    
+
     def update_game_in_database(self, game_object):
         conn = self.engine.connect()
         session = self.create_session()
@@ -82,7 +82,7 @@ class Database:
         updated_board = update(BoardState).where(BoardState.saved_game_id == in_progress_game.id).values(state=game_object._board.spaces())
         conn.execute(updated_board)
         conn.close()
-        
+
     def add_game_to_database(self, game_object):
         session = self.create_session()
         board_state = self.add_board_entry_to_database(game_object)
@@ -96,7 +96,7 @@ class Database:
     def add_board_entry_to_database(self, game_object):
         board_list = game_object._board.spaces()
         return BoardState(state=board_list)
-    
+
     def add_player_x_entry_to_database(self, game_object):
         if type(game_object._player1) == AIMinimax:
             return PlayerX(is_ai=True)

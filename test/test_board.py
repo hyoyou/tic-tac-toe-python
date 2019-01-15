@@ -17,7 +17,7 @@ class BoardTest(unittest.TestCase):
         result = self.board._board
         expected_result = [" " for i in range(9)]
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testBoardReturnsSpacesAsAnEmptyListWithoutMove(self):
         result = self.board.spaces()
         expected_result = [" " for i in range(9)]
@@ -69,4 +69,3 @@ class BoardTest(unittest.TestCase):
         result = self.board.turn_count()
         expected_result = 3
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    

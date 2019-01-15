@@ -28,7 +28,7 @@ class PlayerTest(unittest.TestCase):
         result = self.player1.move(Board())
         expected_result = 5
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
-    
+
     def testPlayerSymbolDisplayedWhenPlayersTurnToMakeAMove(self):
         self.player1.move(Board())
 
