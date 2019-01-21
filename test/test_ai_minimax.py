@@ -95,17 +95,17 @@ class AIMinimaxTest(unittest.TestCase):
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxReturnsTheTerminalStateAsNeg10WhenXIsWinning(self):
-        result = self.ai.terminal_state_score(self.x_winning(), "X")
+        result = self.ai.terminal_state_score(self.x_winning())
         expected_result = (0, -10)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxReturnsTheTerminalStateAs10WhenOIsWinning(self):
-        result = self.ai.terminal_state_score(self.o_winning(), "O")
+        result = self.ai.terminal_state_score(self.o_winning())
         expected_result = (0, 10)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxReturnsTheTerminalStateAs0WhenItsADraw(self):
-        result = self.ai.terminal_state_score(self.tie_game(), "X")
+        result = self.ai.terminal_state_score(self.tie_game())
         expected_result = (0, 0)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
