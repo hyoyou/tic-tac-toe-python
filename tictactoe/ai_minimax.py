@@ -1,4 +1,4 @@
-from .constants import X, O
+from .constants import X, O, MIDDLE_CELL
 import code
 
 class AIMinimax:
@@ -12,7 +12,7 @@ class AIMinimax:
 
     def move(self, board):
         if board.turn_count() == 0:
-            return 5
+            return MIDDLE_CELL
         return self.minimax(board, self._symbol)[0]
 
     def minimax(self, board, player):
