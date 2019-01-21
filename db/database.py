@@ -44,7 +44,7 @@ class Database:
         board_obj = self.create_board_object(saved_game)
         player_x_obj = self.create_player_x_object(saved_game, cli_input, ui)
         player_o_obj = self.create_player_o_object(saved_game, cli_input, ui)
-        
+
         game_obj = Game(player_x_obj, player_o_obj, ui, Validations(), Rules(), board_obj, saved_game.id)
         return game_obj
 
@@ -78,7 +78,7 @@ class Database:
     def update_game_in_database(self, game_object):
         conn = self.engine.connect()
         session = self.create_session()
-        in_progress_game = session.query(SavedGame).filter(SavedGame.id == game_object._id).first()    
+        in_progress_game = session.query(SavedGame).filter(SavedGame.id == game_object._id).first()
         updated_board = update(BoardState).where(BoardState.saved_game_id == in_progress_game.id).values(state=game_object._board.spaces())
         conn.execute(updated_board)
         conn.close()
