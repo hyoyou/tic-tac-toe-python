@@ -53,6 +53,16 @@ class AIPlayerTest(unittest.TestCase):
         expected_result = 1
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
+    def testAIPlayerTakesWinInMiddleOfTopRow(self):
+        self.board.make_move(1, self.ai_player1._symbol)
+        self.board.make_move(4, self.ai_player2._symbol)
+        self.board.make_move(3, self.ai_player1._symbol)
+        self.board.make_move(5, self.ai_player2._symbol)
+
+        result = self.ai_player1.move(self.board)
+        expected_result = 2
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
     def testAIPlayerTriesToWinIfAbleToDiagonal(self):
         self.board.make_move(5, self.ai_player1._symbol)
         self.board.make_move(3, self.ai_player2._symbol)

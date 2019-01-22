@@ -42,15 +42,15 @@ class AIPlayer:
         for combo in WINNING_COMBOS:
             if (spaces[combo[1]] == symbol and
                 spaces[combo[2]] == symbol and
-                spaces[combo[0]] == " "):
+                spaces[combo[0]] == EMPTY_SPACE):
                 return combo[0] + 1
             elif (spaces[combo[0]] == symbol and
                 spaces[combo[2]] == symbol and
-                spaces[combo[1]] == " "):
+                spaces[combo[1]] == EMPTY_SPACE):
                 return combo[1] + 1
             elif (spaces[combo[0]] == symbol and
                 spaces[combo[1]] == symbol and
-                spaces[combo[2]] == " "):
+                spaces[combo[2]] == EMPTY_SPACE):
                 return combo[2] + 1
         return None
 

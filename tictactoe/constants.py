@@ -11,6 +11,7 @@ WINNING_COMBOS = [
 
 X = "X"
 O = "O"
+EMPTY_SPACE = " "
 
 MIDDLE_CELL = 5
 CORNER_CELL = 3

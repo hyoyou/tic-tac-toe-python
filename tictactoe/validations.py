@@ -1,3 +1,5 @@
+from .constants import EMPTY_SPACE
+
 class Validations:
     def is_valid_move(self, input, board):
         if input == 'q':
@@ -19,4 +21,4 @@ class Validations:
 
     def is_empty(self, input, board):
         spaces = board.spaces()
-        return spaces[int(input) - 1] == " "
+        return spaces[int(input) - 1] == EMPTY_SPACE

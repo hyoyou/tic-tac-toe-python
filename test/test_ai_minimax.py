@@ -2,6 +2,7 @@ import unittest
 from tictactoe.ai_minimax import AIMinimax
 from tictactoe.board import Board
 from tictactoe.rules import Rules
+from tictactoe.constants import X, O
 
 class AIMinimaxTest(unittest.TestCase):
     def setUp(self):
@@ -94,17 +95,17 @@ class AIMinimaxTest(unittest.TestCase):
         self.assertFalse(result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxReturnsTheTerminalStateAsNeg10WhenXIsWinning(self):
-        result = self.ai.terminal_state_score(self.x_winning(), "X")
+        result = self.ai.terminal_state_score(self.x_winning())
         expected_result = (0, -10)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxReturnsTheTerminalStateAs10WhenOIsWinning(self):
-        result = self.ai.terminal_state_score(self.o_winning(), "O")
+        result = self.ai.terminal_state_score(self.o_winning())
         expected_result = (0, 10)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testAIMinimaxReturnsTheTerminalStateAs0WhenItsADraw(self):
-        result = self.ai.terminal_state_score(self.tie_game(), "X")
+        result = self.ai.terminal_state_score(self.tie_game())
         expected_result = (0, 0)
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
@@ -130,4 +131,16 @@ class AIMinimaxTest(unittest.TestCase):
 
         result = self.ai.move(self.board)
         expected_result = 9
+        self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
+
+    def testAIMinimaxDoesNotMutateTheBoard(self):
+        self.board.make_move(1, X)
+        self.board.make_move(5, O)
+        self.ai.move(self.board)
+
+        result = self.board.spaces()
+        expected_result = [
+                'X', ' ', ' ',
+                ' ', 'O', ' ',
+                ' ', ' ', ' ']
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
