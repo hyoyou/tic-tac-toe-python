@@ -1,6 +1,5 @@
 import unittest
 from .mock_cli_output import MockCLIOutput
-from tictactoe.ai_player import AIPlayer
 from tictactoe.board import Board
 from tictactoe.ui_wrapper import UIWrapper
 
@@ -21,8 +20,7 @@ class UIWrapperTest(unittest.TestCase):
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
     def testPrintBoardWithSpaceTaken(self):
-        ai_player = AIPlayer("X")
-        self.board.make_move(1, ai_player._symbol)
+        self.board.make_move(1, "X")
 
         result = self.printer.print_board(self.board)
         expected_result = '''

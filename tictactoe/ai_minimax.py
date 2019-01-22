@@ -1,5 +1,4 @@
 from .constants import X, O, MIDDLE_CELL
-import code
 
 class AIMinimax:
     def __init__(self, symbol, rules):
