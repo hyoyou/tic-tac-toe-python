@@ -1,5 +1,4 @@
 from .ai_minimax import AIMinimax
-from .ai_player import AIPlayer
 from .board import Board
 from .constants import X, O
 from .game import Game
@@ -49,7 +48,7 @@ class SetupGame:
             return self.exit_application()
 
     def zero_player(self):
-        return Game(AIPlayer(X), AIMinimax(O, Rules()), self._ui, Validations(), Rules(), Board())
+        return Game(AIMinimax(X, Rules()), AIMinimax(O, Rules()), self._ui, Validations(), Rules(), Board())
 
     def one_player(self):
         self._ui.print_who_goes_first()

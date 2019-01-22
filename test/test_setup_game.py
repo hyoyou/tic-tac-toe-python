@@ -4,7 +4,6 @@ from .mock_cli_input import MockCLIInput
 from .mock_cli_output import MockCLIOutput
 from settings import TEST_DB_ADDRESS
 from tictactoe.ai_minimax import AIMinimax
-from tictactoe.ai_player import AIPlayer
 from tictactoe.board import Board
 from tictactoe.game import Game
 from tictactoe.player import Player
@@ -73,7 +72,7 @@ class SetupGameTest(unittest.TestCase):
         game = self.setup_game.zero_player()
 
         result = type(game._player1)
-        expected_result = AIPlayer
+        expected_result = AIMinimax
         self.assertEqual(result, expected_result, msg='\nRetrieved:\n{0} \nExpected:\n{1}'.format(result, expected_result))
 
         result = type(game._player2)
